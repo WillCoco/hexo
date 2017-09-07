@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "host": "www.easy-mock.com",
-  basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1",
+  "basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1",
   "schemes": [
     "https"
   ],
