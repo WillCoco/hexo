@@ -5,7 +5,7 @@
     "description": "微挖后台管理API文档",
     "version": "1.0.0"
   },
-  "host": "www.easy-mock.com",
+  "host": "api.wemining.com",
   "schemes": [
     "https"
   ],
@@ -16,7 +16,7 @@
       "name": "X-WeMining-Admin-Token"
     }
   },
-  "basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1",
+  "basePath": "/v1/admin",
   "consumes": [
     "application/json"
   ],
@@ -31,8 +31,7 @@
           "application/x-www-form-urlencoded"
         ],
         "tags": [
-          "平台",
-          "登录"
+          "auth"
         ],
         "parameters": [
           {
@@ -80,12 +79,13 @@
       "post": {
         "summary": "登出",
         "tags": [
-          "平台",
-          "登出"
+          "auth"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -97,19 +97,21 @@
           "200": {
             "description": "登出成功"
           }
-        }
+        },
+        "operationId": "signout"
       }
     },
     "/{platformId}/mining/equipments": {
       "get": {
         "summary": "获取所有矿机信息",
         "tags": [
-          "矿机",
-          "平台"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -134,17 +136,18 @@
             }
           }
         },
-        "operationId": "getMiningEquipments"
+        "operationId": "getEquipments"
       },
       "post": {
         "summary": "创建或修改矿机设备",
         "tags": [
-          "矿机",
-          "平台"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -173,20 +176,20 @@
             }
           }
         },
-        "operationId": "createOrUpdateMiningEquipment"
+        "operationId": "createOrUpdateEquipment"
       }
     },
     "/{platformId}/mining/equipments/{Id}": {
       "get": {
         "summary": "获取单个矿机设备信息",
         "tags": [
-          "矿机",
-          "平台",
-          "挖矿"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -211,19 +214,20 @@
             }
           }
         },
-        "operationId": "getMiningEquipmentByID"
+        "operationId": "getEquipmentByID"
       }
     },
     "/{platformId}/mining/farms": {
       "get": {
         "summary": "获取矿场列表",
         "tags": [
-          "矿场.挖矿",
-          "平台"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -248,18 +252,18 @@
             }
           }
         },
-        "operationId": "getMiningFarms"
+        "operationId": "getFarms"
       },
       "post": {
         "summary": "创建或修改矿场",
         "tags": [
-          "miningArea",
-          "挖矿",
-          "平台"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -288,20 +292,20 @@
             }
           }
         },
-        "operationId": "createOrUpdateMiningFarm"
+        "operationId": "createOrUpdateFarm"
       }
     },
     "/{platformId}/mining/farms/{Id}": {
       "get": {
         "summary": "获取单个矿场信息",
         "tags": [
-          "miningArea",
-          "平台",
-          "挖矿"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -326,19 +330,20 @@
             }
           }
         },
-        "operationId": "getMiningFarmByID"
+        "operationId": "getFarmByID"
       }
     },
     "/{platformId}/sales/payment/methods": {
       "get": {
         "summary": "获取平台下的所有支付方式",
         "tags": [
-          "支付方式",
-          "销售"
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -363,17 +368,18 @@
             }
           }
         },
-        "operationId": "getSalesPaymentMethods"
+        "operationId": "getPaymentMethods"
       },
       "post": {
         "summary": "创建或修改支付方式",
         "tags": [
-          "支付方式",
-          "销售"
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -401,19 +407,21 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "operationId": "createOrUpdatePaymentMethods"
       }
     },
     "/{platformId}/sales/payment/methods/{Id}": {
       "get": {
         "summary": "获取单个支付方式",
         "tags": [
-          "支付方式",
-          "销售"
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -438,19 +446,20 @@
             }
           }
         },
-        "operationId": "getSalesPaymentMethodById"
+        "operationId": "getPaymentMethodById"
       }
     },
     "/{platformId}/merchants": {
       "get": {
         "summary": "获取所有代理点信息",
         "tags": [
-          "代理点",
-          "平台"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -480,12 +489,13 @@
       "post": {
         "summary": "创建或修改代理点",
         "tags": [
-          "代理点",
-          "平台"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -521,12 +531,13 @@
       "get": {
         "summary": "获取单个代理点信息",
         "tags": [
-          "代理点",
-          "平台"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -558,12 +569,13 @@
       "get": {
         "summary": "获取单个代理点下所有顾客信息",
         "tags": [
-          "顾客",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -591,17 +603,18 @@
             }
           }
         },
-        "operationId": "getMerchantCustomers"
+        "operationId": "getCustomers"
       },
       "post": {
         "summary": "创建或修改代理点下顾客",
         "tags": [
-          "顾客",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -633,20 +646,20 @@
             }
           }
         },
-        "operationId": "createOrUpdateMerchantCustomer"
+        "operationId": "createOrUpdateCustomer"
       }
     },
     "/{platformId}/merchants/{merchantId}/addresses/{customerId}": {
       "get": {
         "summary": "获取代理点下顾客比特币地址",
         "tags": [
-          "比特币地址",
-          "顾客",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -674,18 +687,18 @@
             }
           }
         },
-        "operationId": "getMerchantCustomerAddress"
+        "operationId": "getCustomerAddress"
       },
       "post": {
         "summary": "设置代理点下顾客比特币地址",
         "tags": [
-          "比特币地址",
-          "顾客",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -712,19 +725,21 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "operationId": "setCustomerAddress"
       }
     },
     "/{platformId}/merchants/{merchantId}/products": {
       "get": {
         "summary": "获取代理点下所有商品",
         "tags": [
-          "商品",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -764,17 +779,18 @@
             }
           }
         },
-        "operationId": "getMerchantProducts"
+        "operationId": "getProducts"
       },
       "post": {
         "summary": "创建或修改代理点商品",
         "tags": [
-          "商品",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -806,19 +822,20 @@
             }
           }
         },
-        "operationId": "createOrUpdateMerchantProduct"
+        "operationId": "createOrUpdateProduct"
       }
     },
     "/{platformId}/merchants/{merchantId}/products/{Id}": {
       "get": {
         "summary": "获取代理点下单个商品信息",
         "tags": [
-          "商品",
-          "代理点"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -846,20 +863,20 @@
             }
           }
         },
-        "operationId": "getMerchantProductByID"
+        "operationId": "getProductByID"
       }
     },
     "/{platformId}/merchants/{merchantId}/products/{Id}/open": {
       "post": {
         "summary": "商品上架",
         "tags": [
-          "商品",
-          "代理点",
-          "上架"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -887,20 +904,20 @@
             }
           }
         },
-        "operationId": "openMerchantProduct"
+        "operationId": "openProduct"
       }
     },
     "/{platformId}/merchants/{merchantId}/products/{Id}/close": {
       "post": {
         "summary": "下架商品",
         "tags": [
-          "商品",
-          "代理点",
-          "下架"
+          "merchant"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -928,19 +945,21 @@
             }
           }
         },
-        "operationId": "closeMerchantProduct"
+        "operationId": "closeProduct"
       }
     },
     "/{platformId}/merchants/{merchantId}/orders": {
       "get": {
         "summary": "获取代理下所有订单",
         "tags": [
-          "订单",
-          "代理点"
+          "merchant",
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -980,19 +999,21 @@
             }
           }
         },
-        "operationId": "getMerchantOrders"
+        "operationId": "getOrders"
       }
     },
     "/{platformId}/merchants/{merchantId}/orders/{Id}": {
       "get": {
         "summary": "获取代理下单个订单",
         "tags": [
-          "订单",
-          "代理点"
+          "merchant",
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1032,21 +1053,22 @@
             }
           }
         },
-        "operationId": "getMerchantOrderById"
+        "operationId": "getOrderById"
       }
     },
     "/{platformId}/merchants/{merchantId}/purchase": {
       "get": {
         "summary": "用户购买商品",
         "tags": [
-          "订单",
-          "代理点",
-          "用户",
-          "商品"
+          "merchant",
+          "customer",
+          "order"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1071,19 +1093,21 @@
             }
           }
         },
-        "operationId": "purchaseMerchantProduct"
+        "operationId": "purchaseProduct"
       }
     },
     "/{platformId}/merchants/{merchantId}/orders/{Id}/confirm": {
       "post": {
         "summary": "用户已付款, 确认订单",
         "tags": [
-          "订单",
-          "代理点"
+          "merchant",
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1111,19 +1135,21 @@
             }
           }
         },
-        "operationId": "orderConfirm"
+        "operationId": "confirmOrder"
       }
     },
     "/{platformId}/merchants/{merchantId}/orders/{Id}/cancel": {
       "post": {
         "summary": "取消订单",
         "tags": [
-          "订单",
-          "代理点"
+          "merchant",
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1151,19 +1177,21 @@
             }
           }
         },
-        "operationId": "orderCancel"
+        "operationId": "cancelOrder"
       }
     },
     "/{platformId}/merchants/{merchantId}/orders/{Id}/complete": {
       "post": {
         "summary": "完成/交付 - 订单",
         "tags": [
-          "订单",
-          "代理点"
+          "merchant",
+          "sales"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1191,19 +1219,20 @@
             }
           }
         },
-        "operationId": "orderComplete"
+        "operationId": "completeOrder"
       }
     },
     "/{platformId}/mining/workers": {
       "get": {
         "summary": "获取矿工列表",
         "tags": [
-          "挖矿",
-          "矿工"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1246,19 +1275,21 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "operationId": "getWorkers"
       }
     },
     "/{platformId}/mining/workers/{Id}": {
       "get": {
         "summary": "获取单个矿工",
         "tags": [
-          "挖矿",
-          "矿工"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1282,19 +1313,21 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "operationId": "getWorkerById"
       }
     },
     "/{platformId}/mining/settlement": {
       "post": {
         "summary": "结算矿工收益",
         "tags": [
-          "挖矿",
-          "结算"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1315,19 +1348,21 @@
               "$ref": "#/definitions/Error"
             }
           }
-        }
+        },
+        "operationId": "settle"
       }
     },
     "/{platformId}/mining/settlement/{settlementId}/payout": {
       "post": {
         "summary": "支付结算单",
         "tags": [
-          "挖矿",
-          "结算"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1359,12 +1394,13 @@
       "post": {
         "summary": "获取支付记录",
         "tags": [
-          "挖矿",
-          "结算"
+          "mining"
         ],
         "security": [
           {
-            "Admin": []
+            "Admin": [
+
+            ]
           }
         ],
         "parameters": [
@@ -1833,7 +1869,7 @@
           "format": "int64",
           "description": "\"销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s\"\n"
         },
-        "minQtyForSale": {
+        "minQtyOfSale": {
           "type": "integer",
           "format": "int64",
           "description": "最小起售数量, 值的含义与销售方式和销售单位相关"
@@ -1884,14 +1920,6 @@
         },
         "description": {
           "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "lastModifiedAt": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
@@ -2046,7 +2074,7 @@
         "status": {
           "type": "string",
           "enum": [
-            "running",
+            "working",
             "stopped",
             "makeOver"
           ],
