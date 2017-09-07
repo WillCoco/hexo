@@ -16,7 +16,7 @@
       "name": "X-WeMining-Admin-Token"
     }
   },
-  "basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1/127",
+  "basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1",
   "consumes": [
     "application/json"
   ],
