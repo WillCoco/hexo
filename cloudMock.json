@@ -1,0 +1,1876 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "<1Hash mobile api >"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "host": "www.easy-mock.com",
+  "basePath": "/api/mobile/v1",
+  "paths": {
+    "/account/login": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "用户登录",
+        "description": "用户登录接口，必需验证用户名和密码",
+        "operationId": "login",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "description": "用户名,可以为邮箱或手机",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "密码",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "client_type",
+            "in": "formData",
+            "description": "客户端类型\n\nbrowser -> 通过浏览器\n\napp -> 通过手机应用\n",
+            "required": true,
+            "enum": [
+              "browser",
+              "app"
+            ],
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "登录成功返回access_key和用户基本信息",
+            "schema": {
+              "description": "access_key和用户基本信息",
+              "type": "object",
+              "required": [
+                "access_key",
+                "userinfo"
+              ],
+              "properties": {
+                "access_key": {
+                  "description": "用户登录状态维持密钥",
+                  "type": "string"
+                },
+                "userinfo": {
+                  "$ref": "#/definitions/userinfo"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "登录失败 code\n\n500 -> 非法的userid (不是正确的邮箱或手机)\n\n501 -> 用户名不存在\n\n502 -> 密码错误\n\n503 -> 尝试登录过于频繁\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/account/logout": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "用户登出",
+        "description": "用户登出接口，必需验证登录状态密钥",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "登出成功返回成功信息",
+            "schema": {
+              "description": "登出成功信息",
+              "type": "object",
+              "required": [
+                "success"
+              ],
+              "properties": {
+                "success": {
+                  "description": "用户登录登出",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "登出失败 code\n\n501 -> 用户未登陆\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/account/verify": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "requestVerify",
+        "summary": "手机邮箱验证请求发送接口",
+        "description": "本接口提供手机/邮箱验证功能，包括\n  1. 验证用户身份(需要确保用户登录状态)\n  2. 验证手机/邮箱是否真实可用\n验证手机则发送验证码\n验证邮箱发送邮件\n注意：若重复提交相同手机/邮箱，并且操作类型相同的验证,前一个在有效期内的token必须设置失效\n",
+        "parameters": [
+          {
+            "name": "client_type",
+            "in": "formData",
+            "description": "客户端类型\n\nbrowser -> 通过浏览器\n\napp -> 通过手机应用\n",
+            "required": true,
+            "enum": [
+              "browser",
+              "app"
+            ],
+            "type": "string"
+          },
+          {
+            "name": "action",
+            "in": "formData",
+            "description": "验证的用途，值在以后可能会不断扩充\n\n每次验证成功的token，只可以用于此参数指定的用途，作为其它用途使用无效\n\nbind_mobile -> 绑定手机\n\nunbind_mobile -> 解绑手机\n\nbind_email   -> 绑定邮箱\n\nunbind_email -> 解绑邮箱\n\nbind_wallet  -> 绑定钱包\n\nunbind_wallet -> 解绑钱包\n\nset_password -> 设置密码\n\nreset_password-> 重置密码\n\nsignup -> 用户注册\n",
+            "type": "string",
+            "enum": [
+              "bind_mobile",
+              "unbind_mobile",
+              "bind_email",
+              "unbind_email",
+              "bind_wallet",
+              "unbind_wallet",
+              "set_password",
+              "signup"
+            ],
+            "required": true
+          },
+          {
+            "name": "context_token",
+            "in": "formData",
+            "description": "上下文token, 即需要多次验证的情况下，上一次验证获得的token,单次或首次验证留空",
+            "type": "string"
+          },
+          {
+            "name": "target",
+            "in": "formData",
+            "description": "需用验证的手机号/邮箱地址",
+            "type": "string"
+          },
+          {
+            "name": "target_type",
+            "in": "formData",
+            "description": "target类型\n\nemail -> 邮箱\n\nmobile -> 手机\n\nuniversal -> 后台自动判断类型\n",
+            "type": "string",
+            "enum": [
+              "email",
+              "mobile",
+              "universal"
+            ],
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "验证请求处理成功（target正确且已下发验证码）\n如果是手机验证，则必须返回token\n",
+            "schema": {
+              "title": "成功标识",
+              "type": "object",
+              "required": [
+                "target_type"
+              ],
+              "properties": {
+                "token": {
+                  "title": "手机验证时，必须返回此token",
+                  "type": "string"
+                },
+                "target_type": {
+                  "title": "验证的目标类型 email或mobile",
+                  "type": "string",
+                  "enum": [
+                    "email",
+                    "mobile"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "验证请求失败 code\n\n500 -> 手机/邮箱格式不正确\n\n501 -> 手机/邮箱已经被使用(绑定操作或注册时)\n\n502 -> context_token无效\n\n503 ->手机或邮箱未注册账号（ 重置密码操作时 ）\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/account/confirm": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "verifyConfirm",
+        "summary": "手机/邮箱验证信息确认",
+        "description": "确认手机/邮箱邮箱验证状态，成功则返回唯一且单次可用性的token\n此token绑定目标操作类型，例如验证绑定手机获得的token不可用于修改密码\n",
+        "parameters": [
+          {
+            "name": "v_token",
+            "in": "formData",
+            "description": "用于验证的token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "v_code",
+            "in": "formData",
+            "description": "手机和邮箱都使用验证码",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "验证确认成功",
+            "schema": {
+              "type": "object",
+              "required": [
+                "token"
+              ],
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "description": "验证成功获得的token"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "验证确认失败 code\n\n501 -> token失效\n\n502 -> 验证码错误\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/account/signup": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "description": "提交注册",
+        "operationId": "signup",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "description": "邮箱/手机验证成功后获得的token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "用户自设的密码",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "auto_login",
+            "in": "formData",
+            "description": "是否自动登录 1是 0否",
+            "type": "integer",
+            "required": true,
+            "enum": [
+              0,
+              1
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "注册成功,若自动登录,返回access_key和用户基础信息（同登录），否则仅返回status:ok",
+            "schema": {
+              "description": "access_key和用户基本信息",
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "description": "注册成功的标识信息，值恒为 ok",
+                  "type": "string",
+                  "enum": [
+                    "ok"
+                  ]
+                },
+                "access_key": {
+                  "description": "用户登录状态维持密钥",
+                  "type": "string"
+                },
+                "userinfo": {
+                  "$ref": "#/definitions/userinfo"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "注册失败返回错误信息 code\n\n500 -> 密码不符合规则（特殊字符或过于简单等，此时token依然有效）\n\n501 -> token 无效\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/account/avatar": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "uploadAvatar",
+        "summary": "上传用户头像",
+        "description": "头像图片上传,二进制数据",
+        "parameters": [
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "string",
+            "format": "binary",
+            "description": "图像的二进制数据"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上传成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "title": "图片的url地址"
+                },
+                "id": {
+                  "type": "string",
+                  "title": "图片id"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "加载失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/account/setting": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "getSetting",
+        "description": "获取用户设置",
+        "responses": {
+          "200": {
+            "description": "获取成功",
+            "schema": {
+              "title": "用户设置",
+              "type": "object",
+              "properties": {
+                "notification": {
+                  "title": "消息通知开关",
+                  "type": "string",
+                  "enum": [
+                    "on",
+                    "off"
+                  ]
+                },
+                "nodisturb": {
+                  "title": "免打扰开关",
+                  "type": "string",
+                  "enum": [
+                    "on",
+                    "off"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "加载失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "updateSetting",
+        "description": "更新设置",
+        "parameters": [
+          {
+            "name": "notification",
+            "in": "formData",
+            "description": "消息通知开关",
+            "type": "string",
+            "enum": [
+              "on",
+              "off"
+            ]
+          },
+          {
+            "name": "nodisturb",
+            "in": "formData",
+            "description": "免打扰开关（夜间22：00到早上8：00）",
+            "type": "string",
+            "enum": [
+              "on",
+              "off"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "设置成功",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "设置失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/account/set_name": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "setName",
+        "description": "修改挖矿用户名",
+        "parameters": [
+          {
+            "name": "new_name",
+            "in": "formData",
+            "description": "新用户名",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "description": "成功标识信息 值恒为 ok",
+                  "type": "string",
+                  "enum": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "修改失败 code\n\n502 -> 用户名已经被使用\n503 -> 用户名不合法 必须为字符和数字组合，不能用特殊符号和中文\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/account/children": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "getChildrenList",
+        "description": "获取账户列表",
+        "responses": {
+          "200": {
+            "description": "账户列表数据",
+            "schema": {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "object",
+                  "title": "当前账户",
+                  "properties": {
+                    "id": {
+                      "description": "账户id",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "用户名称",
+                      "type": "string"
+                    },
+                    "pay_addr": {
+                      "description": "支付地址",
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "description": "api调用的密钥",
+                      "type": "string"
+                    }
+                  }
+                },
+                "others": {
+                  "title": "除了当前账户外的所有账户",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "账户id",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "用户名称",
+                        "type": "string"
+                      },
+                      "pay_addr": {
+                        "description": "支付地址",
+                        "type": "string"
+                      },
+                      "api_key": {
+                        "description": "api调用的密钥",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "未能成功获取",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "addChild",
+        "description": "添加账户",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "挖矿用户名",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "失败 | 502 -> 用户名已经被使用 | 503 -> 用户名不合法 | 必须为字符和数字组合，不能用特殊符号和中文",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/account/children/current": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "operationId": "setCurrentAccount",
+        "description": "切换当前账户",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "type": "string",
+            "description": "账户id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "ok"
+                  ]
+                },
+                "current": {
+                  "type": "object",
+                  "title": "当前账户",
+                  "properties": {
+                    "id": {
+                      "description": "账户id",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "用户名称",
+                      "type": "string"
+                    },
+                    "pay_addr": {
+                      "description": "支付地址",
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "description": "api调用的密钥",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/home": {
+      "get": {
+        "tags": [
+          "home"
+        ],
+        "operationId": "homeData",
+        "description": "加载首页数据",
+        "responses": {
+          "200": {
+            "description": "加载成功",
+            "schema": {
+              "title": "首页数据",
+              "type": "object",
+              "properties": {
+                "chart": {
+                  "title": "速度曲线数据",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "speed": {
+                        "title": "速度",
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "timestamp": {
+                        "title": "时间戳",
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "speed": {
+                  "title": "我的算力",
+                  "type": "number",
+                  "format": "double"
+                },
+                "speed24": {
+                  "title": "我的24小时算力",
+                  "type": "number",
+                  "format": "double"
+                },
+                "worker_alive": {
+                  "title": "活动矿工数量",
+                  "type": "integer"
+                },
+                "worker_died": {
+                  "title": "未活动矿工数量",
+                  "type": "integer"
+                },
+                "today_reward": {
+                  "title": "今日收益（btc）",
+                  "type": "number"
+                },
+                "tody_reward_prev": {
+                  "title": "今日收益的前一分钟数据",
+                  "type": "number"
+                },
+                "today_speed": {
+                  "title": "今日速度",
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "加载失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/worker": {
+      "get": {
+        "tags": [
+          "worker"
+        ],
+        "operationId": "getWorkers",
+        "description": "获取矿工数据",
+        "parameters": [
+          {
+            "name": "ver",
+            "in": "query",
+            "description": "版本标识",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "获取成功",
+            "schema": {
+              "title": "矿工和分组数据",
+              "type": "object",
+              "properties": {
+                "worker": {
+                  "title": "矿工",
+                  "type": "object",
+                  "properties": {
+                    "create": {
+                      "title": "新添加的矿工数据",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/worker"
+                      }
+                    },
+                    "update": {
+                      "title": "更新的矿工数据",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/worker"
+                      }
+                    },
+                    "remove": {
+                      "title": "删除的矿工数据",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/worker"
+                      }
+                    }
+                  }
+                },
+                "group": {
+                  "title": "自定义分组",
+                  "type": "object",
+                  "properties": {
+                    "create": {
+                      "title": "新增的分组",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/worker_group"
+                      }
+                    },
+                    "update": {
+                      "title": "更新的分组",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/worker_group"
+                      }
+                    },
+                    "remove": {
+                      "title": "删除的分组",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/worker_group"
+                      }
+                    }
+                  }
+                },
+                "reset": {
+                  "title": "是否重置",
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no"
+                  ]
+                },
+                "ver": {
+                  "title": "版本标识",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/worker/move": {
+      "post": {
+        "tags": [
+          "worker"
+        ],
+        "operationId": "moveWorkerGroup",
+        "description": "移动矿工到分组",
+        "parameters": [
+          {
+            "name": "worker_ids",
+            "in": "formData",
+            "description": "矿工id数组",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "formData",
+            "type": "string",
+            "description": "分组id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "移动成功",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/worker/remove": {
+      "post": {
+        "tags": [
+          "worker"
+        ],
+        "operationId": "removeWorker",
+        "summary": "删除矿工",
+        "description": "只有非活动矿工可以删除",
+        "parameters": [
+          {
+            "name": "remove_ids",
+            "in": "formData",
+            "description": "要删除的id数组",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "title": "成功返回数据",
+              "properties": {
+                "ids": {
+                  "title": "被删除的id数组",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "title": "每个id"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/worker/mark": {
+      "post": {
+        "tags": [
+          "worker"
+        ],
+        "operationId": "setWorkerMark",
+        "description": "设置矿工备注",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "type": "string",
+            "description": "矿工id"
+          },
+          {
+            "name": "mark",
+            "in": "formData",
+            "type": "string",
+            "description": "备注名"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "备注成功",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/worker/group": {
+      "post": {
+        "tags": [
+          "worker"
+        ],
+        "operationId": "updateGroup",
+        "summary": "更新自定义分组",
+        "description": "传入id和name则重命名分组，如果id留空，只传名称，则新建分组",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "type": "string",
+            "description": "分组id"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "分组名称"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更新成功",
+            "schema": {
+              "title": "更新成功",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "title": "被更新的id",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/worker/group/remove": {
+      "post": {
+        "tags": [
+          "worker"
+        ],
+        "operationId": "removeWorkerGroup",
+        "summary": "删除矿工分组",
+        "description": "组内的矿工变为未分组",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "description": "要删除的id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "title": "成功返回数据",
+              "properties": {
+                "id": {
+                  "title": "被删除的id",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/bill": {
+      "get": {
+        "tags": [
+          "bill"
+        ],
+        "operationId": "billSummary",
+        "description": "加载账单首页摘要信息",
+        "responses": {
+          "200": {
+            "description": "加载成功",
+            "schema": {
+              "title": "账单摘要信息",
+              "type": "object",
+              "properties": {
+                "reward": {
+                  "title": "累计收益(btc)",
+                  "type": "number",
+                  "format": "double"
+                },
+                "payout": {
+                  "title": "累计支付(btc)",
+                  "type": "number",
+                  "format": "double"
+                },
+                "paying": {
+                  "title": "支付中（btc）",
+                  "type": "number",
+                  "format": "double"
+                },
+                "balance": {
+                  "title": "余额(btc)",
+                  "type": "number",
+                  "format": "double"
+                },
+                "reward1h": {
+                  "title": "过去1小时收益（btc)",
+                  "type": "number",
+                  "format": "double"
+                },
+                "reward24h": {
+                  "title": "过去24小时收益(btc)",
+                  "type": "number",
+                  "format": "double"
+                },
+                "fee": {
+                  "title": "我的费率(%)",
+                  "type": "number",
+                  "format": "double"
+                },
+                "coupon": {
+                  "title": "未使用优惠券数量",
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "加载失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/bill/payout": {
+      "get": {
+        "tags": [
+          "bill"
+        ],
+        "operationId": "listPayout",
+        "description": "加载支付记录列表",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "单次加载最大数量",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "加载起始位置",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "加载成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "title": "总数",
+                  "type": "integer"
+                },
+                "payouts": {
+                  "title": "支付记录",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "title": "交易id",
+                        "type": "string"
+                      },
+                      "addr": {
+                        "title": "支付地址",
+                        "type": "string"
+                      },
+                      "amount": {
+                        "title": "支付数量（btc）",
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "payat": {
+                        "title": "支付时间（时间戳）",
+                        "type": "integer"
+                      },
+                      "mark": {
+                        "title": "备注",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "加载失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "bill"
+        ],
+        "operationId": "markPayout",
+        "description": "为支付记录添加备注",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "description": "交易id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mark",
+            "in": "formData",
+            "description": "备注",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "备注成功",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "备注失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/bill/coupon": {
+      "get": {
+        "tags": [
+          "bill"
+        ],
+        "operationId": "listCoupons",
+        "description": "加载优惠券数据",
+        "responses": {
+          "200": {
+            "description": "加载成功",
+            "schema": {
+              "title": "优惠券信息",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "title": "当前优惠",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "title": "优惠券id",
+                      "type": "string"
+                    },
+                    "discount": {
+                      "title": "折扣",
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "beginning": {
+                      "title": "起始时间（时间戳）",
+                      "type": "integer"
+                    },
+                    "ending": {
+                      "title": "结束时间（时间戳）",
+                      "type": "integer"
+                    }
+                  }
+                },
+                "available": {
+                  "title": "可用优惠券",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "title": "优惠券id",
+                      "type": "string"
+                    },
+                    "discount": {
+                      "title": "折扣( 0< discount <1 )",
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "duration": {
+                      "title": "有效时长（秒）",
+                      "type": "integer"
+                    },
+                    "create_at": {
+                      "title": "创建时间(时间戳)",
+                      "type": "integer"
+                    },
+                    "expire_at": {
+                      "title": "过期时间（时间戳）",
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "bill"
+        ],
+        "operationId": "applyCoupon",
+        "description": "使用优惠券/优惠码",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "description": "被使用的优惠券ID, 兑换优惠券则留空",
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "in": "formData",
+            "description": "用来兑换的优惠码, 若若使用优惠券则留空",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用成功",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "使用失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/base": {
+      "get": {
+        "tags": [
+          "base"
+        ],
+        "operationId": "getBaseInfo",
+        "summary": "包括难度指数，btc价格，块大小等数据",
+        "description": "获取基础信息",
+        "responses": {
+          "200": {
+            "description": "获取成功",
+            "schema": {
+              "title": "基础数据",
+              "type": "object",
+              "properties": {
+                "diff": {
+                  "title": "全网难度指数",
+                  "type": "object",
+                  "properties": {
+                    "current": {
+                      "title": "当前难度",
+                      "type": "integer"
+                    },
+                    "next": {
+                      "title": "预计下次难度",
+                      "type": "integer"
+                    },
+                    "after_blocks": {
+                      "title": "预计下次调整需要经历的区块数",
+                      "type": "integer"
+                    },
+                    "next_at": {
+                      "title": "预计下次调整剩余天数"
+                    }
+                  }
+                },
+                "net_speed": {
+                  "title": "全网算力",
+                  "type": "number",
+                  "format": "double"
+                },
+                "btc2cny": {
+                  "title": "一个比特币兑换人民币的价格",
+                  "type": "number",
+                  "format": "double"
+                },
+                "block_size": {
+                  "title": "当前一个区块的大小（btc）",
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "获取失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/message": {
+      "get": {
+        "tags": [
+          "message"
+        ],
+        "operationId": "getMessages",
+        "description": "获取消息",
+        "responses": {
+          "200": {
+            "description": "获取成功",
+            "schema": {
+              "title": "消息数据",
+              "type": "object",
+              "properties": {
+                "read": {
+                  "title": "已读消息数量",
+                  "type": "integer"
+                },
+                "unread": {
+                  "title": "未读消息数量",
+                  "type": "integer"
+                },
+                "messages": {
+                  "title": "消息数组",
+                  "type": "array",
+                  "items": {
+                    "title": "消息",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "title": "消息id",
+                        "type": "string"
+                      },
+                      "type": {
+                        "title": "消息类型",
+                        "type": "string"
+                      },
+                      "isread": {
+                        "title": "是否已读",
+                        "type": "string",
+                        "enum": [
+                          "yes",
+                          "no"
+                        ]
+                      },
+                      "title": {
+                        "title": "消息标题",
+                        "type": "string"
+                      },
+                      "content": {
+                        "title": "消息内容",
+                        "type": "string"
+                      },
+                      "exdata": {
+                        "title": "消息自带数据",
+                        "description": "数据格式按各种消息类型需要定义，以下为矿工掉线消息示例",
+                        "type": "object",
+                        "properties": {
+                          "worker_name": {
+                            "title": "矿工名",
+                            "type": "string"
+                          },
+                          "worker_id": {
+                            "title": "矿工id",
+                            "type": "string"
+                          },
+                          "time": {
+                            "title": "掉线时间",
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/message/remove": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "operationId": "removeMessage",
+        "description": "删除消息",
+        "parameters": [
+          {
+            "name": "mids",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "待删除消息id数组"
+          },
+          {
+            "name": "all",
+            "in": "formData",
+            "type": "string",
+            "description": "是否全部，是则忽略mids",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取",
+            "schema": {
+              "title": "删除成功返回",
+              "type": "object",
+              "properties": {
+                "mids": {
+                  "title": "消息id数组",
+                  "type": "array",
+                  "items": {
+                    "title": "消息id",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/message/read": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "operationId": "readMessage",
+        "description": "消息设为已读",
+        "parameters": [
+          {
+            "name": "mids",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "设为已读的消息id"
+          },
+          {
+            "name": "all",
+            "in": "formData",
+            "type": "string",
+            "description": "是否全部，是则忽略mids",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取",
+            "schema": {
+              "title": "成功返回",
+              "type": "object",
+              "properties": {
+                "mids": {
+                  "title": "消息id数组",
+                  "type": "array",
+                  "items": {
+                    "title": "消息id",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    },
+    "/message/pushid": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "operationId": "setPushid",
+        "description": "提交推送id",
+        "parameters": [
+          {
+            "name": "pushid",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ok"
+            }
+          },
+          "default": {
+            "description": "设置失败",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "security": [
+          {
+            "access_key": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ok": {
+      "title": "操作成功返回status=ok",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "值恒为ok",
+          "type": "string",
+          "enum": [
+            "ok"
+          ]
+        }
+      }
+    },
+    "error": {
+      "title": "错误信息 code 599 -> 未登录状态调用需登录的API",
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "minimum": 200,
+          "maximum": 900
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "worker": {
+      "title": "矿工",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "矿工id",
+          "type": "string"
+        },
+        "name": {
+          "title": "矿工名称",
+          "type": "string"
+        },
+        "speed": {
+          "title": "速度",
+          "type": "number",
+          "format": "double"
+        },
+        "time": {
+          "title": "最后提交时间",
+          "type": "integer"
+        },
+        "active": {
+          "title": "是否活动",
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        "groupid": {
+          "title": "所属分组id",
+          "type": "string"
+        },
+        "mark": {
+          "title": "备注",
+          "type": "string"
+        }
+      }
+    },
+    "worker_group": {
+      "title": "自定义矿工分组",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "分组id",
+          "type": "string"
+        },
+        "name": {
+          "title": "分组名称",
+          "type": "string"
+        },
+        "idx": {
+          "title": "排序索引",
+          "type": "integer"
+        },
+        "create_time": {
+          "title": "创建时间",
+          "type": "integer"
+        }
+      }
+    },
+    "userinfo": {
+      "title": "用户基础数据",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "用户名称",
+          "type": "string"
+        },
+        "mobile": {
+          "title": "手机号",
+          "type": "string"
+        },
+        "email": {
+          "title": "邮箱地址",
+          "type": "string"
+        },
+        "pay_addr": {
+          "title": "支付地址",
+          "type": "string"
+        },
+        "api_key": {
+          "title": "api调用的密钥",
+          "type": "string"
+        },
+        "avatar_id": {
+          "title": "头像图片id",
+          "type": "string"
+        },
+        "avatar_url": {
+          "title": "头像url",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "access_key": {
+      "type": "apiKey",
+      "name": "access_key",
+      "in": "header"
+    }
+  }
+}
