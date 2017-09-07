@@ -1,1557 +1,1035 @@
-swagger: '2.0'
-info:
-  title: wemining
-  description: 微挖后台管理API文档
-  version: 1.0.0
-host: admin.api.wemining.com
-schemes:
-  - https
-securityDefinitions:
-  Admin:
-    type: apiKey
-    in: header
-    name: X-WeMining-Admin-Token
-basePath: /v1
-consumes:
-  - application/json
-produces:
-  - application/json
-paths:
-  '/{platformId}/auth/signin':
-    post:
-      summary: 登录
-      consumes:
-        - application/x-www-form-urlencoded
-      tags:
-        - 平台
-        - 登录
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - name: mobile
-          in: formData
-          description: 手机号
-          required: true
-          type: string
-        - name: password
-          in: formData
-          description: 密码
-          required: true
-          type: string
-      responses:
-        '200':
-          description: 登录成功
-          schema:
-            $ref: '#/definitions/Platform'
-          headers:
-            X-WeMining-Admin-Token:
-              type: string
-              description: 会话token
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: signin
-  '/{platformId}/auth/signout':
-    post:
-      summary: 登出
-      tags:
-        - 平台
-        - 登出
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 登出成功
-  '/{platformId}/mining/equipments':
-    get:
-      summary: 获取所有矿机信息
-      tags:
-        - 矿机
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 返回矿机列表
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/MiningEquipment'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMiningEquipments
-    post:
-      summary: 创建或修改矿机设备
-      tags:
-        - 矿机
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - name: equipment
-          in: body
-          schema:
-            $ref: '#/definitions/MiningEquipment'
-      responses:
-        '200':
-          description: 返回矿机Id
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: createOrUpdateMiningEquipment
-  '/{platformId}/mining/equipments/{Id}':
-    get:
-      summary: 获取单个矿机设备信息
-      tags:
-        - 矿机
-        - 平台
-        - 挖矿
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回矿机信息
-          schema:
-            $ref: '#/definitions/MiningEquipment'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMiningEquipmentByID
-  '/{platformId}/mining/farms':
-    get:
-      summary: 获取矿场列表
-      tags:
-        - 矿场
-        - 挖矿
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 返回矿场信息
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/MiningFarm'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMiningFarms
-    post:
-      summary: 创建或修改矿场
-      tags:
-        - 矿场
-        - 挖矿
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - name: farm
-          in: body
-          schema:
-            $ref: '#/definitions/MiningFarm'
-      responses:
-        '200':
-          description: 返回矿场Id
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: createOrUpdateMiningFarm
-  '/{platformId}/mining/farms/{Id}':
-    get:
-      summary: 获取单个矿场信息
-      tags:
-        - 矿场
-        - 平台
-        - 挖矿
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回矿场信息
-          schema:
-            $ref: '#/definitions/MiningFarm'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMiningFarmByID
-  '/{platformId}/sales/payment/methods':
-    get:
-      summary: 获取平台下的所有支付方式
-      tags:
-        - 支付方式
-        - 销售
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 返回支付方式列表
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/SalesPaymentMethod'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getSalesPaymentMethods
-    post:
-      summary: 创建或修改支付方式
-      tags:
-        - 支付方式
-        - 销售
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - name: method
-          in: body
-          schema:
-            $ref: '#/definitions/SalesPaymentMethod'
-      responses:
-        '200':
-          description: '操作成功, 返回支付方式ID'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-  '/{platformId}/sales/payment/methods/{Id}':
-    get:
-      summary: 获取单个支付方式
-      tags:
-        - 支付方式
-        - 销售
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回单个支付方式
-          schema:
-            $ref: '#/definitions/SalesPaymentMethod'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getSalesPaymentMethodById
-  '/{platformId}/merchants':
-    get:
-      summary: 获取所有代理点信息
-      tags:
-        - 代理点
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 返回所有代理点信息
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Merchant'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchants
-    post:
-      summary: 创建或修改代理点
-      tags:
-        - 代理点
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - name: merchant
-          in: body
-          schema:
-            $ref: '#/definitions/Merchant'
-      responses:
-        '200':
-          description: '创建成功, 返回代理点Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: createOrUpdateMerchant
-  '/{platformId}/merchants/{Id}':
-    get:
-      summary: 获取单个代理点信息
-      tags:
-        - 代理点
-        - 平台
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回单个代理点信息
-          schema:
-            $ref: '#/definitions/Merchant'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantById
-  '/{platformId}/merchants/{Id}/customers':
-    get:
-      summary: 获取单个代理点下所有顾客信息
-      tags:
-        - 顾客
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回单个代理点下所有顾客信息
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Customer'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantCustomers
-    post:
-      summary: 创建或修改代理点下顾客
-      tags:
-        - 顾客
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-        - name: customer
-          in: body
-          schema:
-            $ref: '#/definitions/Customer'
-      responses:
-        '200':
-          description: '创建成功, 返回顾客Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: createOrUpdateMerchantCustomer
-  '/{platformId}/merchants/{merchantId}/addresses/{customerId}':
-    get:
-      summary: 获取代理点下顾客比特币地址
-      tags:
-        - 比特币地址
-        - 顾客
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/CustomerId'
-      responses:
-        '200':
-          description: 返回顾客比特币地址
-          schema:
-            type: string
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantCustomerAddress
-    post:
-      summary: 设置代理点下顾客比特币地址
-      tags:
-        - 比特币地址
-        - 顾客
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/CustomerId'
-      responses:
-        '200':
-          description: '操作成功, 返回比特币地址'
-          schema:
-            $ref: '#/definitions/ObjectAddress'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-  '/{platformId}/merchants/{merchantId}/products':
-    get:
-      summary: 获取代理点下所有商品
-      tags:
-        - 商品
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Skip'
-        - $ref: '#/parameters/Limit'
-        - $ref: '#/parameters/Sort'
-        - $ref: '#/parameters/Order'
-      responses:
-        '200':
-          description: 返回商品列表
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/MerchantProduct'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantProducts
-    post:
-      summary: 创建或修改代理点商品
-      tags:
-        - 商品
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - name: product
-          in: body
-          schema:
-            $ref: '#/definitions/MerchantProduct'
-      responses:
-        '200':
-          description: '创建成功, 返回商品Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: createOrUpdateMerchantProduct
-  '/{platformId}/merchants/{merchantId}/products/{Id}':
-    get:
-      summary: 获取代理点下单个商品信息
-      tags:
-        - 商品
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回矿机信息
-          schema:
-            $ref: '#/definitions/MerchantProduct'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantProductByID
-  '/{platformId}/merchants/{merchantId}/products/{Id}/open':
-    post:
-      summary: 商品上架
-      tags:
-        - 商品
-        - 代理点
-        - 上架
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 商品上架成功
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: openMerchantProduct
-  '/{platformId}/merchants/{merchantId}/products/{Id}/close':
-    post:
-      summary: 下架商品
-      tags:
-        - 商品
-        - 代理点
-        - 下架
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 商品下架成功
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: closeMerchantProduct
-  '/{platformId}/merchants/{merchantId}/orders':
-    get:
-      summary: 获取代理下所有订单
-      tags:
-        - 订单
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Skip'
-        - $ref: '#/parameters/Limit'
-        - $ref: '#/parameters/Sort'
-        - $ref: '#/parameters/Order'
-      responses:
-        '200':
-          description: 返回订单列表
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/MerchantOrder'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantOrders
-  '/{platformId}/merchants/{merchantId}/orders/{Id}':
-    get:
-      summary: 获取代理下单个订单
-      tags:
-        - 订单
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-        - $ref: '#/parameters/Skip'
-        - $ref: '#/parameters/Limit'
-        - $ref: '#/parameters/Sort'
-        - $ref: '#/parameters/Order'
-      responses:
-        '200':
-          description: 返回订单信息
-          schema:
-            $ref: '#/definitions/MerchantOrder'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getMerchantOrderById
-  '/{platformId}/merchants/{merchantId}/purchase':
-    get:
-      summary: 用户购买商品
-      tags:
-        - 订单
-        - 代理点
-        - 用户
-        - 商品
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-      responses:
-        '200':
-          description: '购买成功, 返回订单Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: purchaseMerchantProduct
-  '/{platformId}/merchants/{merchantId}/orders/{Id}/confirm':
-    post:
-      summary: '用户已付款, 确认订单'
-      tags:
-        - 订单
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: '订单确认成功, 返回订单Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: orderConfirm
-  '/{platformId}/merchants/{merchantId}/orders/{Id}/cancel':
-    post:
-      summary: 取消订单
-      tags:
-        - 订单
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: '订单取消成功, 返回订单Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: orderCancel
-  '/{platformId}/merchants/{merchantId}/orders/{Id}/complete':
-    post:
-      summary: 完成/交付 - 订单
-      tags:
-        - 订单
-        - 代理点
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/MerchantId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: '订单完成成功, 返回订单Id'
-          schema:
-            $ref: '#/definitions/ObjectId'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: orderComplete
-  '/{platformId}/mining/workers':
-    get:
-      summary: 获取矿工列表
-      tags:
-        - 挖矿
-        - 矿工
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Skip'
-        - $ref: '#/parameters/Limit'
-        - $ref: '#/parameters/Sort'
-        - $ref: '#/parameters/Order'
-        - name: merchantId
-          in: query
-          description: 代理点Id
-          type: integer
-          format: int64
-      responses:
-        '200':
-          description: 返回矿工列表
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/MiningWorker'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-  '/{platformId}/mining/workers/{Id}':
-    get:
-      summary: 获取单个矿工
-      tags:
-        - 挖矿
-        - 矿工
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/Id'
-      responses:
-        '200':
-          description: 返回矿工信息
-          schema:
-            $ref: '#/definitions/MiningWorker'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-  '/{platformId}/mining/settlement':
-    post:
-      summary: 结算矿工收益
-      tags:
-        - 挖矿
-        - 结算
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 返回矿工信息
-          schema:
-            $ref: '#/definitions/MiningWorker'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-  '/{platformId}/mining/settlement/{settlementId}/payout':
-    post:
-      summary: 支付结算单
-      tags:
-        - 挖矿
-        - 结算
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-        - $ref: '#/parameters/SettlementId'
-      responses:
-        '200':
-          description: 返回矿工信息
-          schema:
-            $ref: '#/definitions/MiningWorker'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: payout
-  '/{platformId}/mining/payments':
-    post:
-      summary: 获取支付记录
-      tags:
-        - 挖矿
-        - 结算
-      security:
-        - Admin: []
-      parameters:
-        - $ref: '#/parameters/PlatformId'
-      responses:
-        '200':
-          description: 返回矿工信息
-          schema:
-            $ref: '#/definitions/MiningWorker'
-        default:
-          description: 异常错误
-          schema:
-            $ref: '#/definitions/Error'
-      operationId: getPayments
-parameters:
-  PlatformId:
-    name: platformId
-    in: path
-    description: 平台Id
-    required: true
-    type: integer
-    format: int64
-  MerchantId:
-    name: merchantId
-    in: path
-    description: 代理点Id
-    required: true
-    type: integer
-    format: int64
-  CustomerId:
-    name: customerId
-    in: path
-    description: 顾客Id
-    required: true
-    type: integer
-    format: int64
-  SettlementId:
-    name: settlementId
-    in: path
-    description: 结算Id
-    required: true
-    type: integer
-    format: int64
-  Skip:
-    name: skip
-    in: query
-    description: 分页 - 略过多少条目
-    required: true
-    type: integer
-    format: int32
-  Limit:
-    name: limit
-    in: query
-    description: 分页 - 最大返回条目
-    required: true
-    type: integer
-    format: int32
-  Sort:
-    in: query
-    name: sort
-    type: string
-    description: 排序字段
-  Order:
-    in: query
-    name: order
-    type: string
-    enum:
-      - asc
-      - desc
-    description: 升序|降序
-  Id:
-    name: Id
-    in: path
-    description: Id
-    required: true
-    type: integer
-    format: int64
-definitions:
-  ObjectId:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-  ObjectAddress:
-    type: object
-    properties:
-      address:
-        type: string
-  SalesPaymentMethod:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      name:
-        type: string
-      icon:
-        type: string
-        format: byte
-  MerchantPaymentMethod:
-    type: object
-    properties:
-      methodId:
-        type: integer
-        format: int64
-      merchantId:
-        type: integer
-        format: int64
-      account:
-        type: string
-        description: 账号
-  Photo:
-    type: object
-    title: 照片
-    properties:
-      Id:
-        type: integer
-        format: int64
-      mimeType:
-        type: string
-        enum:
-          - png
-          - jpeg
-      name:
-        type: string
-        description: 名称
-      height:
-        type: integer
-        format: int32
-        description: 尺寸 - 高(像素)
-      width:
-        type: integer
-        format: int32
-        description: 尺寸 - 宽(像素)
-      url:
-        type: string
-        description: 照片所在url地址
-      createdAt:
-        type: string
-        format: date-time
-  Album:
-    type: object
-    title: 相册
-    properties:
-      Id:
-        type: integer
-        format: int64
-      Photos:
-        type: array
-        items:
-          type: integer
-          format: int64
-      createdAt:
-        type: string
-        format: date-time
-  Platform:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      slogan:
-        type: string
-        description: 标语
-      intro:
-        type: string
-        description: 简介
-      avatar:
-        $ref: '#/definitions/Photo'
-      logo:
-        $ref: '#/definitions/Photo'
-  Merchant:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      name:
-        type: string
-        description: 名称
-      avatar:
-        type: string
-        format: byte
-        description: 头像
-      contact:
-        $ref: '#/definitions/ContactInfo'
-      paymentMethods:
-        type: array
-        items:
-          $ref: '#/definitions/MerchantPaymentMethod'
-      intro:
-        type: string
-        description: 简介
-  WechatMiniAppSetting:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      merchantId:
-        type: integer
-        format: int64
-      name:
-        type: string
-      wechatAppId:
-        type: string
-      wechatAppSecret:
-        type: string
-  SmsProvider:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      name:
-        type: string
-        enum:
-          - netease
-          - aliyun
-      displayName:
-        type: string
-      appId:
-        type: string
-      appSecret:
-        type: string
-      endpoint:
-        type: string
-  SmsVCode:
-    type: object
-    properties:
-      providerId:
-        type: integer
-        format: int64
-      templateId:
-        type: integer
-        format: int64
-      content:
-        type: string
-  Customer:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      mobile:
-        type: string
-        description: 手机号
-      email:
-        type: string
-        description: 邮箱
-      nickName:
-        type: string
-        description: 昵称
-      createdAt:
-        type: string
-        format: date-time
-        description: 注册时间
-  MiningEquipment:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      brandName:
-        type: string
-        description: 名牌名称
-      modelName:
-        type: string
-        description: 型号
-      hashRate:
-        type: integer
-        format: int64
-        description: '算力, 单位 GHash/s'
-      powerWatts:
-        type: integer
-        format: int32
-        description: '功耗, 单位瓦'
-  ContactInfo:
-    type: object
-    properties:
-      name:
-        type: string
-      telephone:
-        type: string
-      telephone2:
-        type: string
-      address:
-        type: string
-      notes:
-        type: string
-  MiningFarm:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      name:
-        type: string
-      electricityPrice:
-        type: integer
-        format: int64
-        description: 电价
-      contact:
-        $ref: '#/definitions/ContactInfo'
-      intro:
-        type: string
-  MerchantProduct:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      merchant:
-        $ref: '#/definitions/Merchant'
-      name:
-        type: string
-      miningFarm:
-        $ref: '#/definitions/MiningFarm'
-      equipment:
-        $ref: '#/definitions/MiningEquipment'
-      electricityPrice:
-        type: integer
-        format: int64
-        description: 电价
-      serviceFeePercent:
-        type: integer
-        format: int32
-        description: |
-          服务费(%), 整型, 精确到小数1位, 数值1代表0.1%
-      salesMethod:
-        type: string
-        description: 销售方式
-        enum:
-          - byEquipment
-          - byHashrate
-      salesUnit:
-        type: integer
-        format: int64
-        description: |
-          "销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s"
-      minQtyForSale:
-        type: integer
-        format: int64
-        description: '最小起售数量, 值的含义与销售方式和销售单位相关'
-      qtyInStock:
-        type: integer
-        format: int64
-        description: '库存数量, 值的含义与销售方式和销售单位相关'
-      price:
-        type: integer
-        format: int64
-        description: |
-          售价或现价, 精确到分, 数值1代表人民币1分
-      marketPrice:
-        type: integer
-        format: int64
-        description: |
-          市场价或原价, 精确到分, 数值1代表人民币1分
-      orderCompleteBy:
-        type: string
-        enum:
-          - nextDayAfterOrderConfirmed
-          - immediately
-          - manaully
-        description: 订单完成方式(开挖时间) 订单确认后次日凌晨 | 立即 | 手动
-      status:
-        type: string
-        enum:
-          - new
-          - openning
-          - closed
-          - outOfStock
-          - comingSoon
-        description: >
-          "订单状态 new(未上架) | comingSoon(期货 or 即将上架) | openning(上架销售中) |
-          closed(下架停止销售) | outOfStock(脱销 or 售罄 or 缺货)"
-      coverPhoto:
-        $ref: '#/definitions/Photo'
-      photos:
-        $ref: '#/definitions/Album'
-      intro:
-        type: string
-      description:
-        type: string
-      createdAt:
-        type: string
-        format: date-time
-      lastModifiedAt:
-        type: string
-        format: date-time
-  MerchantOrder:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      orderNo:
-        type: string
-        description: 订单编号
-      productId:
-        type: integer
-        format: int64
-        description: 商品编号
-      productName:
-        type: string
-        description: 商品名称
-      customerId:
-        type: integer
-        format: int64
-        description: 顾客Id
-      customerMobile:
-        type: string
-        description: 顾客手机号
-      customerEmail:
-        type: string
-        description: 顾客邮箱
-      customerMessage:
-        type: string
-        description: 顾客留言
-      electricityPrice:
-        type: integer
-        format: int64
-        description: 电价
-      serviceFeePercent:
-        type: integer
-        format: int32
-        description: |
-          服务费(%), 整型, 精确到小数1位, 数值1代表0.1%
-      salesMethod:
-        type: string
-        description: 销售方式
-        enum:
-          - byEquipment
-          - byHashrate
-      salesUnit:
-        type: integer
-        format: int64
-        description: |
-          "销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s"
-      hashRatePerQty:
-        type: integer
-        format: int64
-        description: '每份多少算力, 1代表1Ghash/s'
-      price:
-        type: integer
-        format: int64
-      qty:
-        type: integer
-        format: int64
-        description: 订单数量
-      totalAmount:
-        type: integer
-        format: int64
-        description: 总价
-      paidAmount:
-        type: integer
-        format: int64
-        description: 实收金额
-      orderCompleteBy:
-        type: string
-        enum:
-          - nextDayAfterOrderConfirmed
-          - immediately
-          - manaully
-        description: 订单完成方式(开挖时间) 订单确认后次日凌晨 | 立即 | 手动
-      status:
-        type: string
-        enum:
-          - new
-          - confirmed
-          - completed
-          - canceled
-        description: 订单状态(new|confirmed|completed|canceled)
-      createdAt:
-        type: string
-        format: date-time
-        description: 创建时间
-      confirmedAt:
-        type: string
-        format: date-time
-        description: 确认时间
-      completedAt:
-        type: string
-        format: date-time
-        description: 完成时间或开挖时间
-      canceledAt:
-        type: string
-        format: date-time
-        description: 取消时间
-      cancelReason:
-        type: string
-        description: 取消原因
-      memo:
-        type: string
-        description: 订单备注
-  MiningWorker:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      customerId:
-        type: integer
-        format: int64
-      merchantOrderId:
-        type: integer
-        format: int64
-      status:
-        type: string
-        enum:
-          - running
-          - stopped
-          - makeOver
-        description: 状态 working(工作中) | stopped(未运行) | makeOver(已转让)
-      hashRate:
-        type: integer
-        format: int64
-        description: '算力, 单位 GHash/s'
-      powerWatts:
-        type: integer
-        format: int32
-        description: '功耗, 单位瓦'
-      powerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: '矿工累计用电度数, 单位千分之一度'
-      revenueBTC:
-        type: integer
-        format: int64
-        description: '累计比特币收益, 单位聪'
-      createdAt:
-        type: string
-        format: date-time
-        description: 创建时间
-      makeOverAt:
-        type: string
-        format: date-time
-        description: 转让时间
-  MiningWorderDailyStatitics:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      workderId:
-        type: integer
-        format: int64
-      date:
-        type: string
-        format: date
-        description: 日期
-      revenueBTC:
-        type: integer
-        format: int64
-        description: 当日比特币收益
-      totalRevenueBTC:
-        type: integer
-        format: int64
-        description: 戴上当日累计比特币收益
-      powerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: 当日用电度数 单位千分之一度
-      totalPowerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: 截止当日累计用电度数 单位千分之一度
-  MiningCustomer:
-    type: object
-    description: '矿挖用户, 一个用户可以有很多矿工，且一般情况下都是多个矿工'
-    properties:
-      customerId:
-        type: integer
-        format: int64
-      merchantOrderId:
-        type: integer
-        format: int64
-      hashRate:
-        type: integer
-        format: int64
-        description: '算力, 单位 GHash/s'
-      powerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: '矿工累计用电度数, 单位千分之一度'
-      revenueBTC:
-        type: integer
-        format: int64
-        description: '累计比特币收益, 单位聪'
-      createdAt:
-        type: string
-        format: date-time
-        description: 创建时间
-  MiningCustomerDailyStatitics:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      customerId:
-        type: integer
-        format: int64
-      merchantOrderId:
-        type: integer
-        format: int64
-      date:
-        type: string
-        format: date
-        description: 日期
-      revenueBTC:
-        type: integer
-        format: int64
-        description: 当日比特币收益
-      totalRevenueBTC:
-        type: integer
-        format: int64
-        description: 截止当日累计比特币收益
-      powerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: 当日用电度数 单位千分之一度
-  MiningSettlement:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      merchantProductId:
-        type: integer
-        format: int64
-      miningFarmId:
-        type: integer
-        format: int64
-      periodStart:
-        type: string
-        format: date
-      periodEnd:
-        type: string
-        format: date
-      revenueBTC:
-        type: integer
-        format: int64
-      powerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: 结算周期产生的总用电度数 单位千分之一度
-      electricityPrice:
-        type: integer
-        format: int64
-        description: '此次结算的用电价格, 单位人民币分'
-      btcExchangeRate:
-        type: integer
-        format: int64
-        description: '比特币汇率, 1 BTC = N RMB 单位分'
-      minusElectricityCostBTC:
-        type: integer
-        format: int64
-        description: '减计挖矿中的用电支出, 折成比特币, 扣除'
-      minusMiningCostBTC:
-        type: integer
-        format: int64
-        description: '减计挖矿中其它费用支出, 折成比特币, 扣除'
-      settlementBTC:
-        type: integer
-        format: int64
-      createdAt:
-        type: string
-        format: date-time
-  MiningSettlementMinusCost:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      settmentId:
-        type: integer
-        format: int64
-      minusCostName:
-        type: string
-        description: 减计的费用名称
-      minusCostBTC:
-        type: integer
-        format: int64
-        description: 减计的BTC数量
-  MiningSettlementCustomerCost:
-    type: object
-    properties:
-      settmentId:
-        type: integer
-        format: int64
-      customerId:
-        type: integer
-        format: int64
-      costId:
-        type: integer
-        format: int64
-      minusCostBTC:
-        type: integer
-        format: int64
-        description: 减计的BTC数量
-  MiningSettlementline:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      settlementId:
-        type: integer
-        format: int64
-      merchantOrderId:
-        type: integer
-        format: int64
-      customerId:
-        type: integer
-        format: int64
-      customerReceiptAddress:
-        type: string
-        description: 顾客收款比特币地址
-      revenueBTC:
-        type: integer
-        format: int64
-      btcExchangeRate:
-        type: integer
-        format: int64
-        description: '比特币汇率, 1 BTC = N RMB 单位分'
-      powerWattsHourConsumed:
-        type: integer
-        format: int64
-        description: 结算周期产生的用电度数 单位千分之一度
-      electricityPrice:
-        type: integer
-        format: int64
-        description: '此次结算的用电价格, 单位人民币分'
-      minusElectricityCostBTC:
-        type: integer
-        format: int64
-        description: '减计挖矿中的用电支出, 折成比特币, 扣除'
-      minusMiningCostBTC:
-        type: integer
-        format: int64
-        description: '减计挖矿中其它费用支出, 折成比特币, 扣除'
-      settlementBTC:
-        type: integer
-        format: int64
-  MiningSettlementInvoice:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-      settlementId:
-        type: integer
-        format: int64
-      network:
-        type: string
-        description: main(主网络) | test(测试网络)
-        enum:
-          - main
-          - test
-  MiningSettlementPayoutHistory:
-    type: object
-    properties:
-      Id:
-        type: integer
-        format: int64
-  Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
-        type: string
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "www.easy-mock.com",
+  "basePath": "/mock/59a7a1564006183e48ee0f81/example/v2",
+  "tags": [
+    {
+      "name": "pet",
+      "description": "Everything about your Pets",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "store",
+      "description": "Access to Petstore orders"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/pet": {
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Add a new pet to the store",
+        "description": "",
+        "operationId": "addPet",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Update an existing pet",
+        "description": "",
+        "operationId": "updatePet",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/findByStatus": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Finds Pets by status",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findPetsByStatus",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "default": "available"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/findByTags": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Finds Pets by tags",
+        "description": "Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId": "findPetsByTags",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Tags to filter by",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ],
+        "deprecated": true
+      }
+    },
+    "/pet/{petId}": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Find pet by ID",
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Updates a pet in the store with form data",
+        "description": "",
+        "operationId": "updatePetWithForm",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Updated name of the pet",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "formData",
+            "description": "Updated status of the pet",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Deletes a pet",
+        "description": "",
+        "operationId": "deletePet",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/{petId}/uploadImage": {
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "uploads an image",
+        "description": "",
+        "operationId": "uploadFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "additionalMetadata",
+            "in": "formData",
+            "description": "Additional data to pass to server",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file to upload",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/store/inventory": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Returns pet inventories by status",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getInventory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/store/order": {
+      "post": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Place an order for a pet",
+        "description": "",
+        "operationId": "placeOrder",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "order placed for purchasing the pet",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        }
+      }
+    },
+    "/store/order/{orderId}": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Find purchase order by ID",
+        "description": "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
+        "operationId": "getOrderById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of pet that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Delete purchase order by ID",
+        "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "deleteOrder",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1.0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/createWithArray": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates list of users with given input array",
+        "description": "",
+        "operationId": "createUsersWithArrayInput",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/createWithList": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates list of users with given input array",
+        "description": "",
+        "operationId": "createUsersWithListInput",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The user name for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by user name",
+        "description": "",
+        "operationId": "getUserByName",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updated user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": [
+            "placed",
+            "approved",
+            "delivered"
+          ]
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Category"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Pet": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "name": "photoUrl",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "xml": {
+            "name": "tag",
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": [
+            "available",
+            "pending",
+            "sold"
+          ]
+        }
+      },
+      "xml": {
+        "name": "Pet"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
