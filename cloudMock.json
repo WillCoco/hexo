@@ -254,7 +254,7 @@
       "post": {
         "summary": "创建或修改矿场",
         "tags": [
-          "矿场",
+          {"name": "miningArea"},
           "挖矿",
           "平台"
         ],
@@ -296,7 +296,7 @@
       "get": {
         "summary": "获取单个矿场信息",
         "tags": [
-          "矿场",
+          {"name": "miningArea"},
           "平台",
           "挖矿"
         ],
