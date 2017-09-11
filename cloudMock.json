@@ -1424,6 +1424,43 @@
         },
         "operationId": "getPayments"
       }
+    },
+    "/{platformId}/mining/agreement": {
+      "post": {
+        "summary": "获取合同数据",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },{
+            "$ref": "#/parameters/MerchantId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回合同信息",
+            "schema": {
+              "$ref": "#/definitions/miningAgreement"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getAgreements"
+      }
     }
   },
   "parameters": {
@@ -2053,6 +2090,32 @@
         "memo": {
           "type": "string",
           "description": "订单备注"
+        }
+      }
+    },
+    "miningAgreement":{
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string",
+          "format": "int64"
+        },
+        "summary": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
         }
       }
     },

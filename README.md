@@ -1,4 +1,3 @@
 # WillCoco.github.io
 
-## add api XXX （）
-askjdk
+## add api getAgreements
