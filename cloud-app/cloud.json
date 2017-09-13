@@ -1,0 +1,5323 @@
+/**
+ * Created by xuke on 2017/9/12.
+ */
+{
+  "swagger"
+:
+  "2.0", "info"
+:
+  {
+    "version"
+  :
+    "1.0.0", "title"
+  :
+    "Cloud Miner API"
+  }
+,
+  "schemes"
+:
+  ["http", "https"], "consumes"
+:
+  ["application/json", "application/x-www-form-urlencoded"], "produces"
+:
+  ["application/json"], "host"
+:
+  "10.10.0.233:3705", "basePath"
+:
+  "/api/v1", "paths"
+:
+  {
+    "/merchant/auth/pass"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["auth"], "operationId"
+      :
+        "merchantAuth", "parameters"
+      :
+        [{"name": "mobile", "in": "formData", "type": "string", "required": true}, {
+          "name": "pass",
+          "in": "formData",
+          "type": "string",
+          "required": true
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {"access_key": {"type": "string"}, "expire_at": {"type": "integer"}}
+                  }
+                }
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/contact"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["merchantContact"], "operationId"
+      :
+        "getMerchantContact", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/merchant_contact"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        []
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["merchantContact"], "operationId"
+      :
+        "setMerchantContact", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "contact", "in": "body", "schema": {"$ref": "#/definitions/merchant_contact"}}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/merchant_contact"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/payby"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["merchantPayby"], "operationId"
+      :
+        "getMerchantPayby", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/merchant_payby"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        []
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["merchantPayby"], "operationId"
+      :
+        "setMerchantPayby", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "payby", "in": "body", "schema": {"$ref": "#/definitions/merchant_payby"}}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/merchant_payby"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/seller"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["seller"], "operationId"
+      :
+        "getSellers", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/seller"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        []
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["seller"], "operationId"
+      :
+        "addSeller", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "seller", "in": "body", "schema": {"$ref": "#/definitions/seller_257"}}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/seller"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/seller/encid"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["seller"], "operationId"
+      :
+        "getEncSellerId", "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {"type": "object", "properties": {"data": {"type": "string"}}}]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/seller/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["seller"], "operationId"
+      :
+        "updateSeller", "parameters"
+      :
+        [{"name": "seller", "in": "body", "schema": {"$ref": "#/definitions/seller_258"}}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/seller"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/seller/wxs/member-mark"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["sellerWxs"], "operationId"
+      :
+        "wxSellerMemberMark", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "mark_name",
+          "in": "formData",
+          "type": "string"
+        }, {"name": "mark_phone", "in": "formData", "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/seller/wxs/member-unbind"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["sellerWxs"], "operationId"
+      :
+        "wxSellerMemberUnbind", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/merchant/seller/wxs/members"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["sellerWxs"], "operationId"
+      :
+        "wxsSellerMembers", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {"type": "string"},
+                        "wx_name": {"type": "string"},
+                        "wx_avatar": {"type": "string"},
+                        "bind_at": {"type": "string"},
+                        "mark_name": {"type": "string"},
+                        "mark_phone": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    }
+  ,
+    "/merchant/seller/wxs/qrinfo"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["sellerWxs"], "operationId"
+      :
+        "wxsSellerQrinfo", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {"url": {"type": "string"}, "expire_in": {"type": "integer"}}
+                  }
+                }
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    }
+  ,
+    "/seller/agreement"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["agreement"], "operationId"
+      :
+        "getAgreement", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/agreement"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["agreement"], "operationId"
+      :
+        "addAgreement", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "agreement", "in": "body", "schema": {"$ref": "#/definitions/agreement_259"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/agreement"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/agreement/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["agreement"], "operationId"
+      :
+        "deleteAgreement", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/agreement/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["agreement"], "operationId"
+      :
+        "updateAgreement", "parameters"
+      :
+        [{"name": "agreement", "in": "body", "schema": {"$ref": "#/definitions/agreement_260"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/agreement"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/bill/apply-payment"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["bill"], "operationId"
+      :
+        "applyPayment", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "user_id", "in": "formData", "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "url": {"type": "string"},
+                      "amount_total": {"type": "string"},
+                      "expire_time": {"type": "integer"}
+                    }
+                  }
+                }
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/bill/paying"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["bill"], "operationId"
+      :
+        "getPayingBills", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/bill_paying"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    }
+  ,
+    "/seller/bill/pending"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["bill"], "operationId"
+      :
+        "getPendingBills", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/bill_pending"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    }
+  ,
+    "/seller/bill/settle"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["bill"], "operationId"
+      :
+        "settle", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{
+          "name": "bill",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "product_id": {"title": "鍟嗗搧id", "description": "", "type": "string"},
+              "fee_power": {"title": "鐢佃垂", "description": "鍗曚綅BTC", "type": "number"},
+              "fee_items": {
+                "title": "璐圭敤鏉＄洰",
+                "description": "鏁扮粍",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {"title": "璐圭敤鍚嶇О", "description": "", "type": "string"},
+                    "value": {"title": "璐圭敤鏁伴噺", "description": "鍗曚綅BTC", "type": "number"}
+                  }
+                }
+              }
+            }
+          }
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/contact"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["sellerContact"], "operationId"
+      :
+        "getSellerContact", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/seller_contact"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["sellerContact"], "operationId"
+      :
+        "setSellerContact", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "contact", "in": "body", "schema": {"$ref": "#/definitions/seller_contact"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/seller_contact"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/miner"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["miner"], "operationId"
+      :
+        "getMiners", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/miner"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["miner"], "operationId"
+      :
+        "addMiner", "parameters"
+      :
+        [{"name": "miner", "in": "body", "required": true, "schema": {"$ref": "#/definitions/miner_261"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/miner"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/miner/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["miner"], "operationId"
+      :
+        "deleteMiner", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/miner/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["miner"], "operationId"
+      :
+        "updateMiner", "parameters"
+      :
+        [{"name": "miner", "in": "body", "required": true, "schema": {"$ref": "#/definitions/miner_262"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/miner"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/notice"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["notice"], "operationId"
+      :
+        "getNotice", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/notice"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["notice"], "operationId"
+      :
+        "addNotice", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "notice", "in": "body", "schema": {"$ref": "#/definitions/notice_263"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/notice"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/notice/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["notice"], "operationId"
+      :
+        "deleteNotice", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/notice/down"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["notice"], "operationId"
+      :
+        "cancelNotice", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/notice/pub"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["notice"], "operationId"
+      :
+        "pubNotice", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/notice/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["notice"], "operationId"
+      :
+        "updateNotice", "parameters"
+      :
+        [{"name": "notice", "in": "body", "schema": {"$ref": "#/definitions/notice_264"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/notice"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/order"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["order"], "operationId"
+      :
+        "getOrders", "parameters"
+      :
+        [{"name": "skip", "in": "query", "type": "integer", "required": true}, {
+          "name": "limit",
+          "in": "query",
+          "type": "integer",
+          "required": true
+        }, {"name": "kword", "in": "query", "type": "string"}, {
+          "name": "order",
+          "in": "query",
+          "type": "string"
+        }, {"name": "order_by", "in": "query", "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/order"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["order"], "operationId"
+      :
+        "createOrder", "parameters"
+      :
+        [{"name": "user_id", "in": "formData", "type": "string", "required": true}, {
+          "name": "product_id",
+          "in": "formData",
+          "type": "string",
+          "required": true
+        }, {"name": "amount", "in": "formData", "type": "number", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {"type": "object", "properties": {"data": {"type": "string"}}}]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/order/cancel"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["order"], "operationId"
+      :
+        "cancelOrder", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "reason",
+          "in": "formData",
+          "type": "string",
+          "required": true
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/order/confirm"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["order"], "operationId"
+      :
+        "confirmOrder", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "income",
+          "in": "formData",
+          "type": "number",
+          "required": true
+        }, {"name": "mining_at", "in": "formData", "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/order/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["order"], "operationId"
+      :
+        "deleteOrder", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/order/find/id"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["order"], "operationId"
+      :
+        "getOrderById", "parameters"
+      :
+        [{"name": "id", "in": "query", "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/order"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/payby"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["sellerPayby"], "operationId"
+      :
+        "getSellerPayby", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/seller_payby"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["payby"], "operationId"
+      :
+        "setPayby", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "payby", "in": "body", "schema": {"$ref": "#/definitions/seller_payby"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/seller_payby"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/product"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "getProducts", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/product"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "addProduct", "parameters"
+      :
+        [{
+          "name": "product",
+          "in": "body",
+          "required": true,
+          "schema": {"$ref": "#/definitions/product_265"}
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/product"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/product/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "deleteProduct", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/product/down"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "downProduct", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/product/total"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "updateTotal", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "amount",
+          "in": "formData",
+          "type": "integer",
+          "required": true
+        }, {"name": "action", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/product/up"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "upProduct", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/product/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["product"], "operationId"
+      :
+        "updateProduct", "parameters"
+      :
+        [{
+          "name": "product",
+          "in": "body",
+          "required": true,
+          "schema": {"$ref": "#/definitions/product_266"}
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/product"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/quarry"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["quarry"], "operationId"
+      :
+        "getQuarries", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/quarry"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["quarry"], "operationId"
+      :
+        "addQuarry", "parameters"
+      :
+        [{
+          "name": "quarry",
+          "in": "body",
+          "required": true,
+          "schema": {"$ref": "#/definitions/quarry_267"}
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/quarry"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/quarry/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["quarry"], "operationId"
+      :
+        "delQuarry", "parameters"
+      :
+        [{"name": "id", "in": "formData", "required": true, "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/quarry/power/off"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["quarry"], "operationId"
+      :
+        "quarryPoweroff", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/quarry/power/on"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["quarry"], "operationId"
+      :
+        "quarryPoweron", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/quarry/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["quarry"], "operationId"
+      :
+        "updateQuarry", "parameters"
+      :
+        [{
+          "name": "quarry",
+          "in": "body",
+          "required": true,
+          "schema": {"$ref": "#/definitions/quarry_268"}
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "allOf": [{"$ref": "#/definitions/wrapper"}, {
+                      "type": "object",
+                      "properties": {"data": {"$ref": "#/definitions/quarry"}}
+                    }]
+                  }
+                }
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/user"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["user"], "operationId"
+      :
+        "getUsers", "parameters"
+      :
+        [{"name": "skip", "in": "query", "type": "integer", "required": true}, {
+          "name": "limit",
+          "in": "query",
+          "type": "integer",
+          "required": true
+        }, {"name": "kword", "in": "query", "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/user"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["user"], "operationId"
+      :
+        "createUser", "parameters"
+      :
+        [{"name": "user", "in": "body", "required": true, "schema": {"$ref": "#/definitions/user_269"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {"type": "object", "properties": {"data": {"type": "string"}}}]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/user/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["user"], "operationId"
+      :
+        "updateUser", "parameters"
+      :
+        [{"name": "user", "in": "body", "required": true, "schema": {"$ref": "#/definitions/user_270"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/user"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/vender"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["vender"], "operationId"
+      :
+        "getVenders", "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/vender"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}], "parameters"
+      :
+        [{"name": "s", "in": "query", "required": true, "type": "string"}]
+      }
+    ,
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["vender"], "operationId"
+      :
+        "addVender", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{"name": "vender", "in": "body", "schema": {"$ref": "#/definitions/vender_271"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/vender"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/vender/del"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["vender"], "operationId"
+      :
+        "deleteVender", "parameters"
+      :
+        [{"name": "id", "in": "formData", "type": "string", "required": true}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "$ref"
+            :
+              "#/definitions/wrapper"
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/vender/update"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["vender"], "operationId"
+      :
+        "updateVender", "parameters"
+      :
+        [{"name": "vender", "in": "body", "schema": {"$ref": "#/definitions/vender_272"}}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/vender"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/worker/alienate"
+  :
+    {
+      "post"
+    :
+      {
+        "tags"
+      :
+        ["worker"], "operationId"
+      :
+        "alienateWorker", "consumes"
+      :
+        ["application/json"], "parameters"
+      :
+        [{
+          "name": "data",
+          "in": "body",
+          "required": true,
+          "schema": {"$ref": "#/definitions/alienate_prms"}
+        }, {"name": "s", "in": "query", "required": true, "type": "string"}], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"$ref": "#/definitions/wrapper"}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  ,
+    "/seller/worker/for-alienate"
+  :
+    {
+      "get"
+    :
+      {
+        "tags"
+      :
+        ["worker"], "operationId"
+      :
+        "getWorkersForAlienate", "parameters"
+      :
+        [{"name": "user_id", "in": "query", "required": true, "type": "string"}, {
+          "name": "s",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }], "responses"
+      :
+        {
+          "200"
+        :
+          {
+            "description"
+          :
+            "", "schema"
+          :
+            {
+              "type"
+            :
+              "object", "allOf"
+            :
+              [{"$ref": "#/definitions/wrapper"}, {
+                "type": "object",
+                "properties": {"data": {"type": "array", "items": {"$ref": "#/definitions/worker_for_alienate"}}}
+              }]
+            }
+          }
+        }
+      ,
+        "security"
+      :
+        [{"access_key": []}]
+      }
+    }
+  }
+,
+  "definitions"
+:
+  {
+    "wrapper"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "status"
+      :
+        {
+          "type"
+        :
+          "integer", "enum"
+        :
+          [0, 1]
+        }
+      ,
+        "ecode"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "info"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "agreement"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "title"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "content"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "alienate_prms"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "user_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "to_user_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "sources"
+      :
+        {
+          "type"
+        :
+          "array", "items"
+        :
+          {
+            "type"
+          :
+            "object", "properties"
+          :
+            {
+              "order_id"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            ,
+              "amount"
+            :
+              {
+                "type"
+              :
+                "integer"
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+    "bill_paying"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "user_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "user_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mobile"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "btc_address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "pay_total"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "fee_total"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "detail"
+      :
+        {
+          "type"
+        :
+          "array", "items"
+        :
+          {
+            "type"
+          :
+            "object", "properties"
+          :
+            {
+              "product_id"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            ,
+              "product_name"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            ,
+              "time_slice"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            ,
+              "fee_power"
+            :
+              {
+                "type"
+              :
+                "number"
+              }
+            ,
+              "fee_total"
+            :
+              {
+                "type"
+              :
+                "number"
+              }
+            ,
+              "pay_total"
+            :
+              {
+                "type"
+              :
+                "integer"
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+    "bill_pending"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "product_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "product_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "time_slice"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "fee_power_cny"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "amount"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "users"
+      :
+        {
+          "type"
+        :
+          "object", "properties"
+        :
+          {
+            "name"
+          :
+            {
+              "type"
+            :
+              "string"
+            }
+          ,
+            "mobile"
+          :
+            {
+              "type"
+            :
+              "string"
+            }
+          ,
+            "amount"
+          :
+            {
+              "type"
+            :
+              "string"
+            }
+          }
+        }
+      }
+    }
+  ,
+    "merchant_contact"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "items"
+      :
+        {
+          "type"
+        :
+          "array", "items"
+        :
+          {
+            "type"
+          :
+            "object", "properties"
+          :
+            {
+              "name"
+            :
+              {
+                "type"
+              :
+                "number"
+              }
+            ,
+              "account"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+    "merchant_payby"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "items"
+      :
+        {
+          "type"
+        :
+          "array", "items"
+        :
+          {
+            "type"
+          :
+            "object", "properties"
+          :
+            {
+              "type"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            ,
+              "name"
+            :
+              {
+                "type"
+              :
+                "number"
+              }
+            ,
+              "account"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+    "miner"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "vender_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "model"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "speed"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "speed_unit"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_rate"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "notice"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "title"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "content"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "is_alert"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "is_force"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "pub_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "order"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "user_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "user_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "product_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "product_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "amount"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "total_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "user_words"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "when_start"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "income"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "complete_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mining_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "cancel_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "cancel_reason"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "product"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name", "quarry_id", "speed", "speed_unit", "power_rate", "total", "manage_fee", "when_start"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "quarry_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "speed"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "speed_unit"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_rate"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "agreement_id"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "market_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "sell_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "total"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "selled"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "manage_fee"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "when_start"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "images"
+      :
+        {
+          "type"
+        :
+          "object", "properties"
+        :
+          {
+            "url"
+          :
+            {
+              "type"
+            :
+              "array", "items"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      ,
+        "cover"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "description"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "state"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "quarry"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_operation"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_urgency"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_power_plant"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "power_state"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "seller"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "adopt_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "seller_contact"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "use_merchant"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "items"
+      :
+        {
+          "type"
+        :
+          "array", "items"
+        :
+          {
+            "type"
+          :
+            "object", "properties"
+          :
+            {
+              "name"
+            :
+              {
+                "type"
+              :
+                "number"
+              }
+            ,
+              "account"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+    "seller_payby"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "use_merchant"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "items"
+      :
+        {
+          "type"
+        :
+          "array", "items"
+        :
+          {
+            "type"
+          :
+            "object", "properties"
+          :
+            {
+              "type"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            ,
+              "name"
+            :
+              {
+                "type"
+              :
+                "number"
+              }
+            ,
+              "account"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+    "user"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "mobile"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "nick_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "avatar"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mobile"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mark_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "btc_address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "real_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "card_num"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "vender"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "brand"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_after_sale"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_repair"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "create_at"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "worker"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "goods_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "order_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "quarry_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "user_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "speed"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mining_time"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "buy_time"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "expire_at"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "status"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      }
+    }
+  ,
+    "worker_for_alienate"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "order_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "amount"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "quarry_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "quarry_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "product_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "product_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "user_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "single_speed"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "total_speed"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mining_at"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      }
+    }
+  ,
+    "seller_257"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["name"], "properties"
+    :
+      {
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "seller_258"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "agreement_259"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "title"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "content"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "agreement_260"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "title"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "content"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "miner_261"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "vender_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "model"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "speed"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "speed_unit"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_rate"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      }
+    }
+  ,
+    "miner_262"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "vender_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "model"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "speed"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "speed_unit"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_rate"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      }
+    }
+  ,
+    "notice_263"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "title"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "content"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "is_alert"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "is_force"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "notice_264"
+  :
+    {
+      "type"
+    :
+      "object", "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "title"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "content"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "is_alert"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "is_force"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "product_265"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["name", "quarry_id", "speed", "speed_unit", "power_rate", "total", "manage_fee", "when_start"], "properties"
+    :
+      {
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "quarry_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "speed"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "speed_unit"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_rate"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "agreement_id"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "market_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "sell_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "total"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "selled"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "manage_fee"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "when_start"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "images"
+      :
+        {
+          "type"
+        :
+          "object", "properties"
+        :
+          {
+            "url"
+          :
+            {
+              "type"
+            :
+              "array", "items"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      ,
+        "cover"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "description"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "product_266"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name", "quarry_id", "manage_fee", "when_start"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "quarry_id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "agreement_id"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "market_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "sell_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "manage_fee"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      ,
+        "when_start"
+      :
+        {
+          "type"
+        :
+          "integer"
+        }
+      ,
+        "images"
+      :
+        {
+          "type"
+        :
+          "object", "properties"
+        :
+          {
+            "url"
+          :
+            {
+              "type"
+            :
+              "array", "items"
+            :
+              {
+                "type"
+              :
+                "string"
+              }
+            }
+          }
+        }
+      ,
+        "cover"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "summary"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "description"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "quarry_267"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["name"], "properties"
+    :
+      {
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_operation"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_urgency"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_power_plant"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      }
+    }
+  ,
+    "quarry_268"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_operation"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_urgency"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_power_plant"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "power_price"
+      :
+        {
+          "type"
+        :
+          "number"
+        }
+      }
+    }
+  ,
+    "user_269"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["mobile"], "properties"
+    :
+      {
+        "nick_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "avatar"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mobile"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mark_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "btc_address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "real_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "card_num"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "user_270"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "mobile"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "nick_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "avatar"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mobile"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "mark_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "btc_address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "real_name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "card_num"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "vender_271"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["name"], "properties"
+    :
+      {
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "brand"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_after_sale"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_repair"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  ,
+    "vender_272"
+  :
+    {
+      "type"
+    :
+      "object", "required"
+    :
+      ["id", "name"], "properties"
+    :
+      {
+        "id"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "name"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "brand"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "address"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_after_sale"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      ,
+        "tel_repair"
+      :
+        {
+          "type"
+        :
+          "string"
+        }
+      }
+    }
+  }
+,
+  "securityDefinitions"
+:
+  {
+    "access_key"
+  :
+    {
+      "type"
+    :
+      "apiKey", "name"
+    :
+      "Cminer-Access-Key", "in"
+    :
+      "header"
+    }
+  }
+}
