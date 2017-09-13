@@ -22,21 +22,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="cloudMock.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cloudMock.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cloudMock.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-807">
-              <caret line="2138" column="10" lean-forward="true" selection-start-line="2138" selection-start-column="10" selection-end-line="2138" selection-end-column="10" />
+            <state relative-caret-position="195">
+              <caret line="13" column="14" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="2740" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cloud.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cloud.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cloud.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="1483" column="9" lean-forward="true" selection-start-line="1483" selection-start-column="9" selection-end-line="1483" selection-end-column="9" />
+            <state relative-caret-position="240">
+              <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -64,8 +64,9 @@
       <find>MerchantProduct</find>
       <find>product</find>
       <find>PlatformId</find>
-      <find>MerchantId</find>
       <find>createdAt</find>
+      <find>MerchantId</find>
+      <find>tags</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -75,8 +76,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/cloud.json" />
         <option value="$PROJECT_DIR$/cloudMock.json" />
+        <option value="$PROJECT_DIR$/cloud.json" />
       </list>
     </option>
   </component>
@@ -228,7 +229,7 @@
       <updated>1504849273271</updated>
       <workItem from="1504849275743" duration="3485000" />
       <workItem from="1505220222662" duration="7000" />
-      <workItem from="1505288694590" duration="3697000" />
+      <workItem from="1505288694590" duration="4222000" />
     </task>
     <task id="LOCAL-00001" summary="获取公告数据">
       <created>1505291175510</created>
@@ -244,11 +245,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505291318969</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="搞错了，对不起">
+      <created>1505292495464</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1505292495464</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7189000" />
+    <option name="totallyTimeSpent" value="7714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="395" y="86" width="1306" height="855" extended-state="0" />
@@ -321,18 +329,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloud.json">
+    <entry file="file://$PROJECT_DIR$/cloudMock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="1483" column="9" lean-forward="true" selection-start-line="1483" selection-start-column="9" selection-end-line="1483" selection-end-column="9" />
+        <state relative-caret-position="195">
+          <caret line="13" column="14" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="2740" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloudMock.json">
+    <entry file="file://$PROJECT_DIR$/cloud.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-807">
-          <caret line="2138" column="10" lean-forward="true" selection-start-line="2138" selection-start-column="10" selection-end-line="2138" selection-end-column="10" />
+        <state relative-caret-position="240">
+          <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
           <folding />
         </state>
       </provider>

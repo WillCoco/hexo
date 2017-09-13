@@ -1465,7 +1465,7 @@
   },
   "/{platformId}/merchantNotice": {
     "get": {
-      "summary": "获取代理下的所有公告信息",
+      "summary": "获取代理带你下的所有公告信息",
       "tags": [
         "merchant"
       ],
@@ -1521,7 +1521,7 @@
           "$ref": "#/parameters/MerchantId"
         },
         {
-          "name": "product",
+          "name": "notice",
           "in": "body",
           "schema": {
             "$ref": "#/definitions/MerchantNotices"
@@ -1583,7 +1583,7 @@
       "operationId": "getPlatformNotices"
     },
     "post": {
-      "summary": "创建或修改代理点下的公告",
+      "summary": "创建或修改平台下的公告",
       "tags": [
         "merchant"
       ],
@@ -1599,7 +1599,7 @@
           "$ref": "#/parameters/PlatformId"
         },
         {
-          "name": "product",
+          "name": "notice",
           "in": "body",
           "schema": {
             "$ref": "#/definitions/MerchantNotices"
@@ -2123,11 +2123,6 @@
           ],
           "description": "订单完成方式(开挖时间) 订单确认后次日凌晨 | 立即 | 手动"
         },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "注册时间"
-        },
         "status": {
           "type": "string",
           "enum": [
@@ -2141,6 +2136,11 @@
         },
         "coverPhoto": {
           "$ref": "#/definitions/Photo"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "注册时间"
         },
         "photos": {
           "$ref": "#/definitions/Album"

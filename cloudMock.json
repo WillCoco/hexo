@@ -1521,7 +1521,7 @@
           "$ref": "#/parameters/MerchantId"
         },
         {
-          "name": "product",
+          "name": "notice",
           "in": "body",
           "schema": {
             "$ref": "#/definitions/MerchantNotices"
@@ -1583,7 +1583,7 @@
       "operationId": "getPlatformNotices"
     },
     "post": {
-      "summary": "创建或修改代理点下的公告",
+      "summary": "创建或修改平台下的公告",
       "tags": [
         "merchant"
       ],
@@ -1599,7 +1599,7 @@
           "$ref": "#/parameters/PlatformId"
         },
         {
-          "name": "product",
+          "name": "notice",
           "in": "body",
           "schema": {
             "$ref": "#/definitions/MerchantNotices"
