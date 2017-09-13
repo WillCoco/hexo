@@ -1465,7 +1465,7 @@
   },
   "/{platformId}/merchantNotice": {
     "get": {
-      "summary": "获取代理带你下的所有公告信息",
+      "summary": "获取代理下的所有公告信息",
       "tags": [
         "merchant"
       ],
@@ -2123,6 +2123,11 @@
           ],
           "description": "订单完成方式(开挖时间) 订单确认后次日凌晨 | 立即 | 手动"
         },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "注册时间"
+        },
         "status": {
           "type": "string",
           "enum": [
@@ -2132,11 +2137,6 @@
             "outOfStock",
             "comingSoon"
           ],
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "注册时间"
-          },
           "description": "\"订单状态 new(未上架) | comingSoon(期货 or 即将上架) | openning(上架销售中) | closed(下架停止销售) | outOfStock(脱销 or 售罄 or 缺货)\"\n"
         },
         "coverPhoto": {

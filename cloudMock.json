@@ -2132,15 +2132,15 @@
             "outOfStock",
             "comingSoon"
           ],
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "注册时间"
-          },
           "description": "\"订单状态 new(未上架) | comingSoon(期货 or 即将上架) | openning(上架销售中) | closed(下架停止销售) | outOfStock(脱销 or 售罄 or 缺货)\"\n"
         },
         "coverPhoto": {
           "$ref": "#/definitions/Photo"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "注册时间"
         },
         "photos": {
           "$ref": "#/definitions/Album"
