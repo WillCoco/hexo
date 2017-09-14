@@ -835,6 +835,13 @@
           },
           {
             "$ref": "#/parameters/Order"
+          },
+          {
+            "name": "customer",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "description": "根据用户id过滤"
           }
         ],
         "responses": {
@@ -1503,7 +1510,13 @@
             "$ref": "#/parameters/PlatformId"
           },
           {
-            "$ref": "#/parameters/CreateSettleParams"
+            "name": "settle",
+            "in": "body",
+            "description": "生成结算单的请求参数",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MiningSettle"
+            }
           }
         ],
         "responses": {
@@ -1591,6 +1604,127 @@
         },
         "operationId": "getPayments"
       }
+    },
+    "/{platformId}/statitics/mining": {
+      "get": {
+        "summary": "统计平台的挖矿信息",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "platform",
+              "merchant",
+              "merchantProduct",
+              "miningFarm",
+              "customer"
+            ],
+            "description": "统计对象"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "description": "统计对象ID值"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "workers",
+                "hashes",
+                "revenues",
+                "powerConsumes"
+              ]
+            },
+            "collectionFormat": "csv",
+            "description": "需要返回的数据内容"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回平台挖矿统计信息",
+            "schema": {
+              "$ref": "#/definitions/MiningStatitics"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getStatitics"
+      }
+    },
+    "/{platformId}/statitics/sales": {
+      "get": {
+        "summary": "统计平台的挖矿信息",
+        "tags": [
+          "platform",
+          "sales"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "platform",
+              "merchant",
+              "customer"
+            ],
+            "description": "统计对象"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "description": "统计对象值"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回平台挖矿统计信息",
+            "schema": {
+              "$ref": "#/definitions/SalesStatitics"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getSalesStatitics"
+      }
     }
   },
   "parameters": {
@@ -1665,15 +1799,6 @@
       "required": true,
       "type": "integer",
       "format": "int64"
-    },
-    "CreateSettleParams": {
-      "name": "createSettleParams",
-      "in": "body",
-      "description": "生成结算单的请求参数",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/MiningSettleRequest"
-      }
     }
   },
   "definitions": {
@@ -1968,6 +2093,39 @@
           "type": "string",
           "description": "昵称"
         },
+        "btcAddress": {
+          "type": "string",
+          "description": "比特币地址"
+        },
+        "hashRate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户总算力, 单位 GHash/s"
+        },
+        "miningRevenue": {
+          "type": "integer",
+          "format": "int64",
+          "description": "累计比特币挖矿收益, 单位聪"
+        },
+        "totalPaid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "累计已支付比特币, 单位聪"
+        },
+        "totalInSettlement": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算中的比特币, 单位聪"
+        },
+        "balance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "比特币余额, 单位聪"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
         "createdAt": {
           "type": "string",
           "format": "date-time",
@@ -2138,6 +2296,11 @@
         },
         "description": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "date-time",
+          "description": "创建时间"
         }
       }
     },
@@ -2537,7 +2700,7 @@
         }
       }
     },
-    "MiningSettleRequest": {
+    "MiningSettle": {
       "type": "object",
       "properties": {
         "productIds": {
@@ -2660,6 +2823,169 @@
         "settlementBTC": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "HashesTimeline": {
+      "type": "object",
+      "properties": {
+        "hashes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "哈希数量"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GMT时间"
+        }
+      }
+    },
+    "HashesStatitics": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前算力, 单位 GHash/s"
+        },
+        "hoursTimeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HashesTimeline"
+          },
+          "description": "每个时间点的哈希数量, 按小时一个时间点, 1小时平均算力计算公式 = 哈希数量 / 3600(秒)"
+        },
+        "daysTimeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HashesTimeline"
+          },
+          "description": "每个时间点的哈希数量, 按天一个时间点, 1天平均算力计算公式 = 哈希数量 / 86400(秒)"
+        }
+      }
+    },
+    "PowerConsumesTimeline": {
+      "type": "object",
+      "properties": {
+        "volume": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用电量, 单位千分之一度"
+        },
+        "totalVolume": {
+          "type": "integer",
+          "format": "int64",
+          "description": "截止当前时间点累计用电量, 单位千分之一度"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GMT时间"
+        }
+      }
+    },
+    "PowerConsumesStatitics": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总计用电量, 单位千分之一度"
+        },
+        "daysTimeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PowerConsumesTimeline"
+          },
+          "description": "每个时间点的用电量, 按天一个时间点"
+        }
+      }
+    },
+    "MiningRevenueTimeline": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "比特币挖矿收益, 单位聪"
+        },
+        "totalAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "截止当前时间点累计比特币挖矿收益, 单位聪"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GMT时间"
+        }
+      }
+    },
+    "MiningRevenueStatitics": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "累计比特币挖矿收益, 单位聪"
+        },
+        "daysTimeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MiningRevenueTimeline"
+          },
+          "description": "每个时间点的比特币挖矿收益, 按天一个时间点"
+        }
+      }
+    },
+    "MiningWorkerStatitics": {
+      "type": "object",
+      "properties": {
+        "workingWorkers": {
+          "type": "integer",
+          "format": "int64",
+          "description": "在工作中的矿工数量"
+        },
+        "workingHashrate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "在工作中的矿工总算力, 单位 GHash/s"
+        },
+        "stoppedWorkers": {
+          "type": "integer",
+          "format": "int64",
+          "description": "未工作的矿工数量"
+        },
+        "stoppedHashrate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "未工作的矿工总算力, 单位 GHash/s"
+        }
+      }
+    },
+    "MiningStatitics": {
+      "type": "object",
+      "properties": {
+        "hashes": {
+          "$ref": "#/definitions/HashesStatitics"
+        },
+        "revenues": {
+          "$ref": "#/definitions/MiningRevenueStatitics"
+        },
+        "powerConsumes": {
+          "$ref": "#/definitions/PowerConsumesStatitics"
+        },
+        "workers": {
+          "$ref": "#/definitions/MiningWorkerStatitics"
+        }
+      }
+    },
+    "SalesStatitics": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         }
       }
     },
