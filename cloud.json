@@ -1463,6 +1463,166 @@
       }
     }
   },
+  "/{platformId}/merchantNotice": {
+    "get": {
+      "summary": "获取代理带你下的所有公告信息",
+      "tags": [
+        "merchant"
+      ],
+      "security": [
+        {
+          "Admin": [
+
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "$ref": "#/parameters/PlatformId"
+        },{
+          "$ref": "#/parameters/MerchantId"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "返回所有代理点下的公告信息",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MerchantNotices"
+            }
+          }
+        },
+        "default": {
+          "description": "异常错误",
+          "schema": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "operationId": "getMerchantNotices"
+    },
+    "post": {
+      "summary": "创建或修改代理点下的公告",
+      "tags": [
+        "merchant"
+      ],
+      "security": [
+        {
+          "Admin": [
+
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "$ref": "#/parameters/PlatformId"
+        },{
+          "$ref": "#/parameters/MerchantId"
+        },
+        {
+          "name": "notice",
+          "in": "body",
+          "schema": {
+            "$ref": "#/definitions/MerchantNotices"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "创建成功, 返回代理点Id",
+          "schema": {
+            "$ref": "#/definitions/ObjectId"
+          }
+        },
+        "default": {
+          "description": "异常错误",
+          "schema": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "operationId": "GreateOrUpdateMerchantNotice"
+    }
+  },
+  "/{platformId}/PlatformNotice": {
+    "get": {
+      "summary": "获取平台下的所有公告信息",
+      "tags": [
+        "merchant"
+      ],
+      "security": [
+        {
+          "Admin": [
+
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "$ref": "#/parameters/PlatformId"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "返回所有平台下的公告信息",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/MerchantNotices"
+            }
+          }
+        },
+        "default": {
+          "description": "异常错误",
+          "schema": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "operationId": "getPlatformNotices"
+    },
+    "post": {
+      "summary": "创建或修改平台下的公告",
+      "tags": [
+        "merchant"
+      ],
+      "security": [
+        {
+          "Admin": [
+
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "$ref": "#/parameters/PlatformId"
+        },
+        {
+          "name": "notice",
+          "in": "body",
+          "schema": {
+            "$ref": "#/definitions/MerchantNotices"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "创建成功, 返回代理点Id",
+          "schema": {
+            "$ref": "#/definitions/ObjectId"
+          }
+        },
+        "default": {
+          "description": "异常错误",
+          "schema": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "operationId": "GreateOrUpdatePlatformNotice"
+    }
+  },
   "parameters": {
     "PlatformId": {
       "name": "platformId",
@@ -1787,6 +1947,34 @@
           "type": "string",
           "description": "昵称"
         },
+        "btcAddress": {
+          "type": "string",
+          "description": "比特币地址"
+        },
+        "commodity": {
+          "type": "string",
+          "description": "商品"
+        },
+        "atLast": {
+          "type": "string",
+          "description": "总算力"
+        },
+        "accumuLatedncome": {
+          "type": "string",
+          "description": "累计收益"
+        },
+        "paided": {
+          "type": "string",
+          "description": "已支付"
+        },
+        "balance": {
+          "type": "string",
+          "description": "余额"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
         "createdAt": {
           "type": "string",
           "format": "date-time",
@@ -1948,6 +2136,11 @@
         },
         "coverPhoto": {
           "$ref": "#/definitions/Photo"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "注册时间"
         },
         "photos": {
           "$ref": "#/definitions/Album"
@@ -2111,6 +2304,56 @@
         "summary": {
           "type": "string",
           "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        }
+      }
+    },
+    "MerchantNotices":{
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string",
+          "format": "int64",
+          "description": "标题"
+        },
+        "content": {
+          "type": "string",
+          "format": "int64",
+          "description": "内容"
+        },
+        "summary": {
+          "type": "string",
+          "format": "int64",
+          "description": "取一条公告的前多少个字"
+        },
+        "isAlert": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "description": "yes|弹出"
+        },
+        "isForce": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "description": "yes|强制阅读"
+        },
+        "pubAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时间"
         },
         "createdAt": {
           "type": "string",
