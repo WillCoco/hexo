@@ -770,7 +770,7 @@
     "/reward": {
       "get": {
         "tags": [
-          "返点"
+          "用户收益"
         ],
         "operationId": "getReward",
         "responses": {
@@ -2258,6 +2258,12 @@
           "format": "int64"
         },
         "speed": {
+          "type": "string"
+        },
+        "total_speed": {
+          "type": "string"
+        },
+        "offline_speed": {
           "type": "string"
         }
       }
