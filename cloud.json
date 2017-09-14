@@ -5,9 +5,9 @@
     "description": "微挖后台管理API文档",
     "version": "1.0.0"
   },
-  "host": "www.easy-mock.com",
-  "basePath": "/v1",
+  "host": "api.wemining.com:8080",
   "schemes": [
+    "http",
     "https"
   ],
   "securityDefinitions": {
@@ -17,6 +17,7 @@
       "name": "X-WeMining-Admin-Token"
     }
   },
+  "basePath": "/v1",
   "consumes": [
     "application/json"
   ],
@@ -83,9 +84,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -109,9 +108,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -145,9 +142,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -187,9 +182,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -225,9 +218,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -261,9 +252,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -303,9 +292,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -341,9 +328,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -377,9 +362,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -419,9 +402,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -449,6 +430,116 @@
         "operationId": "getPaymentMethodById"
       }
     },
+    "/{platformId}/notices": {
+      "get": {
+        "summary": "获取公告列表",
+        "tags": [
+          "platform"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回公告列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Notice"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getNotices"
+      },
+      "post": {
+        "summary": "创建或修改公告",
+        "tags": [
+          "platform"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "method",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Notice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回公告ID",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "createOrUpdateNotice"
+      }
+    },
+    "/{platformId}/notices/{Id}": {
+      "get": {
+        "summary": "获取单个公告",
+        "tags": [
+          "platform"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回单个公告",
+            "schema": {
+              "$ref": "#/definitions/Notice"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getNoticeById"
+      }
+    },
     "/{platformId}/merchants": {
       "get": {
         "summary": "获取所有代理点信息",
@@ -457,9 +548,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -493,9 +582,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -535,9 +622,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -573,9 +658,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -612,9 +695,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -657,9 +738,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -696,9 +775,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -737,9 +814,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -788,9 +863,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -833,9 +906,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -874,9 +945,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -915,9 +984,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -957,9 +1024,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1011,9 +1076,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1066,9 +1129,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1105,9 +1166,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1147,9 +1206,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1189,9 +1246,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1222,6 +1277,125 @@
         "operationId": "completeOrder"
       }
     },
+    "/{platformId}/merchants/{merchantId}/agreements": {
+      "get": {
+        "summary": "代理点文档列表",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回文档列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MerchantAgreement"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getAgreements"
+      },
+      "post": {
+        "summary": "创建或修改文档",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          },
+          {
+            "name": "agreement",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MerchantAgreement"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "创建成功, 返回文档Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "createOrUpdateAgreement"
+      }
+    },
+    "/{platformId}/merchants/{merchantId}/agreements/{Id}": {
+      "get": {
+        "summary": "获取单个文档",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回单个文档",
+            "schema": {
+              "$ref": "#/definitions/MerchantAgreement"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getAgreementById"
+      }
+    },
     "/{platformId}/mining/workers": {
       "get": {
         "summary": "获取矿工列表",
@@ -1230,9 +1404,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1287,9 +1459,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1325,21 +1495,22 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
           {
             "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/CreateSettleParams"
           }
         ],
         "responses": {
           "200": {
-            "description": "返回矿工信息",
+            "description": "操作成功, 返回结算Id",
             "schema": {
-              "$ref": "#/definitions/MiningWorker"
+              "$ref": "#/definitions/ObjectId"
             }
           },
           "default": {
@@ -1360,9 +1531,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1377,7 +1546,7 @@
           "200": {
             "description": "返回矿工信息",
             "schema": {
-              "$ref": "#/definitions/MiningWorker"
+              "$ref": "#/definitions/MiningPayout"
             }
           },
           "default": {
@@ -1398,9 +1567,7 @@
         ],
         "security": [
           {
-            "Admin": [
-
-            ]
+            "Admin": []
           }
         ],
         "parameters": [
@@ -1424,203 +1591,6 @@
         },
         "operationId": "getPayments"
       }
-    },
-    "/{platformId}/mining/agreement": {
-      "post": {
-        "summary": "获取合同数据",
-        "tags": [
-          "mining"
-        ],
-        "security": [
-          {
-            "Admin": [
-
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/PlatformId"
-          },{
-            "$ref": "#/parameters/MerchantId"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "返回合同信息",
-            "schema": {
-              "$ref": "#/definitions/miningAgreement"
-            }
-          },
-          "default": {
-            "description": "异常错误",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "operationId": "getAgreements"
-      }
-    }
-  },
-  "/{platformId}/merchantNotice": {
-    "get": {
-      "summary": "获取代理带你下的所有公告信息",
-      "tags": [
-        "merchant"
-      ],
-      "security": [
-        {
-          "Admin": [
-
-          ]
-        }
-      ],
-      "parameters": [
-        {
-          "$ref": "#/parameters/PlatformId"
-        },{
-          "$ref": "#/parameters/MerchantId"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "返回所有代理点下的公告信息",
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/MerchantNotices"
-            }
-          }
-        },
-        "default": {
-          "description": "异常错误",
-          "schema": {
-            "$ref": "#/definitions/Error"
-          }
-        }
-      },
-      "operationId": "getMerchantNotices"
-    },
-    "post": {
-      "summary": "创建或修改代理点下的公告",
-      "tags": [
-        "merchant"
-      ],
-      "security": [
-        {
-          "Admin": [
-
-          ]
-        }
-      ],
-      "parameters": [
-        {
-          "$ref": "#/parameters/PlatformId"
-        },{
-          "$ref": "#/parameters/MerchantId"
-        },
-        {
-          "name": "notice",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/MerchantNotices"
-          }
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "创建成功, 返回代理点Id",
-          "schema": {
-            "$ref": "#/definitions/ObjectId"
-          }
-        },
-        "default": {
-          "description": "异常错误",
-          "schema": {
-            "$ref": "#/definitions/Error"
-          }
-        }
-      },
-      "operationId": "GreateOrUpdateMerchantNotice"
-    }
-  },
-  "/{platformId}/PlatformNotice": {
-    "get": {
-      "summary": "获取平台下的所有公告信息",
-      "tags": [
-        "merchant"
-      ],
-      "security": [
-        {
-          "Admin": [
-
-          ]
-        }
-      ],
-      "parameters": [
-        {
-          "$ref": "#/parameters/PlatformId"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "返回所有平台下的公告信息",
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/MerchantNotices"
-            }
-          }
-        },
-        "default": {
-          "description": "异常错误",
-          "schema": {
-            "$ref": "#/definitions/Error"
-          }
-        }
-      },
-      "operationId": "getPlatformNotices"
-    },
-    "post": {
-      "summary": "创建或修改平台下的公告",
-      "tags": [
-        "merchant"
-      ],
-      "security": [
-        {
-          "Admin": [
-
-          ]
-        }
-      ],
-      "parameters": [
-        {
-          "$ref": "#/parameters/PlatformId"
-        },
-        {
-          "name": "notice",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/MerchantNotices"
-          }
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "创建成功, 返回代理点Id",
-          "schema": {
-            "$ref": "#/definitions/ObjectId"
-          }
-        },
-        "default": {
-          "description": "异常错误",
-          "schema": {
-            "$ref": "#/definitions/Error"
-          }
-        }
-      },
-      "operationId": "GreateOrUpdatePlatformNotice"
     }
   },
   "parameters": {
@@ -1695,6 +1665,15 @@
       "required": true,
       "type": "integer",
       "format": "int64"
+    },
+    "CreateSettleParams": {
+      "name": "createSettleParams",
+      "in": "body",
+      "description": "生成结算单的请求参数",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/MiningSettleRequest"
+      }
     }
   },
   "definitions": {
@@ -1808,12 +1787,54 @@
         }
       }
     },
+    "Notice": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "content": {
+          "type": "string",
+          "description": "内容"
+        },
+        "summary": {
+          "type": "string",
+          "description": "摘要"
+        },
+        "dispayPopup": {
+          "type": "boolean",
+          "description": "弹窗显示"
+        },
+        "readConfirm": {
+          "type": "boolean",
+          "description": "确认阅读"
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时间"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        }
+      }
+    },
     "Platform": {
       "type": "object",
       "properties": {
         "Id": {
           "type": "integer",
           "format": "int64"
+        },
+        "name": {
+          "type": "string"
         },
         "slogan": {
           "type": "string",
@@ -1946,34 +1967,6 @@
         "nickName": {
           "type": "string",
           "description": "昵称"
-        },
-        "btcAddress": {
-          "type": "string",
-          "description": "比特币地址"
-        },
-        "commodity": {
-          "type": "string",
-          "description": "商品"
-        },
-        "atLast": {
-          "type": "string",
-          "description": "总算力"
-        },
-        "accumuLatedncome": {
-          "type": "string",
-          "description": "累计收益"
-        },
-        "paided": {
-          "type": "string",
-          "description": "已支付"
-        },
-        "balance": {
-          "type": "string",
-          "description": "余额"
-        },
-        "remarks": {
-          "type": "string",
-          "description": "备注"
         },
         "createdAt": {
           "type": "string",
@@ -2137,11 +2130,6 @@
         "coverPhoto": {
           "$ref": "#/definitions/Photo"
         },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "注册时间"
-        },
         "photos": {
           "$ref": "#/definitions/Album"
         },
@@ -2286,33 +2274,7 @@
         }
       }
     },
-    "miningAgreement":{
-      "type": "object",
-      "properties": {
-        "Id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "title": {
-          "type": "string",
-          "format": "int64"
-        },
-        "content": {
-          "type": "string",
-          "format": "int64"
-        },
-        "summary": {
-          "type": "string",
-          "format": "int64"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "创建时间"
-        }
-      }
-    },
-    "MerchantNotices":{
+    "MerchantAgreement": {
       "type": "object",
       "properties": {
         "Id": {
@@ -2332,28 +2294,7 @@
         "summary": {
           "type": "string",
           "format": "int64",
-          "description": "取一条公告的前多少个字"
-        },
-        "isAlert": {
-          "type": "string",
-          "enum": [
-            "yes",
-            "no"
-          ],
-          "description": "yes|弹出"
-        },
-        "isForce": {
-          "type": "string",
-          "enum": [
-            "yes",
-            "no"
-          ],
-          "description": "yes|强制阅读"
-        },
-        "pubAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "发布时间"
+          "description": "摘要"
         },
         "createdAt": {
           "type": "string",
@@ -2542,11 +2483,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "periodStart": {
-          "type": "string",
-          "format": "date"
-        },
-        "periodEnd": {
+        "settledAt": {
           "type": "string",
           "format": "date"
         },
@@ -2558,11 +2495,6 @@
           "type": "integer",
           "format": "int64",
           "description": "结算周期产生的总用电度数 单位千分之一度"
-        },
-        "electricityPrice": {
-          "type": "integer",
-          "format": "int64",
-          "description": "此次结算的用电价格, 单位人民币分"
         },
         "btcExchangeRate": {
           "type": "integer",
@@ -2583,9 +2515,49 @@
           "type": "integer",
           "format": "int64"
         },
+        "confirmed": {
+          "type": "boolean"
+        },
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "MiningMinusCostEntry": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "费用名称"
+        },
+        "cost": {
+          "type": "integer",
+          "format": "int64",
+          "description": "费用, 人民币, 单位分"
+        }
+      }
+    },
+    "MiningSettleRequest": {
+      "type": "object",
+      "properties": {
+        "productIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "btcExchangeRate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "比特币汇率, 1 BTC = N RMB 单位分"
+        },
+        "minusCostEntries": {
+          "description": "扣除费用条目",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MiningMinusCostEntry"
+          }
         }
       }
     },
@@ -2713,6 +2685,15 @@
       }
     },
     "MiningSettlementPayoutHistory": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MiningPayout": {
       "type": "object",
       "properties": {
         "Id": {
