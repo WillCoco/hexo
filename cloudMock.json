@@ -5,7 +5,8 @@
     "description": "微挖后台管理API文档",
     "version": "1.0.0"
   },
-  "host": "admin.api.wemining.com",
+  "host": "www.easy-mock.com",
+  "basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1",
   "schemes": [
     "http",
     "https"
@@ -17,7 +18,6 @@
       "name": "X-WeMining-Admin-Token"
     }
   },
-  "basePath": "/mock/59b0da50e0dc663341a07d08/cloud/v1",
   "consumes": [
     "application/json"
   ],
