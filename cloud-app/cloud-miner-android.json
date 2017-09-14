@@ -1857,6 +1857,71 @@
                     }
                 ]
             }
+        },
+        "/soDifficult/info": {
+            "get": {
+                "tags": [
+                    "全网难度"
+                ],
+                "operationId": "getSoDifficult",
+                "parameters": [
+                    {
+                        "name": "Cminer-Client-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Cminer-Client-OS",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "object",
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/wrapper"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "so_difficult": {
+                                                    "type": "string"
+                                                },
+                                                "curr_difficult": {
+                                                    "type": "string"
+                                                },
+                                                "next_difficult": {
+                                                    "type": "string"
+                                                },
+                                                "adjust_time": {
+                                                    "type": "string"
+                                                },
+                                                "next_percentage": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "description": ""
+                    }
+                },
+                "security": [
+                    {
+                        "access_key": []
+                    }
+                ]
+            }
         }
     },
     "definitions": {
