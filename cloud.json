@@ -731,43 +731,6 @@
       }
     },
     "/{platformId}/merchants/{merchantId}/addresses/{customerId}": {
-      "get": {
-        "summary": "获取代理点下顾客比特币地址",
-        "tags": [
-          "merchant"
-        ],
-        "security": [
-          {
-            "Admin": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/PlatformId"
-          },
-          {
-            "$ref": "#/parameters/MerchantId"
-          },
-          {
-            "$ref": "#/parameters/CustomerId"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "返回顾客比特币地址",
-            "schema": {
-              "type": "string"
-            }
-          },
-          "default": {
-            "description": "异常错误",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "operationId": "getCustomerAddress"
-      },
       "post": {
         "summary": "设置代理点下顾客比特币地址",
         "tags": [
@@ -841,7 +804,7 @@
             "in": "query",
             "type": "integer",
             "format": "int64",
-            "description": "根据用户id过滤"
+            "description": "根据用户ID过滤"
           }
         ],
         "responses": {
@@ -1609,6 +1572,7 @@
       "get": {
         "summary": "统计平台的挖矿信息",
         "tags": [
+          "statitics",
           "mining"
         ],
         "security": [
@@ -1671,15 +1635,15 @@
             }
           }
         },
-        "operationId": "getStatitics"
+        "operationId": "getMiningStatitics"
       }
     },
-    "/{platformId}/statitics/sales": {
+    "/{platformId}/statitics/order": {
       "get": {
-        "summary": "统计平台的挖矿信息",
+        "summary": "统计订单信息",
         "tags": [
-          "platform",
-          "sales"
+          "statitics",
+          "order"
         ],
         "security": [
           {
@@ -1711,9 +1675,9 @@
         ],
         "responses": {
           "200": {
-            "description": "返回平台挖矿统计信息",
+            "description": "返回订单统计信息",
             "schema": {
-              "$ref": "#/definitions/SalesStatitics"
+              "$ref": "#/definitions/OrderStatitics"
             }
           },
           "default": {
@@ -1723,7 +1687,48 @@
             }
           }
         },
-        "operationId": "getSalesStatitics"
+        "operationId": "getOrderStatitics"
+      }
+    },
+    "/{platformId}/statitics/account": {
+      "get": {
+        "summary": "统计用户数量",
+        "tags": [
+          "statitics",
+          "account"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "merchant",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "description": "只统计单个代理点下用户数量"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回用户统计信息",
+            "schema": {
+              "$ref": "#/definitions/QtyStatitics"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getAccountStatitics"
       }
     }
   },
@@ -2981,11 +2986,128 @@
         }
       }
     },
-    "SalesStatitics": {
+    "QtyTimeline": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
+        "qty": {
+          "type": "integer",
+          "format": "int64",
+          "description": "数量"
+        },
+        "totalQty": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前截止时间累计数量"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GMT时间"
+        }
+      }
+    },
+    "QtyStatitics": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总数量"
+        },
+        "today": {
+          "type": "integer",
+          "format": "int64",
+          "description": "今日数量"
+        },
+        "thisMonth": {
+          "type": "integer",
+          "format": "int64",
+          "description": "本月数量"
+        },
+        "thisYear": {
+          "type": "integer",
+          "format": "int64",
+          "description": "今年数量"
+        },
+        "daysTimeline": {
+          "$ref": "#/definitions/QtyTimeline"
+        },
+        "monthTimeline": {
+          "$ref": "#/definitions/QtyTimeline"
+        },
+        "yearsTimeline": {
+          "$ref": "#/definitions/QtyTimeline"
+        }
+      }
+    },
+    "AmountTimeline": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "金额"
+        },
+        "totalAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前截止时间累计金额"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GMT时间"
+        }
+      }
+    },
+    "AmountStatitics": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总金额"
+        },
+        "today": {
+          "type": "integer",
+          "format": "int64",
+          "description": "今日金额"
+        },
+        "thisMonth": {
+          "type": "integer",
+          "format": "int64",
+          "description": "本月金额"
+        },
+        "thisYear": {
+          "type": "integer",
+          "format": "int64",
+          "description": "今年金额"
+        },
+        "daysTimeline": {
+          "$ref": "#/definitions/AmountTimeline"
+        },
+        "monthTimeline": {
+          "$ref": "#/definitions/AmountTimeline"
+        },
+        "yearsTimeline": {
+          "$ref": "#/definitions/AmountTimeline"
+        }
+      }
+    },
+    "OrderStatitics": {
+      "type": "object",
+      "properties": {
+        "volume": {
+          "$ref": "#/definitions/QtyStatitics",
+          "description": "订单数量金额统计"
+        },
+        "amount": {
+          "$ref": "#/definitions/AmountStatitics",
+          "description": "订单应收金额统计"
+        },
+        "paidAmount": {
+          "$ref": "#/definitions/AmountStatitics",
+          "description": "订单实收金额统计"
         }
       }
     },
