@@ -103,6 +103,9 @@
     "/{platformId}/upload/photo": {
       "post": {
         "summary": "上传照片",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
         "tags": [
           "upload"
         ],
@@ -920,6 +923,23 @@
           },
           {
             "$ref": "#/parameters/Order"
+          },
+          {
+            "name": "mobile",
+            "in": "query",
+            "type": "string",
+            "description": "根据手机号查询"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "type": "string",
+            "description": "根据邮箱查询"
+          },
+          {
+            "name": "nickName",
+            "type": "query",
+            "description": "根据昵称查询"
           }
         ],
         "responses": {
@@ -1202,6 +1222,9 @@
     "/{platformId}/merchants/{merchantId}/products/{Id}/purchase": {
       "post": {
         "summary": "用户购买商品",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
         "tags": [
           "merchant",
           "customer",
@@ -1457,6 +1480,9 @@
     "/{platformId}/merchants/{merchantId}/orders/{Id}/confirm": {
       "post": {
         "summary": "用户已付款, 确认订单",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
         "tags": [
           "merchant",
           "sales",
@@ -1767,6 +1793,9 @@
     "/{platformId}/mining/workers/transfer": {
       "post": {
         "summary": "矿工转移",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
         "tags": [
           "mining"
         ],
@@ -1786,6 +1815,14 @@
             "format": "int64",
             "required": true,
             "description": "矿场Id"
+          },
+          {
+            "name": "merchantProductId",
+            "in": "formData",
+            "type": "integer",
+            "format": "int64",
+            "required": true,
+            "description": "商品Id"
           },
           {
             "name": "transferor",
@@ -1869,6 +1906,63 @@
       }
     },
     "/{platformId}/mining/settlements": {
+      "get": {
+        "summary": "获取结算单列表",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Skip"
+          },
+          {
+            "$ref": "#/parameters/Limit"
+          },
+          {
+            "$ref": "#/parameters/Sort"
+          },
+          {
+            "$ref": "#/parameters/Order"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "new",
+              "canceled",
+              "confirmed",
+              "completed"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回结算单列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MiningSettlement"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getSettlements"
+      },
       "post": {
         "summary": "结算用户收益",
         "tags": [
@@ -2035,6 +2129,11 @@
           },
           {
             "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "reason",
+            "type": "string",
+            "description": "取消原因"
           }
         ],
         "responses": {
@@ -2838,6 +2937,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "merchant": {
+          "$ref": "#/definitions/Merchant"
+        },
         "mobile": {
           "type": "string",
           "description": "手机号"
@@ -3392,10 +3494,11 @@
           "format": "date",
           "description": "结算统计挖矿截止时间点的用户收益"
         },
-        "confirmed": {
+        "status": {
           "type": "string",
           "enum": [
             "new",
+            "canceled",
             "confirmed",
             "completed"
           ]
@@ -3414,6 +3517,15 @@
           "type": "string",
           "format": "date-time",
           "description": "完成时间"
+        },
+        "cancelReason": {
+          "type": "string",
+          "description": "取消原因"
+        },
+        "canceledAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "取消时间"
         }
       }
     },
