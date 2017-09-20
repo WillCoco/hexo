@@ -1790,6 +1790,106 @@
         "operationId": "getWorkers"
       }
     },
+    "/{platformId}/mining/workers/activate": {
+      "post": {
+        "summary": "启用矿工",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "workerIds",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ObjectId"
+            },
+            "collectionFormat": "csv",
+            "required": true,
+            "description": "矿工Id列表"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回启用的数量",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ObjectId"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "activateWorkers"
+      }
+    },
+    "/{platformId}/mining/workers/deactivate": {
+      "post": {
+        "summary": "停用用矿工",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "workerIds",
+            "in": "formData",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ObjectId"
+            },
+            "collectionFormat": "csv",
+            "required": true,
+            "description": "矿工Id列表"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回停用的数量",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ObjectId"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "deactivateWorkers"
+      }
+    },
     "/{platformId}/mining/workers/transfer": {
       "post": {
         "summary": "矿工转移",
