@@ -925,21 +925,10 @@
             "$ref": "#/parameters/Order"
           },
           {
-            "name": "mobile",
+            "name": "keywords",
             "in": "query",
             "type": "string",
-            "description": "根据手机号查询"
-          },
-          {
-            "name": "email",
-            "in": "query",
-            "type": "string",
-            "description": "根据邮箱查询"
-          },
-          {
-            "name": "nickName",
-            "type": "query",
-            "description": "根据昵称查询"
+            "description": "根据手机号|邮箱|昵称查询"
           }
         ],
         "responses": {
@@ -1504,6 +1493,14 @@
             "$ref": "#/parameters/Id"
           },
           {
+            "name": "paidAmount",
+            "in": "formData",
+            "type": "integer",
+            "format": "int64",
+            "required": true,
+            "description": "实收金额"
+          },
+          {
             "name": "memo",
             "in": "formData",
             "type": "string",
@@ -1842,7 +1839,7 @@
     },
     "/{platformId}/mining/workers/deactivate": {
       "post": {
-        "summary": "停用用矿工",
+        "summary": "停用矿工",
         "consumes": [
           "application/x-www-form-urlencoded"
         ],
@@ -2102,6 +2099,42 @@
           }
         },
         "operationId": "settle"
+      }
+    },
+    "/{platformId}/mining/settlements/product": {
+      "get": {
+        "summary": "获取需要结算的商品列表",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回需要结算的商品列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductsForMiningSettlement"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getProductsForSettlement"
       }
     },
     "/{platformId}/mining/settlements/{Id}": {
@@ -2700,7 +2733,6 @@
       "name": "skip",
       "in": "query",
       "description": "分页 - 略过多少条目",
-      "required": true,
       "type": "integer",
       "format": "int32"
     },
@@ -2708,7 +2740,6 @@
       "name": "limit",
       "in": "query",
       "description": "分页 - 最大返回条目",
-      "required": true,
       "type": "integer",
       "format": "int32"
     },
@@ -3244,7 +3275,7 @@
           "type": "string",
           "enum": [
             "new",
-            "openning",
+            "opening",
             "closed",
             "outOfStock",
             "comingSoon"
@@ -3267,6 +3298,16 @@
           "type": "string",
           "format": "date-time",
           "description": "创建时间"
+        },
+        "openedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "上架时间"
+        },
+        "closedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "下架时间"
         }
       }
     },
@@ -3527,6 +3568,63 @@
           "items": {
             "$ref": "#/definitions/MiningMinusCost"
           }
+        }
+      }
+    },
+    "ProductsForMiningSettlement": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商品Id"
+        },
+        "productName": {
+          "type": "string",
+          "description": "商品名称"
+        },
+        "farmId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "矿场Id"
+        },
+        "farmName": {
+          "type": "string",
+          "description": "矿场名称"
+        },
+        "merchantId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "代理点Id"
+        },
+        "merchantName": {
+          "type": "string",
+          "description": "代理点名称"
+        },
+        "hashRate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前算力"
+        },
+        "latestSettledAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "上次结算时间"
+        },
+        "btcLatestRevenueInSettlement": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上次结算单挖矿收益"
+        },
+        "btcRevenueInSettlement": {
+          "type": "integer",
+          "format": "int64",
+          "description": "本次挖矿收益"
+        },
+        "electricity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "电费, 人民币"
         }
       }
     },
