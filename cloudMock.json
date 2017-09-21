@@ -2567,18 +2567,22 @@
             "$ref": "#/parameters/PlatformId"
           },
           {
-            "name": "scope",
+            "name": "scopes",
             "in": "query",
-            "type": "string",
-            "enum": [
-              "merchant",
-              "merchantProduct",
-              "miningFarm",
-              "customer",
-              "merchantOrder",
-              "salesVolume",
-              "miningHashRate"
-            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "merchant",
+                "merchantProduct",
+                "miningFarm",
+                "customer",
+                "merchantOrder",
+                "salesVolume",
+                "miningHashRate"
+              ]
+            },
+            "collectionFormat": "csv",
             "description": "统计对象"
           }
         ],
@@ -2618,16 +2622,20 @@
             "$ref": "#/parameters/Id"
           },
           {
-            "name": "scope",
+            "name": "scopes",
             "in": "query",
-            "type": "string",
-            "enum": [
-              "merchantProduct",
-              "customer",
-              "merchantOrder",
-              "salesVolume",
-              "miningHashRate"
-            ],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "merchantProduct",
+                "customer",
+                "merchantOrder",
+                "salesVolume",
+                "miningHashRate"
+              ]
+            },
+            "collectionFormat": "csv",
             "description": "统计对象"
           }
         ],
@@ -2667,14 +2675,18 @@
             "$ref": "#/parameters/Id"
           },
           {
-            "name": "scope",
+            "name": "scopes",
             "in": "query",
-            "type": "string",
-            "enum": [
-              "merchant",
-              "merchantProduct",
-              "miningHashRate"
-            ],
+            "type": "array",
+            "item": {
+              "type": "string",
+              "enum": [
+                "merchant",
+                "merchantProduct",
+                "miningHashRate"
+              ]
+            },
+            "collectionFormat": "csv",
             "description": "统计对象"
           }
         ],
