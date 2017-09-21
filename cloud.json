@@ -127,6 +127,9 @@
         ],
         "responses": {
           "200": {
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            },
             "description": "上传成功, 返回照片Id"
           }
         },
@@ -1906,22 +1909,6 @@
             "$ref": "#/parameters/PlatformId"
           },
           {
-            "name": "farmId",
-            "in": "formData",
-            "type": "integer",
-            "format": "int64",
-            "required": true,
-            "description": "矿场Id"
-          },
-          {
-            "name": "merchantProductId",
-            "in": "formData",
-            "type": "integer",
-            "format": "int64",
-            "required": true,
-            "description": "商品Id"
-          },
-          {
             "name": "transferor",
             "in": "formData",
             "type": "integer",
@@ -1938,17 +1925,18 @@
             "description": "受让人"
           },
           {
-            "name": "qty",
-            "in": "formData",
-            "type": "integer",
-            "format": "int64",
-            "required": true,
-            "description": "转让数量"
+            "name": "workers",
+            "in": "body",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TransferWorker"
+            },
+            "description": "转让的矿工列表"
           }
         ],
         "responses": {
           "200": {
-            "description": "操作成功, 返回转让的数量",
+            "description": "操作成功, 返回转让的矿工Id列表",
             "schema": {
               "type": "array",
               "items": {
@@ -2705,6 +2693,55 @@
           }
         },
         "operationId": "getMiningFarmTotal"
+      }
+    },
+    "/{platformId}/statitics/customers/{Id}/total": {
+      "get": {
+        "summary": "顾客统计汇总",
+        "tags": [
+          "statitics"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "scopes",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "worker"
+              ]
+            },
+            "collectionFormat": "csv",
+            "description": "统计对象"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回用户统计信息",
+            "schema": {
+              "$ref": "#/definitions/MerchantCustomerTotalStatitics"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getMerchantCustomerTotal"
       }
     }
   },
@@ -3485,6 +3522,21 @@
         }
       }
     },
+    "TransferWorker": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "转让的订单号"
+        },
+        "qty": {
+          "type": "integer",
+          "format": "int64",
+          "description": "转让数量"
+        }
+      }
+    },
     "MiningWorker": {
       "type": "object",
       "properties": {
@@ -4112,6 +4164,38 @@
         }
       }
     },
+    "QtyOrderMiningWorkerStatitics": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单Id"
+        },
+        "orderNo": {
+          "type": "string",
+          "description": "订单编号"
+        },
+        "productId": {
+          "type": "string",
+          "description": "商品Id"
+        },
+        "productName": {
+          "type": "string",
+          "description": "商品名称"
+        },
+        "hashRatePerQty": {
+          "type": "integer",
+          "format": "int64",
+          "description": "矿工算力规格, 1代表1Ghash/s"
+        },
+        "workerCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "矿工数量"
+        }
+      }
+    },
     "AmountTimeline": {
       "type": "object",
       "properties": {
@@ -4277,6 +4361,14 @@
           "type": "integer",
           "format": "int64",
           "description": "总算力, 1代表1GHash/s"
+        }
+      }
+    },
+    "MerchantCustomerTotalStatitics": {
+      "type": "object",
+      "properties": {
+        "worker": {
+          "$ref": "#/definitions/QtyOrderMiningWorkerStatitics"
         }
       }
     },
