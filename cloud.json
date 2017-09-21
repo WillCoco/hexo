@@ -1813,7 +1813,8 @@
             "in": "formData",
             "type": "array",
             "items": {
-              "$ref": "#/definitions/ObjectId"
+              "type": "integer",
+              "format": "int64"
             },
             "collectionFormat": "csv",
             "required": true,
@@ -1863,7 +1864,8 @@
             "in": "formData",
             "type": "array",
             "items": {
-              "$ref": "#/definitions/ObjectId"
+              "type": "integer",
+              "format": "int64"
             },
             "collectionFormat": "csv",
             "required": true,
@@ -1892,10 +1894,7 @@
     },
     "/{platformId}/mining/workers/transfer": {
       "post": {
-        "summary": "矿工转移",
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
+        "summary": "转让矿工",
         "tags": [
           "mining"
         ],
@@ -1910,7 +1909,7 @@
           },
           {
             "name": "transferor",
-            "in": "formData",
+            "in": "query",
             "type": "integer",
             "format": "int64",
             "required": true,
@@ -1918,18 +1917,20 @@
           },
           {
             "name": "assignee",
-            "in": "formData",
+            "in": "query",
             "type": "integer",
             "format": "int64",
-            "required": true,
             "description": "受让人"
           },
           {
             "name": "workers",
             "in": "body",
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/TransferWorker"
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QtyOrderWorker"
+              }
             },
             "description": "转让的矿工列表"
           }
@@ -2253,6 +2254,7 @@
           },
           {
             "name": "reason",
+            "in": "formData",
             "type": "string",
             "description": "取消原因"
           }
@@ -2666,7 +2668,7 @@
             "name": "scopes",
             "in": "query",
             "type": "array",
-            "item": {
+            "items": {
               "type": "string",
               "enum": [
                 "merchant",
@@ -3522,21 +3524,6 @@
         }
       }
     },
-    "TransferWorker": {
-      "type": "object",
-      "properties": {
-        "orderId": {
-          "type": "integer",
-          "format": "int64",
-          "description": "转让的订单号"
-        },
-        "qty": {
-          "type": "integer",
-          "format": "int64",
-          "description": "转让数量"
-        }
-      }
-    },
     "MiningWorker": {
       "type": "object",
       "properties": {
@@ -4161,6 +4148,21 @@
         },
         "yearsTimeline": {
           "$ref": "#/definitions/QtyTimeline"
+        }
+      }
+    },
+    "QtyOrderWorker": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单Id"
+        },
+        "workerCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "矿工数量"
         }
       }
     },
