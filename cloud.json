@@ -4370,7 +4370,10 @@
       "type": "object",
       "properties": {
         "worker": {
-          "$ref": "#/definitions/QtyOrderMiningWorkerStatitics"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QtyOrderMiningWorkerStatitics"
+          }
         }
       }
     },
