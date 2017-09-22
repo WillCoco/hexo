@@ -5,7 +5,7 @@
     "description": "微挖API文档",
     "version": "1.0.0"
   },
-  "host": "api.wemining.com:8080",
+  "host": "www.easy-mock.com",
   "schemes": [
     "http",
     "https"
@@ -22,7 +22,7 @@
       "name": "x-wemining-access-token"
     }
   },
-  "basePath": "/me/v1/",
+  "basePath": "/mock/59b9e7dce0dc663341a930a0/cloudapp",
   "consumes": [
     "application/json",
     "application/x-www-form-urlencoded"
