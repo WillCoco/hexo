@@ -1,0 +1,1046 @@
+swagger: '2.0'
+info:
+  title: wemining
+  description: 微挖API文档
+  version: "1.0.0"
+host: api.wemining.com:8080
+schemes:
+- http
+- https
+securityDefinitions:
+  AppId:
+    type: apiKey
+    in: header
+    name: x-wemining-appid
+  AccessToken:
+    type: apiKey
+    in: header
+    name: x-wemining-access-token
+basePath: /me/v1/
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /auth/signin:
+    post:
+      summary: 验证码登录
+      consumes:
+      - application/x-www-form-urlencoded
+      tags:
+      - auth
+      security:
+      - AppId: []
+      parameters:
+      - name: mobile
+        in: formData
+        type: string
+        description: 手机号
+      - name: email
+        in: formData
+        type: string
+        description: 邮箱
+      - name: vcode
+        in: formData
+        type: string
+        required: true
+        description: 验证码
+      responses:
+        200:
+          description: 登录成功
+          schema:
+            $ref: '#/definitions/Me'
+          headers:
+            x-wemining-access-token:
+              type: string
+              description: 会话token
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: signin
+  /auth/signout:
+    post:
+      summary: 登出
+      tags:
+      - auth
+      security:
+      - AppId: []
+      - AccessToken: []
+      responses:
+        200:
+          description: 登出成功
+      operationId: signout
+  /auth/code:
+    post:
+      summary: 发送验证码
+      tags:
+      - auth
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: mobile
+        in: formData
+        type: string
+        description: 手机号
+      - name: email
+        in: formData
+        type: string
+        description: 邮箱
+      responses:
+        200:
+          description: 发送成功
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: sendCode
+  /profile:
+    get:
+      summary: 获取用户信息
+      tags:
+      - me
+      security:
+      - AppId: []
+      - AccessToken: []
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Me'
+          description: 返回用户信息
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getProfile
+    post:
+      summary: 更新用户信息
+      tags:
+      - me
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: nickName
+        in: formData
+        type: string
+        description: 昵称
+      responses:
+        200:
+          description: 操作成功
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: updateProfile
+  /preference:
+    get:
+      summary: 获取用户偏好设置信息
+      tags:
+      - me
+      security:
+      - AppId: []
+      - AccessToken: []
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Preference'
+          description: 返回用户偏好设置信息
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getPreference
+    post:
+      summary: 更新用户偏好设置
+      tags:
+      - me
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: reminder
+        in: formData
+        type: boolean
+        description: 消息提醒
+      - name: noDisturbing
+        in: formData
+        type: boolean
+        description: 勿扰模式
+      responses:
+        200:
+          description: 操作成功
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: updatePreference
+  /security/revenue/address:
+    post:
+      summary: 绑定或更换比特币收益地址
+      tags:
+      - security
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: address
+        in: formData
+        type: string
+        description: 新的比特币地址
+      - name: vcode
+        in: formData
+        type: string
+        description: 验证码
+      responses:
+        200:
+          description: 操作成功
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: bindRevenueAddress
+  /security/mobile:
+    post:
+      summary: 更换手机号
+      tags:
+      - security
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: mobile
+        in: formData
+        type: string
+        description: 新的手机号码
+      - name: vcode
+        in: formData
+        type: string
+        description: 验证码, 发到当前手机号码
+      responses:
+        200:
+          description: 操作成功
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: bindMobile
+  /security/mobile/confirm:
+    post:
+      summary: 确认手机号
+      tags:
+      - security
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: mobile
+        in: formData
+        type: string
+        description: 确认绑定的新手机号码
+      - name: vcode
+        in: formData
+        type: string
+        description: 验证码, 发到新手机号码
+      responses:
+        200:
+          description: 操作成功
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: bindMobileConfirm
+  /upload/avatar:
+    post:
+      summary: 上传用户头像
+      tags:
+      - upload
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: avatar_data
+        in: formData
+        type: string
+        format: byte
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/ObjectId'
+          description: 上传成功, 返回照片Id
+      operationId: uploadAvatar
+  /exchange/btc/rates:
+    get:
+      summary: 获取BTC报价
+      tags:
+      - exchange
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: code
+        in: query
+        type: string
+        description: ISO 4217 3位货币代码
+      responses:
+        200:
+          description: 操作成功, 返回BTC报价
+          schema:
+            $ref: '#/definitions/BtcExchangeRate'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getBtcRate
+  /platform:
+    get:
+      summary: 获取平台信息
+      tags:
+      - platform
+      security:
+      - AppId: []
+      - AccessToken: []
+      responses:
+        200:
+          description: 返回平台联系方式列表
+          schema:
+            $ref: '#/definitions/Platform'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getInformation
+  /platform/notices:
+    get:
+      summary: 获取平台公告列表
+      tags:
+      - platform
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: start_at
+        in: query
+        type: integer
+        format: int64
+        description: 起始公告发布时间, UNIX时间戳, GMT时间, 单位毫秒
+      responses:
+        200:
+          description: 返回平台公告列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notice'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getNotices
+  /platform/agreements/{Id}:
+    get:
+      summary: 获取平台协议
+      tags:
+      - platform
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - $ref: '#/parameters/Id'
+      responses:
+        200:
+          description: 返回平台协议
+          schema:
+            $ref: '#/definitions/Agreement'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getAgreementById
+  /platform/notices/{Id}:
+    get:
+      summary: 获取平台单个公告内容
+      tags:
+      - platform
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - $ref: '#/parameters/Id'
+      responses:
+        200:
+          description: 返回公告内容
+          schema:
+            $ref: '#/definitions/Notice'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getNoticeById
+  /products:
+    get:
+      summary: 获取商品列表
+      tags:
+      - sales
+      security:
+      - AppId: []
+      - AccessToken: []
+      responses:
+        200:
+          description: 返回商品列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getProducts
+  /products/{Id}:
+    get:
+      summary: 获取单个商品
+      tags:
+      - sales
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+        - $ref: '#/parameters/Id'
+      responses:
+        200:
+          description: 返回单个商品信息
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getProductById
+  /products/{Id}/purchase:
+    post:
+      summary: 购买商品
+      tags:
+      - sales
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+        - $ref: '#/parameters/Id'
+        - name: qty
+          in: formData
+          type: integer
+          format: int64
+          required: true
+          description: 数量
+        - name: message
+          in: formData
+          type: string
+          description: 留言
+      responses:
+        200:
+          description: 操作成功, 返回订单Id
+          schema:
+            $ref: '#/definitions/ObjectId'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: purchase
+  /orders:
+    get: 
+      summary: 获取订单列表
+      tags:
+      - sales
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - $ref: '#/parameters/Skip'
+      - $ref: '#/parameters/Limit'
+      responses:
+        200:
+          description: 返回订单列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getOrders
+  /orders/{Id}:
+    get: 
+      summary: 获取单个订单
+      tags:
+      - sales
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - $ref: '#/parameters/Id'
+      responses:
+        200:
+          description: 返回单个订单
+          schema:
+            $ref: '#/definitions/Order'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getOrderById
+  /statitics/mining:
+    get:
+      summary: 统计的挖矿信息
+      tags:
+      - statitics
+      security:
+      - AppId: []
+      - AccessToken: []
+      parameters:
+      - name: categories
+        in: query
+        type: array
+        items:
+          type: string
+          enum:
+          - workers
+          - hashes
+          - revenues
+          - powerConsumes
+        collectionFormat: csv
+        description: 需要返回的数据内容
+      responses:
+        200:
+          description: 返回平台挖矿统计信息
+          schema:
+            $ref: '#/definitions/MiningStatitics'
+        default:
+          description: 异常错误
+          schema:
+            $ref: '#/definitions/Error'
+      operationId: getMining
+parameters:
+  Id:
+    name: Id
+    in: path
+    description: Id
+    required: true
+    type: integer
+    format: int64
+  Skip:
+    name: skip
+    in: query
+    description: 分页 - 略过多少条目
+    type: integer
+    format: int32
+  Limit:
+    name: limit
+    in: query
+    description: 分页 - 最大返回条目
+    type: integer
+    format: int32
+definitions:
+  ObjectId:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+  Photo:
+    type: object
+    title: 头像
+    properties:
+      Id:
+        type: integer
+        format: int64
+      mimeType:
+        type: string
+        enum:
+        - png
+        - jpeg
+      name:
+        type: string
+        description: 名称
+      height:
+        type: integer
+        format: int32
+        description: "尺寸 - 高(像素)"
+      width:
+        type: integer
+        format: int32
+        description: "尺寸 - 宽(像素)"
+      url:
+        type: string
+        description: 照片所在url地址
+      createdAt:
+        type: string
+        format: date-time
+  Album:
+    type: object
+    title: 相册
+    properties:
+      Id:
+        type: integer
+        format: int64
+      Photos:
+        type: array
+        items:
+          type: integer
+          format: int64
+      createdAt:
+        type: string
+        format: date-time
+  Platform:
+    type: object
+    properties:
+      contacts:
+        type: array
+        items:
+          $ref: '#/definitions/Entry'
+        description: 联系方式列表
+      paymethods:
+        type: array
+        items:
+          $ref: '#/definitions/PayMethod'
+        description: 平台支付方式列表
+      purchaseAgreement:
+        type: integer
+        format: int64
+        description: 购买协议Id
+  Entry:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 名称
+      value:
+        type: string
+        description: 值
+  PayMethod:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      icon:
+        type: string
+        format: byte
+      name:
+        type: string
+      account:
+        type: string
+        description: 账号
+  Agreement:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      title:
+        type: string
+        format: int64
+        description: 标题
+      content:
+        type: string
+        format: int64
+        description: 内容
+      summary:
+        type: string
+        format: int64
+        description: 摘要
+      createdAt:
+        type: string
+        format: date-time
+        description: 创建时间
+  Me:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+        description: 顾客Id
+      mobile:
+        type: string
+        description: 手机号
+      email:
+        type: string
+        description: 邮箱
+      nickName:
+        type: string
+        description: 昵称
+      avatar:
+        $ref: '#/definitions/Photo'
+      btcRevenueAddress:
+        type: string
+        description: 比特币收益地址
+  Preference:
+    type: object
+    properties:
+      reminder:
+        type: boolean
+        description: 消息提醒 开启|关闭
+      noDisturbing:
+        type: boolean
+        description: 勿扰模式 开启|关闭
+  BtcExchangeRate:
+    type: object
+    properties:
+      code:
+        type: string
+        description: ISO 4217 3位货币代码
+      name:
+        type: string
+        description: 货币名称
+      rate:
+        type: integer
+        format: int64
+        description: 1个BTC对应的货币金额
+  Notice:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      title:
+        type: string
+        description: 标题
+      content:
+        type: string
+        description: 内容
+      summary:
+        type: string
+        description: 摘要
+      dispayPopup:
+        type: boolean
+        description: 弹窗显示
+      readConfirm:
+        type: boolean
+        description: 确认阅读
+      read:
+        type: boolean
+        description: 是否已阅读
+      publishedAt:
+        type: string
+        format: date-time
+        description: 发布时间
+  MiningEquipment:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      brandName:
+        type: string
+        description: 名牌名称
+      modelName:
+        type: string
+        description: 型号
+      hashRate:
+        type: integer
+        format: int64
+        description: 算力, 单位 GHash/s
+      powerWatts:
+        type: integer
+        format: int32
+        description: 功耗, 单位瓦
+  Product:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      equipment:
+        $ref: '#/definitions/MiningEquipment'
+      electricityPrice:
+        type: integer
+        format: int64
+        description: 电价
+      serviceFeePercent:
+        type: integer
+        format: int32
+        description: |
+          服务费(%), 整型, 精确到小数1位, 数值1代表0.1%
+      salesMethod:
+        type: string
+        description: 销售方式
+        enum:
+        - byEquipment
+        - byHashrate
+      salesUnit:
+        type: integer
+        format: int64
+        description: |
+          "销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s"
+      minQtyOfSale:
+        type: integer
+        format: int64
+        description: 最小起售数量, 值的含义与销售方式和销售单位相关
+      qtyInStock:
+        type: integer
+        format: int64
+        description: 库存数量, 值的含义与销售方式和销售单位相关
+      price:
+        type: integer
+        format: int64
+        description: |
+          售价或现价, 精确到分, 数值1代表人民币1分
+      marketPrice:
+        type: integer
+        format: int64
+        description: |
+          市场价或原价, 精确到分, 数值1代表人民币1分
+      status:
+        type: string
+        enum:
+        - opening
+        - outOfStock
+        - comingSoon
+        description: |
+          "订单状态 new(未上架) | comingSoon(期货 or 即将上架) | openning(上架销售中) | closed(下架停止销售) | outOfStock(脱销 or 售罄 or 缺货)"
+      coverPhoto:
+        $ref: '#/definitions/Photo'
+      photos:
+        $ref: '#/definitions/Album'
+      intro:
+        type: string
+      description:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+        description: 创建时间
+      openedAt:
+        type: string
+        format: date-time
+        description: 上架时间
+  Order:
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      orderNo:
+        type: string
+        description: 订单编号
+      productId:
+        type: integer
+        format: int64
+        description: 商品编号
+      productName:
+        type: string
+        description: 商品名称
+      customerMessage:
+        type: string
+        description: 顾客留言
+      electricityPrice:
+        type: integer
+        format: int64
+        description: 电价
+      serviceFeePercent:
+        type: integer
+        format: int32
+        description: |
+          服务费(%), 整型, 精确到小数1位, 数值1代表0.1%
+      salesMethod:
+        type: string
+        description: 销售方式
+        enum:
+        - byEquipment
+        - byHashrate
+      salesUnit:
+        type: integer
+        format: int64
+        description: |
+          "销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s"
+      hashRatePerQty:
+        type: integer
+        format: int64
+        description: 每份多少算力, 1代表1Ghash/s
+      price:
+        type: integer
+        format: int64
+      qty:
+        type: integer
+        format: int64
+        description: 订单数量
+      totalAmount:
+        type: integer
+        format: int64
+        description: 总价
+      paidAmount:
+        type: integer
+        format: int64
+        description: 实收金额
+      orderCompleteBy:
+        type: string
+        enum: 
+        - nextDayAfterOrderConfirmed
+        - immediately
+        - manaully
+        description: 订单完成方式(开挖时间) 订单确认后次日凌晨 | 立即 | 手动
+      status:
+        type: string
+        enum:
+        - new
+        - confirmed
+        - completed
+        - canceled
+        description:
+          订单状态(new|confirmed|completed|canceled)
+      createdAt:
+        type: string
+        format: date-time
+        description: 创建时间
+      confirmedAt:
+        type: string
+        format: date-time
+        description: 确认时间
+      completedAt:
+        type: string
+        format: date-time
+        description: 完成时间或开挖时间
+      canceledAt:
+        type: string
+        format: date-time
+        description: 取消时间
+      cancelReason:
+        type: string
+        description: 取消原因
+  HashesTimeline:
+    type: object
+    properties:
+      hashes: 
+        type: integer
+        format: int64
+        description: 哈希数量
+      timestamp:
+        type: integer
+        format: int64
+        description: UNIX时间戳, GMT时间, 单位毫秒
+  HashesStatitics:
+    type: object
+    properties:
+      current:
+        type: integer
+        format: int64
+        description: 当前算力, 单位 GHash/s
+      hoursTimeline:
+        type: array
+        items:
+          $ref: '#/definitions/HashesTimeline'
+        description: 每个时间点的哈希数量, 按小时一个时间点, 1小时平均算力计算公式 = 哈希数量 / 3600(秒)
+      daysTimeline:
+        type: array
+        items:
+          $ref: '#/definitions/HashesTimeline'
+        description: 每个时间点的哈希数量, 按天一个时间点, 1天平均算力计算公式 = 哈希数量 / 86400(秒)
+  PowerConsumesTimeline:
+    type: object
+    properties:
+      volume:
+        type: integer
+        format: int64
+        description: 用电量, 单位千分之一度
+      totalVolume:
+        type: integer
+        format: int64
+        description: 截止当前时间点累计用电量, 单位千分之一度
+      timestamp:
+        type: integer
+        format: int64
+        description: UNIX时间戳, GMT时间, 单位毫秒
+  PowerConsumesStatitics:
+    type: object
+    properties:
+      total:
+        type: integer
+        format: int64
+        description: 总计用电量, 单位千分之一度
+      daysTimeline:
+        type: array
+        items:
+          $ref: '#/definitions/PowerConsumesTimeline'
+        description: 每个时间点的用电量, 按天一个时间点
+  MiningRevenueTimeline:
+    type: object
+    properties:
+      amount:
+        type: integer
+        format: int64
+        description: 比特币挖矿收益, 单位聪
+      totalAmount:
+        type: integer
+        format: int64
+        description: 截止当前时间点累计比特币挖矿收益, 单位聪
+      timestamp:
+        type: integer
+        format: int64
+        description: UNIX时间戳, GMT时间, 单位毫秒
+  MiningRevenueStatitics:
+    type: object
+    properties:
+      total:
+        type: integer
+        format: int64
+        description: 累计比特币挖矿收益, 单位聪
+      settled:
+        type: integer
+        format: int64
+        description: 已结算收益, 单位聪
+      unSettle:
+        type: integer
+        format: int64
+        description: 未结算收益, 单位聪
+      inSettlement:
+        type: integer
+        format: int64
+        description: 结算中收益, 单位聪
+      daysTimeline:
+        type: array
+        items:
+          $ref: '#/definitions/MiningRevenueTimeline'
+        description: 每个时间点的比特币挖矿收益, 按天一个时间点
+  MiningWorkerStatitics:
+    type: object
+    properties:
+      workingWorkers:
+        type: integer
+        format: int64
+        description: 在工作中的矿工数量
+      workingHashrate:
+        type: integer
+        format: int64
+        description: 在工作中的矿工总算力, 单位 GHash/s
+      stoppedWorkers:
+        type: integer
+        format: int64
+        description: 未工作的矿工数量
+      stoppedHashrate:
+        type: integer
+        format: int64
+        description: 未工作的矿工总算力, 单位 GHash/s
+  MiningStatitics:
+    type: object
+    properties:
+      hashes:
+        $ref: '#/definitions/HashesStatitics'
+      revenues:
+        $ref: '#/definitions/MiningRevenueStatitics'
+      powerConsumes:
+        $ref: '#/definitions/PowerConsumesStatitics'
+      workers:
+        $ref: '#/definitions/MiningWorkerStatitics'
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string    
