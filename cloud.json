@@ -4514,13 +4514,22 @@
           "description": "今年数量"
         },
         "daysTimeline": {
-          "$ref": "#/definitions/QtyTimeline"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QtyTimeline"
+          }
         },
         "monthTimeline": {
-          "$ref": "#/definitions/QtyTimeline"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QtyTimeline"
+          }
         },
         "yearsTimeline": {
-          "$ref": "#/definitions/QtyTimeline"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QtyTimeline"
+          }
         }
       }
     },
@@ -4615,13 +4624,22 @@
           "description": "今年金额"
         },
         "daysTimeline": {
-          "$ref": "#/definitions/AmountTimeline"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AmountTimeline"
+          }
         },
         "monthTimeline": {
-          "$ref": "#/definitions/AmountTimeline"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AmountTimeline"
+          }
         },
         "yearsTimeline": {
-          "$ref": "#/definitions/AmountTimeline"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AmountTimeline"
+          }
         }
       }
     },
