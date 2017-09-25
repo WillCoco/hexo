@@ -172,7 +172,7 @@
         "operationId": "getEquipments"
       },
       "post": {
-        "summary": "创建或修改矿机设备",
+        "summary": "创建矿机设备",
         "tags": [
           "mining"
         ],
@@ -195,7 +195,7 @@
         ],
         "responses": {
           "200": {
-            "description": "返回矿机Id",
+            "description": "创建成功, 返回矿机Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
             }
@@ -207,7 +207,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateEquipment"
+        "operationId": "createEquipment"
       }
     },
     "/{platformId}/mining/equipments/{Id}": {
@@ -244,6 +244,47 @@
           }
         },
         "operationId": "getEquipmentByID"
+      },
+      "post": {
+        "summary": "修改矿机设备",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "equipment",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MiningEquipment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功, 返回矿机Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateEquipment"
       }
     },
     "/{platformId}/mining/farms": {
@@ -282,7 +323,7 @@
         "operationId": "getFarms"
       },
       "post": {
-        "summary": "创建或修改矿场",
+        "summary": "创建矿场",
         "tags": [
           "mining"
         ],
@@ -317,7 +358,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateFarm"
+        "operationId": "createFarm"
       }
     },
     "/{platformId}/mining/farms/{Id}": {
@@ -354,6 +395,47 @@
           }
         },
         "operationId": "getFarmByID"
+      },
+      "post": {
+        "summary": "修改矿场",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "farm",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MiningFarm"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回矿场Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateFarm"
       }
     },
     "/{platformId}/sales/payment/methods": {
@@ -392,7 +474,7 @@
         "operationId": "getPaymentMethods"
       },
       "post": {
-        "summary": "创建或修改支付方式",
+        "summary": "创建支付方式",
         "tags": [
           "sales"
         ],
@@ -427,7 +509,7 @@
             }
           }
         },
-        "operationId": "createOrUpdatePaymentMethods"
+        "operationId": "createPaymentMethod"
       }
     },
     "/{platformId}/sales/payment/methods/{Id}": {
@@ -464,6 +546,47 @@
           }
         },
         "operationId": "getPaymentMethodById"
+      },
+      "post": {
+        "summary": "修改支付方式",
+        "tags": [
+          "sales"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "method",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SalesPaymentMethod"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回支付方式ID",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updatePaymentMethod"
       }
     },
     "/{platformId}/notices": {
@@ -502,7 +625,7 @@
         "operationId": "getNotices"
       },
       "post": {
-        "summary": "创建或修改公告",
+        "summary": "创建公告",
         "tags": [
           "platform"
         ],
@@ -537,7 +660,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateNotice"
+        "operationId": "createNotice"
       }
     },
     "/{platformId}/notices/{Id}": {
@@ -574,6 +697,47 @@
           }
         },
         "operationId": "getNoticeById"
+      },
+      "post": {
+        "summary": "修改公告",
+        "tags": [
+          "platform"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "method",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Notice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回公告ID",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateNotice"
       }
     },
     "/{platformId}/notices/{Id}/pub": {
@@ -821,7 +985,7 @@
         "operationId": "getMerchants"
       },
       "post": {
-        "summary": "创建或修改代理点",
+        "summary": "创建代理点",
         "tags": [
           "merchant",
           "platform"
@@ -857,7 +1021,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateMerchant"
+        "operationId": "createMerchant"
       }
     },
     "/{platformId}/merchants/{Id}": {
@@ -895,6 +1059,48 @@
           }
         },
         "operationId": "getMerchantById"
+      },
+      "post": {
+        "summary": "修改代理点",
+        "tags": [
+          "merchant",
+          "platform"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "merchant",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功, 返回代理点Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateMerchant"
       }
     },
     "/{platformId}/merchants/{merchantId}/customers": {
@@ -954,7 +1160,7 @@
         "operationId": "getMerchantCustomers"
       },
       "post": {
-        "summary": "创建或修改代理点下顾客",
+        "summary": "创建代理点下顾客",
         "tags": [
           "merchant"
         ],
@@ -992,7 +1198,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateMerchantCustomer"
+        "operationId": "createMerchantCustomer"
       }
     },
     "/{platformId}/merchants/{merchantId}/customers/{Id}": {
@@ -1032,6 +1238,50 @@
           }
         },
         "operationId": "getMerchantCustomerById"
+      },
+      "post": {
+        "summary": "修改代理点下顾客",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "customer",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功, 返回顾客Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateMerchantCustomer"
       }
     },
     "/{platformId}/merchants/{merchantId}/addresses/{customerId}": {
@@ -1131,7 +1381,7 @@
         "operationId": "getProductsByMerchant"
       },
       "post": {
-        "summary": "创建或修改代理点商品",
+        "summary": "创建代理点商品",
         "tags": [
           "merchant"
         ],
@@ -1169,7 +1419,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateProduct"
+        "operationId": "createProduct"
       }
     },
     "/{platformId}/merchants/{merchantId}/products/{Id}": {
@@ -1209,6 +1459,50 @@
           }
         },
         "operationId": "getProductByID"
+      },
+      "post": {
+        "summary": "修改代理点商品",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "product",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MerchantProduct"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功, 返回商品Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateProduct"
       }
     },
     "/{platformId}/merchants/{merchantId}/products/{Id}/purchase": {
@@ -1648,7 +1942,7 @@
         "operationId": "getAgreements"
       },
       "post": {
-        "summary": "创建或修改文档",
+        "summary": "创建修改文档",
         "tags": [
           "merchant"
         ],
@@ -1686,7 +1980,7 @@
             }
           }
         },
-        "operationId": "createOrUpdateAgreement"
+        "operationId": "createAgreement"
       }
     },
     "/{platformId}/merchants/{merchantId}/agreements/{Id}": {
@@ -1726,6 +2020,50 @@
           }
         },
         "operationId": "getAgreementById"
+      },
+      "post": {
+        "summary": "修改文档",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          },
+          {
+            "name": "agreement",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MerchantAgreement"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功, 返回文档Id",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "updateAgreement"
       }
     },
     "/{platformId}/mining/workers": {
@@ -2185,7 +2523,10 @@
           "200": {
             "description": "返回结算单明细信息",
             "schema": {
-              "$ref": "#/definitions/MiningSettlementline"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MiningSettlementline"
+              }
             }
           },
           "default": {
@@ -2198,7 +2539,7 @@
         "operationId": "getSettlementLine"
       }
     },
-    "/{platformId}/mining/settlements/{Id}/customer": {
+    "/{platformId}/mining/settlements/{settlementId}/{productId}/customer": {
       "get": {
         "summary": "获取结算单顾客信息",
         "tags": [
@@ -2214,14 +2555,20 @@
             "$ref": "#/parameters/PlatformId"
           },
           {
-            "$ref": "#/parameters/Id"
+            "$ref": "#/parameters/SettlementId"
+          },
+          {
+            "$ref": "#/parameters/ProductId"
           }
         ],
         "responses": {
           "200": {
             "description": "返回结算单顾客信息",
             "schema": {
-              "$ref": "#/definitions/MiningSettlementCustomer"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MiningSettlementCustomer"
+              }
             }
           },
           "default": {
@@ -2569,7 +2916,10 @@
                 "customer",
                 "merchantOrder",
                 "salesVolume",
-                "miningHashRate"
+                "miningHashRate",
+                "miningUnsettledAmount",
+                "miningSettledAmount",
+                "miningInSettlementAmount"
               ]
             },
             "collectionFormat": "csv",
@@ -2622,7 +2972,10 @@
                 "customer",
                 "merchantOrder",
                 "salesVolume",
-                "miningHashRate"
+                "miningHashRate",
+                "miningUnsettledAmount",
+                "miningSettledAmount",
+                "miningInSettlementAmount"
               ]
             },
             "collectionFormat": "csv",
@@ -2722,7 +3075,11 @@
             "items": {
               "type": "string",
               "enum": [
-                "worker"
+                "worker",
+                "miningHashRate",
+                "miningUnsettledAmount",
+                "miningSettledAmount",
+                "miningInSettlementAmount"
               ]
             },
             "collectionFormat": "csv",
@@ -2768,6 +3125,22 @@
       "name": "customerId",
       "in": "path",
       "description": "顾客Id",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+    },
+    "ProductId": {
+      "name": "productId",
+      "in": "path",
+      "description": "产品Id",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+    },
+    "SettlementId": {
+      "name": "settlementId",
+      "in": "path",
+      "description": "结算单Id",
       "required": true,
       "type": "integer",
       "format": "int64"
@@ -4308,6 +4681,21 @@
           "type": "integer",
           "format": "int64",
           "description": "总算力, 1代表1GHash/s"
+        },
+        "miningUnsettledAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "未结算金额"
+        },
+        "miningSettledAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "已结算金额"
+        },
+        "miningInSettlementAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算中, 待支付金额"
         }
       }
     },
@@ -4343,6 +4731,21 @@
           "type": "integer",
           "format": "int64",
           "description": "总算力, 1代表1GHash/s"
+        },
+        "miningUnsettledAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "未结算金额"
+        },
+        "miningSettledAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "已结算金额"
+        },
+        "miningInSettlementAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算中, 待支付金额"
         }
       }
     },
@@ -4374,6 +4777,26 @@
           "items": {
             "$ref": "#/definitions/QtyOrderMiningWorkerStatitics"
           }
+        },
+        "miningHashRate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总算力, 1代表1GHash/s"
+        },
+        "miningUnsettledAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "未结算金额"
+        },
+        "miningSettledAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "已结算金额"
+        },
+        "miningInSettlementAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算中, 待支付金额"
         }
       }
     },
