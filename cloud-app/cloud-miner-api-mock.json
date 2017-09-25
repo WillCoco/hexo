@@ -22,7 +22,7 @@
       "name": "x-wemining-access-token"
     }
   },
-  "basePath": "/mock/59b9e7dce0dc663341a930a0/cloudapp",
+  "basePath": "",
   "consumes": [
     "application/json",
     "application/x-www-form-urlencoded"
