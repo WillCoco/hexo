@@ -172,6 +172,85 @@
         "operationId": "getBtcRate"
       }
     },
+    "/{platformId}/setting/merchant/signup": {
+      "get": {
+        "summary": "查看代理点关注状态 开放|关闭",
+        "tags": [
+          "setting"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功",
+            "schema": {
+              "properties": {
+                "turn": {
+                  "type": "string",
+                  "enum": [
+                    "off",
+                    "on"
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getMerchantSingupSetting"
+      },
+      "post": {
+        "summary": "关闭|开放代理点注册",
+        "tags": [
+          "setting"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "turn",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "on",
+              "off"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功"
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "setMerchantSignup"
+      }
+    },
     "/{platformId}/mining/equipments": {
       "get": {
         "summary": "获取所有矿机信息",
@@ -4752,20 +4831,25 @@
           "format": "int64",
           "description": "总算力, 1代表1GHash/s"
         },
-        "miningUnsettledAmount": {
+        "miningUnsettledBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "未结算金额"
+          "description": "未结算BTC数量"
         },
-        "miningSettledAmount": {
+        "miningSettledBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "已结算金额"
+          "description": "已结算BTC数量"
         },
-        "miningInSettlementAmount": {
+        "miningInSettlementBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "结算中, 待支付金额"
+          "description": "结算中, 待支付BTC数量"
+        },
+        "miningRevenueBTC": {
+          "type": "integer",
+          "format": "int64",
+          "description": "挖矿收益BTC数量"
         }
       }
     },
@@ -4802,20 +4886,25 @@
           "format": "int64",
           "description": "总算力, 1代表1GHash/s"
         },
-        "miningUnsettledAmount": {
+        "miningUnsettledBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "未结算金额"
+          "description": "未结算BTC数量"
         },
-        "miningSettledAmount": {
+        "miningSettledBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "已结算金额"
+          "description": "已结算BTC数量"
         },
-        "miningInSettlementAmount": {
+        "miningInSettlementBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "结算中, 待支付金额"
+          "description": "结算中, 待支付BTC数量"
+        },
+        "miningRevenueBTC": {
+          "type": "integer",
+          "format": "int64",
+          "description": "挖矿收益BTC数量"
         }
       }
     },
@@ -4853,20 +4942,25 @@
           "format": "int64",
           "description": "总算力, 1代表1GHash/s"
         },
-        "miningUnsettledAmount": {
+        "miningUnsettledBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "未结算金额"
+          "description": "未结算BTC数量"
         },
-        "miningSettledAmount": {
+        "miningSettledBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "已结算金额"
+          "description": "已结算BTC数量"
         },
-        "miningInSettlementAmount": {
+        "miningInSettlementBTC": {
           "type": "integer",
           "format": "int64",
-          "description": "结算中, 待支付金额"
+          "description": "结算中, 待支付BTC数量"
+        },
+        "miningRevenueBTC": {
+          "type": "integer",
+          "format": "int64",
+          "description": "挖矿收益BTC数量"
         }
       }
     },
