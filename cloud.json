@@ -136,6 +136,42 @@
         "operationId": "uploadPhoto"
       }
     },
+    "/exchange/btc/rates": {
+      "get": {
+        "summary": "获取BTC报价",
+        "tags": [
+          "exchange"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "type": "string",
+            "description": "ISO 4217 3位货币代码"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回BTC报价",
+            "schema": {
+              "$ref": "#/definitions/BtcExchangeRate"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getBtcRate"
+      }
+    },
     "/{platformId}/mining/equipments": {
       "get": {
         "summary": "获取所有矿机信息",
@@ -3202,6 +3238,24 @@
         }
       }
     },
+    "BtcExchangeRate": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "ISO 4217 3位货币代码"
+        },
+        "name": {
+          "type": "string",
+          "description": "货币名称"
+        },
+        "rate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1个BTC对应的货币金额"
+        }
+      }
+    },
     "SalesPaymentMethod": {
       "type": "object",
       "properties": {
@@ -3385,9 +3439,7 @@
           "description": "名称"
         },
         "avatar": {
-          "type": "string",
-          "format": "byte",
-          "description": "头像"
+          "$ref": "#/definitions/Photo"
         },
         "contact": {
           "$ref": "#/definitions/ContactInfo"
