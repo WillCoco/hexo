@@ -172,7 +172,7 @@
         "operationId": "getBtcRate"
       }
     },
-    "/{platformId}/setting/merchant/signup": {
+    "/{platformId}/setting/merchants/{merchantId}/signup": {
       "get": {
         "summary": "查看代理点关注状态 开放|关闭",
         "tags": [
@@ -186,6 +186,9 @@
         "parameters": [
           {
             "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
           }
         ],
         "responses": {
@@ -225,6 +228,9 @@
         "parameters": [
           {
             "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
           },
           {
             "name": "turn",
@@ -2811,8 +2817,8 @@
       }
     },
     "/{platformId}/mining/payments": {
-      "post": {
-        "summary": "获取支付记录",
+      "get": {
+        "summary": "获取支付记录列表",
         "tags": [
           "mining"
         ],
@@ -2828,9 +2834,12 @@
         ],
         "responses": {
           "200": {
-            "description": "返回矿工信息",
+            "description": "返回支付记录列表",
             "schema": {
-              "$ref": "#/definitions/MiningWorker"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SettlementPayment"
+              }
             }
           },
           "default": {
@@ -2841,6 +2850,81 @@
           }
         },
         "operationId": "getPayments"
+      }
+    },
+    "/{platformId}/mining/payments/{Id}": {
+      "get": {
+        "summary": "获取单个支付记录",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "获取支付记录",
+            "schema": {
+              "$ref": "#/definitions/SettlementPayment"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getPaymentById"
+      }
+    },
+    "/{platformId}/mining/payments/{Id}/line": {
+      "get": {
+        "summary": "获取支付明细",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "获取支付明细",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SettlementPaymentLine"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getPaymentLine"
       }
     },
     "/{platformId}/statitics/mining": {
@@ -4426,13 +4510,16 @@
           "type": "integer",
           "format": "int64"
         },
-        "bipUrl": {
-          "type": "string",
-          "description": "bip支付协议地址"
+        "settlementNo": {
+          "type": "string"
         },
         "paymentUrl": {
           "type": "string",
           "description": "钱包用来的支付的URL地址"
+        },
+        "btcAmount": {
+          "type": "integer",
+          "description": "要支付的BTC数量, 单位聪"
         },
         "invoiceTime": {
           "type": "integer",
@@ -4443,6 +4530,77 @@
           "type": "integer",
           "format": "int64",
           "description": "过期时间, UNIX时间戳, GMT时间, 单位毫秒"
+        }
+      }
+    },
+    "SettlementPayment": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "settlementId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算单Id"
+        },
+        "settlementNo": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算单号"
+        },
+        "txId": {
+          "type": "string",
+          "description": "交易Id"
+        },
+        "txURL": {
+          "type": "string",
+          "description": "在区块链浏览器中的此交易的URL地址"
+        },
+        "txConfirms": {
+          "type": "integer",
+          "format": "int64",
+          "description": "确认数"
+        },
+        "txConfirmedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "确认时间"
+        }
+      }
+    },
+    "SettlementPaymentLine": {
+      "type": "object",
+      "properties": {
+        "paymentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "customerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "customerNickName": {
+          "type": "string",
+          "description": "顾客昵称"
+        },
+        "customerEmail": {
+          "type": "string",
+          "description": "顾客邮箱"
+        },
+        "customerMobile": {
+          "type": "string",
+          "description": "顾客手机号"
+        },
+        "btcAddres": {
+          "type": "string",
+          "description": "btc地址"
+        },
+        "btcAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "btc数量"
         }
       }
     },
@@ -4814,7 +4972,7 @@
         "merchantOrder": {
           "type": "integer",
           "format": "int64",
-          "description": "订单总数(包换已确认和已完成订单)"
+          "description": "订单总数(包括已确认和已完成订单)"
         },
         "merchantUnconfirmedOrder": {
           "type": "integer",
