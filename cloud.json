@@ -4301,6 +4301,11 @@
           "format": "int64",
           "description": "比特币汇率, 1 BTC = N RMB 单位分"
         },
+        "electricityPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "此次结算的用电价格, 单位人民币分"
+        },
         "btcMinusElectricityCost": {
           "type": "integer",
           "format": "int64",
@@ -4461,6 +4466,16 @@
           "type": "string",
           "description": "顾客收款比特币地址"
         },
+        "miningHashRate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户总算力, 单位 GHash/s"
+        },
+        "btcLatestSettlement": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上次结算比特币数量"
+        },
         "btcRevenue": {
           "type": "integer",
           "format": "int64",
@@ -4549,6 +4564,11 @@
           "type": "integer",
           "format": "int64",
           "description": "结算单号"
+        },
+        "btcAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付的比特币数量"
         },
         "txId": {
           "type": "string",
