@@ -42,7 +42,7 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           }
         ],
         "parameters": [
@@ -97,10 +97,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "responses": {
@@ -119,10 +119,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -161,10 +161,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "responses": {
@@ -190,10 +190,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -226,10 +226,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "responses": {
@@ -255,10 +255,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -297,10 +297,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -339,10 +339,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -381,10 +381,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -423,10 +423,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -456,10 +456,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -495,10 +495,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "responses": {
@@ -526,10 +526,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -569,10 +569,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -605,10 +605,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -641,10 +641,22 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "salesMethod",
+            "type": "string",
+            "in": "query",
+            "enum": [
+              "byEquipment",
+              "byHashrate"
+            ],
+            "description": "按销售方式过滤"
           }
         ],
         "responses": {
@@ -675,10 +687,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -711,10 +723,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -761,10 +773,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -803,10 +815,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -831,6 +843,70 @@
         "operationId": "getOrderById"
       }
     },
+    "/orders/{Id}/cancel": {
+      "post": {
+        "summary": "取消订单",
+        "tags": [
+          "sales"
+        ],
+        "security": [
+          {
+            "AppId": []
+          },
+          {
+            "AccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功"
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "cancelOrder"
+      }
+    },
+    "/statitics/mining/network": {
+      "get": {
+        "summary": "比特币全网信息统计",
+        "tags": [
+          "statitics"
+        ],
+        "security": [
+          {
+            "AppId": []
+          },
+          {
+            "AccessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回比特币全网统计信息",
+            "schema": {
+              "$ref": "#/definitions/MiningNetworkStatitics"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getMiningNetwork"
+      }
+    },
     "/statitics/mining": {
       "get": {
         "summary": "统计的挖矿信息",
@@ -839,10 +915,10 @@
         ],
         "security": [
           {
-            "AppId": [ ]
+            "AppId": []
           },
           {
-            "AccessToken": [ ]
+            "AccessToken": []
           }
         ],
         "parameters": [
@@ -878,6 +954,76 @@
           }
         },
         "operationId": "getMining"
+      }
+    },
+    "/mining/payments": {
+      "get": {
+        "summary": "获取收币记录列表",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "AppId": []
+          },
+          {
+            "AccessToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回收币记录列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SettlementPayment"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getPayments"
+      }
+    },
+    "/mining/payments/{Id}": {
+      "get": {
+        "summary": "获取单个收币记录信息",
+        "tags": [
+          "mining"
+        ],
+        "security": [
+          {
+            "AppId": []
+          },
+          {
+            "AccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返回单个收币记录信息",
+            "schema": {
+              "$ref": "#/definitions/SettlementPayment"
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "getPaymentById"
       }
     }
   },
@@ -996,6 +1142,10 @@
           "type": "integer",
           "format": "int64",
           "description": "购买协议Id"
+        },
+        "walletDownloadURL": {
+          "type": "string",
+          "description": "钱包下载URL地址"
         }
       }
     },
@@ -1087,6 +1237,9 @@
         "btcRevenueAddress": {
           "type": "string",
           "description": "比特币收益地址"
+        },
+        "platform": {
+          "$ref": "#/definitions/Platform"
         }
       }
     },
@@ -1207,7 +1360,7 @@
         "serviceFeePercent": {
           "type": "integer",
           "format": "int32",
-          "description": "服务费(%), 整型, 精确到小数1位, 数值1代表0.1%"
+          "description": "服务费(%), 整型, 精确到小数1位, 数值1代表0.1%\n"
         },
         "salesMethod": {
           "type": "string",
@@ -1220,7 +1373,7 @@
         "salesUnit": {
           "type": "integer",
           "format": "int64",
-          "description": "\"销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s\""
+          "description": "\"销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s\"\n"
         },
         "minQtyOfSale": {
           "type": "integer",
@@ -1235,12 +1388,12 @@
         "price": {
           "type": "integer",
           "format": "int64",
-          "description": "售价或现价, 精确到分, 数值1代表人民币1分"
+          "description": "售价或现价, 精确到分, 数值1代表人民币1分\n"
         },
         "marketPrice": {
           "type": "integer",
           "format": "int64",
-          "description": "市场价或原价, 精确到分, 数值1代表人民币1分"
+          "description": "市场价或原价, 精确到分, 数值1代表人民币1分\n"
         },
         "status": {
           "type": "string",
@@ -1249,7 +1402,7 @@
             "outOfStock",
             "comingSoon"
           ],
-          "description": "\"订单状态 new(未上架) | comingSoon(期货 or 即将上架) | openning(上架销售中) | closed(下架停止销售) | outOfStock(脱销 or 售罄 or 缺货)\""
+          "description": "\"订单状态 new(未上架) | comingSoon(期货 or 即将上架) | openning(上架销售中) | closed(下架停止销售) | outOfStock(脱销 or 售罄 or 缺货)\"\n"
         },
         "coverPhoto": {
           "$ref": "#/definitions/Photo"
@@ -1295,6 +1448,16 @@
           "type": "string",
           "description": "商品名称"
         },
+        "productPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商品售价或现价, 精确到分, 数值1代表人民币1分\n"
+        },
+        "productMarketPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商品市场价或原价, 精确到分, 数值1代表人民币1分\n"
+        },
         "customerMessage": {
           "type": "string",
           "description": "顾客留言"
@@ -1307,7 +1470,7 @@
         "serviceFeePercent": {
           "type": "integer",
           "format": "int32",
-          "description": "服务费(%), 整型, 精确到小数1位, 数值1代表0.1%"
+          "description": "服务费(%), 整型, 精确到小数1位, 数值1代表0.1%\n"
         },
         "salesMethod": {
           "type": "string",
@@ -1320,7 +1483,7 @@
         "salesUnit": {
           "type": "integer",
           "format": "int64",
-          "description": "\"销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s\""
+          "description": "\"销售单位, 值的意义和销售方式相关 例: 按矿机整机销售表示台, 1代表1台, 按按算力售 1代表1GHash/s\"\n"
         },
         "hashRatePerQty": {
           "type": "integer",
@@ -1364,6 +1527,9 @@
             "canceled"
           ],
           "description": "订单状态(new|confirmed|completed|canceled)"
+        },
+        "transferTo": {
+          "$ref": "#/definitions/OrderTransfer"
         },
         "createdAt": {
           "type": "string",
@@ -1495,20 +1661,30 @@
           "format": "int64",
           "description": "累计比特币挖矿收益, 单位聪"
         },
+        "today": {
+          "type": "integer",
+          "format": "int64",
+          "description": "今日比特币挖矿收益, 单位聪"
+        },
         "settled": {
           "type": "integer",
           "format": "int64",
-          "description": "已结算收益, 单位聪"
+          "description": "已结算比特币收益, 单位聪"
+        },
+        "settledMinusCost": {
+          "type": "integer",
+          "format": "int64",
+          "description": "其它费用(拆成比特币折扣), 单位聪"
         },
         "unSettle": {
           "type": "integer",
           "format": "int64",
-          "description": "未结算收益, 单位聪"
+          "description": "未结算比特币收益, 单位聪"
         },
         "inSettlement": {
           "type": "integer",
           "format": "int64",
-          "description": "结算中收益, 单位聪"
+          "description": "结算中比特币收益, 单位聪"
         },
         "daysTimeline": {
           "type": "array",
@@ -1558,6 +1734,139 @@
         },
         "workers": {
           "$ref": "#/definitions/MiningWorkerStatitics"
+        }
+      }
+    },
+    "OrderTransfer": {
+      "type": "object",
+      "properties": {
+        "qty": {
+          "type": "integer",
+          "format": "int64",
+          "description": "转让份数"
+        },
+        "transferredAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "转让时间"
+        }
+      }
+    },
+    "MiningMinusCost": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "费用名称"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "减计的人民币费用, 单位分"
+        },
+        "btcDue": {
+          "type": "integer",
+          "format": "int64",
+          "description": "减计的人民币费用对应的需支付的BTC数量, 单位聪"
+        }
+      }
+    },
+    "SettlementPayment": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "settlementId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算单Id"
+        },
+        "settlementNo": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算单号"
+        },
+        "btcRevenue": {
+          "type": "integer",
+          "format": "int64",
+          "description": "收益BTC数量"
+        },
+        "btcReceiptAddress": {
+          "type": "string",
+          "description": "收币地址"
+        },
+        "btcMinusElectricityCost": {
+          "type": "integer",
+          "format": "int64",
+          "description": "减计挖矿中的用电支出, 折成比特币, 扣除"
+        },
+        "btcMinusMiningCost": {
+          "type": "integer",
+          "format": "int64",
+          "description": "减计挖矿中其它费用支出, 折成比特币, 扣除"
+        },
+        "btcMinusMiningCostDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MiningMinusCost"
+          }
+        },
+        "btcSettlement": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最终结算BTC数量"
+        },
+        "txId": {
+          "type": "string",
+          "description": "交易Id"
+        },
+        "txURL": {
+          "type": "string",
+          "description": "在区块链浏览器中的此交易的URL地址"
+        },
+        "txConfirms": {
+          "type": "integer",
+          "format": "int64",
+          "description": "确认数"
+        },
+        "txConfirmedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "确认时间"
+        }
+      }
+    },
+    "NetworkDifficultyInfo": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前挖矿难度"
+        },
+        "estimateNext": {
+          "type": "integer",
+          "format": "int64",
+          "description": "预估当前挖矿难度"
+        },
+        "estimateAdjustTimesAway": {
+          "type": "integer",
+          "format": "int64",
+          "description": "预估下次难度调整时间还乘多少秒"
+        }
+      }
+    },
+    "MiningNetworkStatitics": {
+      "type": "object",
+      "properties": {
+        "difficulty": {
+          "$ref": "#/definitions/NetworkDifficultyInfo"
+        },
+        "blockSubsidy": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前一个块奖励多少BTC数量, 单位聪"
         }
       }
     },
