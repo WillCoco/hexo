@@ -63,6 +63,11 @@
               "X-WeMining-Admin-Token": {
                 "type": "string",
                 "description": "会话token"
+              },
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -94,7 +99,14 @@
         ],
         "responses": {
           "200": {
-            "description": "登出成功"
+            "description": "登出成功",
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
+            }
           }
         },
         "operationId": "signout"
@@ -127,10 +139,17 @@
         ],
         "responses": {
           "200": {
+            "description": "上传成功, 返回照片Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
             },
-            "description": "上传成功, 返回照片Id"
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
+            }
           }
         },
         "operationId": "uploadPhoto"
@@ -160,6 +179,13 @@
             "description": "操作成功, 返回BTC报价",
             "schema": {
               "$ref": "#/definitions/BtcExchangeRate"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -204,6 +230,13 @@
                   ]
                 }
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -245,7 +278,14 @@
         ],
         "responses": {
           "200": {
-            "description": "操作成功"
+            "description": "操作成功",
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
+            }
           },
           "default": {
             "description": "异常错误",
@@ -280,6 +320,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/MiningEquipment"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -319,6 +366,13 @@
             "description": "创建成功, 返回矿机Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -355,6 +409,13 @@
             "description": "返回矿机信息",
             "schema": {
               "$ref": "#/definitions/MiningEquipment"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -396,6 +457,13 @@
             "description": "修改成功, 返回矿机Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -431,6 +499,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/MiningFarm"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -470,6 +545,13 @@
             "description": "返回矿场Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -506,6 +588,13 @@
             "description": "返回矿场信息",
             "schema": {
               "$ref": "#/definitions/MiningFarm"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -547,6 +636,13 @@
             "description": "返回矿场Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -582,6 +678,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/SalesPaymentMethod"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -621,6 +724,13 @@
             "description": "操作成功, 返回支付方式ID",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -657,6 +767,13 @@
             "description": "返回单个支付方式",
             "schema": {
               "$ref": "#/definitions/SalesPaymentMethod"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -698,6 +815,13 @@
             "description": "操作成功, 返回支付方式ID",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -733,6 +857,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Notice"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -772,6 +903,13 @@
             "description": "操作成功, 返回公告ID",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -808,6 +946,13 @@
             "description": "返回单个公告",
             "schema": {
               "$ref": "#/definitions/Notice"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -849,6 +994,13 @@
             "description": "操作成功, 返回公告ID",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -885,6 +1037,13 @@
             "description": "操作成功, 返回公告Id",
             "schema": {
               "$ref": "#/definitions/Notice"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -921,6 +1080,13 @@
             "description": "操作成功, 返回公告Id",
             "schema": {
               "$ref": "#/definitions/Notice"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -961,6 +1127,13 @@
             "description": "返回平台下的商品信息",
             "schema": {
               "$ref": "#/definitions/MerchantProduct"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1008,6 +1181,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/MerchantOrder"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -1057,6 +1237,13 @@
               "items": {
                 "$ref": "#/definitions/Customer"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1093,6 +1280,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Merchant"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -1133,6 +1327,13 @@
             "description": "创建成功, 返回代理点Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1170,6 +1371,13 @@
             "description": "返回单个代理点信息",
             "schema": {
               "$ref": "#/definitions/Merchant"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1212,6 +1420,13 @@
             "description": "修改成功, 返回代理点Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1269,6 +1484,13 @@
               "items": {
                 "$ref": "#/definitions/Customer"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1310,6 +1532,13 @@
             "description": "创建成功, 返回顾客Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1349,6 +1578,13 @@
             "description": "返回单个顾客信息",
             "schema": {
               "$ref": "#/definitions/Customer"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1393,6 +1629,13 @@
             "description": "修改成功, 返回顾客Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1403,45 +1646,6 @@
           }
         },
         "operationId": "updateMerchantCustomer"
-      }
-    },
-    "/{platformId}/merchants/{merchantId}/addresses/{customerId}": {
-      "post": {
-        "summary": "设置代理点下顾客比特币地址",
-        "tags": [
-          "merchant"
-        ],
-        "security": [
-          {
-            "Admin": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/PlatformId"
-          },
-          {
-            "$ref": "#/parameters/MerchantId"
-          },
-          {
-            "$ref": "#/parameters/CustomerId"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "操作成功, 返回比特币地址",
-            "schema": {
-              "$ref": "#/definitions/ObjectAddress"
-            }
-          },
-          "default": {
-            "description": "异常错误",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "operationId": "setCustomerAddress"
       }
     },
     "/{platformId}/merchants/{merchantId}/products": {
@@ -1490,6 +1694,13 @@
               "items": {
                 "$ref": "#/definitions/MerchantProduct"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1531,6 +1742,13 @@
             "description": "创建成功, 返回商品Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1570,6 +1788,13 @@
             "description": "返回矿机信息",
             "schema": {
               "$ref": "#/definitions/MerchantProduct"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1614,6 +1839,13 @@
             "description": "修改成功, 返回商品Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1635,7 +1867,8 @@
         "tags": [
           "merchant",
           "customer",
-          "order"
+          "order",
+          "sales"
         ],
         "security": [
           {
@@ -1688,6 +1921,13 @@
             "description": "购买成功, 返回订单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1727,6 +1967,13 @@
             "description": "商品上架成功",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1766,6 +2013,13 @@
             "description": "商品下架成功",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1819,6 +2073,13 @@
               "items": {
                 "$ref": "#/definitions/MerchantOrder"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1853,18 +2114,6 @@
           },
           {
             "$ref": "#/parameters/Id"
-          },
-          {
-            "$ref": "#/parameters/Skip"
-          },
-          {
-            "$ref": "#/parameters/Limit"
-          },
-          {
-            "$ref": "#/parameters/Sort"
-          },
-          {
-            "$ref": "#/parameters/Order"
           }
         ],
         "responses": {
@@ -1872,6 +2121,13 @@
             "description": "返回订单信息",
             "schema": {
               "$ref": "#/definitions/MerchantOrder"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1930,6 +2186,13 @@
             "description": "订单确认成功, 返回订单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -1971,6 +2234,13 @@
             "description": "订单取消成功, 返回订单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2012,6 +2282,13 @@
             "description": "订单完成成功, 返回订单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2050,6 +2327,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/MerchantAgreement"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -2092,6 +2376,13 @@
             "description": "创建成功, 返回文档Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2131,6 +2422,13 @@
             "description": "返回单个文档",
             "schema": {
               "$ref": "#/definitions/MerchantAgreement"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2175,6 +2473,13 @@
             "description": "修改成功, 返回文档Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2237,6 +2542,13 @@
               "items": {
                 "$ref": "#/definitions/MiningWorker"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2288,6 +2600,13 @@
               "items": {
                 "$ref": "#/definitions/ObjectId"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2338,6 +2657,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/ObjectId"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -2402,6 +2728,13 @@
               "items": {
                 "$ref": "#/definitions/ObjectId"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2438,6 +2771,13 @@
             "description": "返回矿工信息",
             "schema": {
               "$ref": "#/definitions/MiningWorker"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2497,6 +2837,13 @@
               "items": {
                 "$ref": "#/definitions/MiningSettlement"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2537,6 +2884,13 @@
             "description": "操作成功, 返回结算单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2563,6 +2917,13 @@
         "parameters": [
           {
             "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "name": "farmId",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "description": "矿场Id"
           }
         ],
         "responses": {
@@ -2572,6 +2933,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/ProductsForMiningSettlement"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -2609,6 +2977,13 @@
             "description": "返回结算单信息",
             "schema": {
               "$ref": "#/definitions/MiningSettlement"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2647,6 +3022,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/MiningSettlementline"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -2690,6 +3072,13 @@
               "items": {
                 "$ref": "#/definitions/MiningSettlementCustomer"
               }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2732,6 +3121,13 @@
             "description": "操作成功, 返回结算单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2768,6 +3164,13 @@
             "description": "操作成功, 返回结算单Id",
             "schema": {
               "$ref": "#/definitions/ObjectId"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2804,6 +3207,13 @@
             "description": "返回基于时间性的有时效性的支付结算单的支付请求",
             "schema": {
               "$ref": "#/definitions/SettlementInvoice"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2839,6 +3249,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/SettlementPayment"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -2876,6 +3293,13 @@
             "description": "获取支付记录",
             "schema": {
               "$ref": "#/definitions/SettlementPayment"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -2914,6 +3338,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/SettlementPaymentLine"
+              }
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
               }
             }
           },
@@ -2984,6 +3415,13 @@
             "description": "返回平台挖矿统计信息",
             "schema": {
               "$ref": "#/definitions/MiningStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -3035,6 +3473,13 @@
             "description": "返回订单统计信息",
             "schema": {
               "$ref": "#/definitions/OrderStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -3075,6 +3520,13 @@
             "description": "返回用户统计信息",
             "schema": {
               "$ref": "#/definitions/QtyStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -3130,6 +3582,13 @@
             "description": "返回平台统计汇总信息",
             "schema": {
               "$ref": "#/definitions/PlatformTotalStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -3186,6 +3645,13 @@
             "description": "返回代理点统计汇总信息",
             "schema": {
               "$ref": "#/definitions/MerchantTotalStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -3237,6 +3703,13 @@
             "description": "返回用户统计信息",
             "schema": {
               "$ref": "#/definitions/MiningFarmTotalStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -3290,6 +3763,13 @@
             "description": "返回用户统计信息",
             "schema": {
               "$ref": "#/definitions/MerchantCustomerTotalStatitics"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
             }
           },
           "default": {
@@ -4189,6 +4669,11 @@
     "MiningSettle": {
       "type": "object",
       "properties": {
+        "farmId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "矿场Id"
+        },
         "productIds": {
           "type": "array",
           "items": {
@@ -4300,11 +4785,6 @@
           "type": "integer",
           "format": "int64",
           "description": "比特币汇率, 1 BTC = N RMB 单位分"
-        },
-        "electricityPrice": {
-          "type": "integer",
-          "format": "int64",
-          "description": "此次结算的用电价格, 单位人民币分"
         },
         "btcMinusElectricityCost": {
           "type": "integer",
@@ -4470,11 +4950,6 @@
           "type": "integer",
           "format": "int64",
           "description": "用户总算力, 单位 GHash/s"
-        },
-        "btcLatestSettlement": {
-          "type": "integer",
-          "format": "int64",
-          "description": "上次结算比特币数量"
         },
         "btcRevenue": {
           "type": "integer",
