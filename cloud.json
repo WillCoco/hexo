@@ -1648,6 +1648,52 @@
         "operationId": "updateMerchantCustomer"
       }
     },
+    "/{platformId}/merchants/{merchantId}/addresses/{customerId}": {
+      "post": {
+        "summary": "设置代理点下顾客比特币地址",
+        "tags": [
+          "merchant"
+        ],
+        "security": [
+          {
+            "Admin": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformId"
+          },
+          {
+            "$ref": "#/parameters/MerchantId"
+          },
+          {
+            "$ref": "#/parameters/CustomerId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "操作成功, 返回比特币地址",
+            "schema": {
+              "$ref": "#/definitions/ObjectAddress"
+            },
+            "headers": {
+              "X-WeMining-Server-Time": {
+                "type": "integer",
+                "format": "int64",
+                "description": "服务端时间"
+              }
+            }
+          },
+          "default": {
+            "description": "异常错误",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "operationId": "setCustomerAddress"
+      }
+    },
     "/{platformId}/merchants/{merchantId}/products": {
       "get": {
         "summary": "获取代理点下所有商品",
@@ -2114,6 +2160,18 @@
           },
           {
             "$ref": "#/parameters/Id"
+          },
+          {
+            "$ref": "#/parameters/Skip"
+          },
+          {
+            "$ref": "#/parameters/Limit"
+          },
+          {
+            "$ref": "#/parameters/Sort"
+          },
+          {
+            "$ref": "#/parameters/Order"
           }
         ],
         "responses": {
@@ -2917,13 +2975,6 @@
         "parameters": [
           {
             "$ref": "#/parameters/PlatformId"
-          },
-          {
-            "name": "farmId",
-            "in": "query",
-            "type": "integer",
-            "format": "int64",
-            "description": "矿场Id"
           }
         ],
         "responses": {
@@ -4669,11 +4720,6 @@
     "MiningSettle": {
       "type": "object",
       "properties": {
-        "farmId": {
-          "type": "integer",
-          "format": "int64",
-          "description": "矿场Id"
-        },
         "productIds": {
           "type": "array",
           "items": {
@@ -4785,6 +4831,11 @@
           "type": "integer",
           "format": "int64",
           "description": "比特币汇率, 1 BTC = N RMB 单位分"
+        },
+        "electricityPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "此次结算的用电价格, 单位人民币分"
         },
         "btcMinusElectricityCost": {
           "type": "integer",
