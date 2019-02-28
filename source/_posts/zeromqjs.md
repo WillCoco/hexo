@@ -6,31 +6,31 @@ date: 2019-01-31 16:46:04
 　　　　
 
 
-<script scoped>
-    const title = document.getElementsByClassName('post-title')[0];
-    const isHome = document.getElementsByClassName('post-title-link') > 0;
-    if (!isHome && title) {
-        console.log(document.styleSheets[0].rules[0])
-        try {
-            document.styleSheets[0].insertRule(
-            `.mystery-title::after{
-                content:'after';
-                color:green;
-            }`,
-            0)//chrome,firefox等非IE浏览器使用
-        } catch(err) {
-            console.log(err)
-        }
-        try {
-            document.styleSheets[0].addRule('.mystery-title::before{color:green}',0)//IE系列浏览器使用
-        } catch(err) {
-            console.log(err)
-        }
-        if (!title.className.match('mystery-title')) {
-            title.className += ' mystery-title' 
-        }
-        console.log(title.className) 
-    }
+<script>
+    // const title = document.getElementsByClassName('post-title')[0];
+    // const isHome = document.getElementsByClassName('post-title-link') > 0;
+    // if (!isHome && title) {
+    //    console.log(document.styleSheets[0].rules[0])
+    //    try {
+    //        document.styleSheets[0].insertRule(
+    //        `.mystery-title::after{
+    //            content:'after';
+    //            color:green;
+    //        }`,
+    //        0)//chrome,firefox等非IE浏览器使用
+    //    } catch(err) {
+    //        console.log(err)
+    //    }
+    //    try {
+    //        document.styleSheets[0].addRule('.mystery-title::before{color:green}',0)//IE系列浏览器使用
+    //    } catch(err) {
+    //        console.log(err)
+    //    }
+    //    if (!title.className.match('mystery-title')) {
+    //        title.className += ' mystery-title' 
+    //    }
+    //    console.log(title.className) 
+    //}
 </script>
 
 ### [1. zeromq介绍](#介绍)

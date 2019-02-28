@@ -2,10 +2,6 @@
 title: threejs-cloud
 tags: [threejs, javascript]
 ---
-
-<div style="text-align: center">X轴 <input type="number" id="x-input"></div>
-<div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
-<div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
 　　　　
     <script id="vs" type="x-shader/x-vertex">
 
@@ -46,6 +42,12 @@ tags: [threejs, javascript]
     <script type="text/javascript">
       (function() {
         if (document.getElementsByClassName('post-title-link').length === 0 && document.getElementsByClassName('post-title')[0]) {
+          document.write(`
+            <div style="text-align: center">X轴 <input type="number" id="x-input"></div>
+            <div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
+            <div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
+          `);
+
           function loadJS(filePath) {
             return new Promise((resolve) => {
               var newScriptElement = document.createElement("script");
