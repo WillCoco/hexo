@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,Threejs,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
+<meta name="keywords" content="Javascript,Threejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="threejs-cloud">
+<meta property="og:url" content="https://WillCoco.github.io/2018/12/30/threejs-cloud/index.html">
+<meta property="og:site_name" content="稀客">
+<meta property="og:description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-12T03:23:46.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="threejs-cloud">
+<meta name="twitter:description" content="varying vec2 vUv;  			void main() {  				vUv = uv; 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );  			}  		        			uniform sampler2D map;  			uniform ve">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://WillCoco.github.io/2018/12/30/threejs-cloud/">
+
+
+
+
+
+  <title>threejs-cloud | 稀客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">稀客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2018/12/30/threejs-cloud/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">threejs-cloud</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-30T16:46:00+08:00">
+                2018-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        　　　　
+    <script id="vs" type="x-shader/x-vertex">
+
+			varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+    <script id="fs" type="x-shader/x-fragment">
+
+			uniform sampler2D map;
+
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+
+    <script type="text/javascript">
+      (function() {
+        if (document.getElementsByClassName('post-title-link').length === 0 && document.getElementsByClassName('post-title')[0]) {
+          document.write(`
+            <div style="text-align: center">X轴 <input type="number" id="x-input"></div>
+            <div style="text-align: center">Y轴 <input type="number" id="y-input"></div>
+            <div style="text-align: center"><a href="#" id="camera-btn">重置</a></div>
+          `);
+
+          function loadJS(filePath) {
+            return new Promise((resolve) => {
+              var newScriptElement = document.createElement("script");
+              newScriptElement.type = "text/javascript";
+              newScriptElement.src = filePath;
+              document.body.appendChild(newScriptElement);
+              newScriptElement.onload = function () {
+                resolve();
+              }
+            })
+          }
+
+          document.write(
+            '<script type="text/javascript" src="/lib/Detector.js"><\/script>'
+          );
+
+          loadJS('https://cdnjs.cloudflare.com/ajax/libs/three.js/55/three.js')
+            .then(() => {
+              if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+              var container;
+              var camera, scene, renderer;
+              var mesh, geometry, material;
+
+              var mouseX = 0, mouseY = 0;
+              var start_time = Date.now();
+
+              var windowHalfX = window.innerWidth / 2;
+              var windowHalfY = window.innerHeight / 2;
+
+
+              init();
+
+              function init() {
+
+                container = document.createElement('div');
+                document.body.appendChild(container);
+
+                // Bg gradient
+
+                var canvas = document.createElement('canvas');
+                canvas.width = 32;
+                canvas.height = window.innerHeight;
+
+                var context = canvas.getContext('2d');
+
+                var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, "#1e4877");
+                gradient.addColorStop(0.5, "#4584b4");
+
+                context.fillStyle = gradient;
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
+                container.style.backgroundSize = '32px 100%';
+                container.style.position = 'absolute';
+                container.style.top = 0;
+                container.style.bottom = 0;
+                container.style.zIndex = -1;
+
+
+                camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 3000);
+                camera.position.z = 6000;
+
+                scene = new THREE.Scene();
+
+                geometry = new THREE.Geometry();
+
+                var texture = THREE.ImageUtils.loadTexture('/images/threejs/cloud.png', null, animate);
+                texture.magFilter = THREE.LinearMipMapLinearFilter;
+                texture.minFilter = THREE.LinearMipMapLinearFilter;
+
+                var fog = new THREE.Fog(0x4584b4, -100, 3000);
+
+                material = new THREE.ShaderMaterial({
+
+                  uniforms: {
+
+                    "map": {type: "t", value: texture},
+                    "fogColor": {type: "c", value: fog.color},
+                    "fogNear": {type: "f", value: fog.near},
+                    "fogFar": {type: "f", value: fog.far},
+
+                  },
+                  vertexShader: document.getElementById('vs').textContent,
+                  fragmentShader: document.getElementById('fs').textContent,
+                  depthWrite: false,
+                  depthTest: false,
+                  transparent: true
+
+                });
+
+                var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
+
+                for (var i = 0; i < 8000; i++) {
+
+                  plane.position.x = Math.random() * 1000 - 500;
+                  plane.position.y = -Math.random() * Math.random() * 200 - 15;
+                  plane.position.z = i;
+                  plane.rotation.z = Math.random() * Math.PI;
+                  plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+
+                  THREE.GeometryUtils.merge(geometry, plane);
+                }
+
+                mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                mesh = new THREE.Mesh(geometry, material);
+                mesh.position.z = -8000;
+                scene.add(mesh);
+
+                renderer = new THREE.WebGLRenderer({antialias: false});
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+
+                document.addEventListener('mousemove', onDocumentMouseMove, false);
+                window.addEventListener('resize', onWindowResize, false);
+
+              }
+
+              function onDocumentMouseMove(event) {
+
+                mouseX = (event.clientX - windowHalfX) * 0.25;
+                mouseY = (event.clientY - windowHalfY) * 0.15;
+
+              }
+
+              function onWindowResize(event) {
+
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+              }
+
+              function animate() {
+
+                requestAnimationFrame(animate);
+
+                position = ((Date.now() - start_time) * 0.03) % 8000;
+
+                camera.position.x += (mouseX - camera.position.x) * 0.01;
+                camera.position.y += (-mouseY - camera.position.y) * 0.01;
+                camera.position.z = -position + 8000;
+
+                // console.log(camera.position.x, 'camera.position.x')
+                // console.log(camera.position.y, 'camera.position.y')
+                // console.log(camera.position.z, 'camera.position.z')
+                renderer.render(scene, camera);
+              }
+
+
+              // 控制
+              function changeCamera(x, y) {
+                if (x) camera.position.x = +x;
+                if (y) camera.position.y = +y;
+
+                console.log(camera.position, 'camera')
+                renderer.render(scene, camera);
+              }
+
+              const xInput = document.getElementById('x-input');
+              const yInput = document.getElementById('y-input');
+              const cameraBtn = document.getElementById('camera-btn');
+
+              cameraBtn.onclick = () => {
+                console.log(xInput, 'xInput')
+                changeCamera(xInput.value, yInput.value)
+              };
+            });
+        }
+      })()
+
+    </script>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/Threejs/" rel="tag"># Threejs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/29/Lodash-Array-1/" rel="next" title="Lodash-练习记录-Array-1">
+                <i class="fa fa-chevron-left"></i> Lodash-练习记录-Array-1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/20/Lodash-function-1/" rel="prev" title="Lodash-function">
+                Lodash-function <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coco x</p>
+              <p class="site-description motion-element" itemprop="description">人生七十古来稀</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coco x</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

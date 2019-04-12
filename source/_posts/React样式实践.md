@@ -1,7 +1,7 @@
 ---
 title: React样式实践
 tags: react
-categories: technology
+categories: [React, Javascript]
 comments: true
 date: 2017-11-22 11:26:13
 ---

@@ -1,9 +1,9 @@
 ---
 title: electron打包后表单控件复制粘贴失效解决办法
 categories: technology
-tags: electron
+tags: [Electron, Javascript]
 comments: true
-data: 2017/11/10
+date: 2017-11-10 23:21:21
 ---
 
 ## mac系统下快捷键问题

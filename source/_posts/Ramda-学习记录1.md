@@ -1,7 +1,7 @@
 ---
 title: Ramda学习记录1
 date: 2018-02-24 17:30:11
-tags: [Ramda, technology]
+tags: [Ramda, Javascript]
 ---
 
 ## 一. 比较运算

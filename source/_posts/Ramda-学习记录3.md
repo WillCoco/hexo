@@ -1,7 +1,7 @@
 ---
 title: Ramda-学习记录3
 date: 2018-02-25 10:03:06
-tags: [Ramda, technology]
+tags: [Ramda, Javascript]
 ---
 ## 六. 数组
 

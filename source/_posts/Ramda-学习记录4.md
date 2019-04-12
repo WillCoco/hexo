@@ -1,7 +1,7 @@
 ---
 title: Ramda-学习记录4
 date: 2018-02-26 10:03:06
-tags: [Ramda, technology]
+tags: [Ramda, Javascript]
 ---
 
 ## 七. 对象

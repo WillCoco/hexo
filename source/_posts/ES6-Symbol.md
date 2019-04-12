@@ -1,8 +1,8 @@
 ---
 title: ES6_Symbol
 tags:
-  - es6
-  - javascript
+  - ES6
+  - Javascript
 date: 2018-05-06 15:15:45
 ---
 

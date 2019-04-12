@@ -1,7 +1,7 @@
 ---
 title: 热更新demo
 date: 2018-01-30 10:20:33
-tags: [react-native, javascript]
+tags: [React-Native, Javascript]
 ---
 ## code-push 热更新 js css html 和图片
 

@@ -1,7 +1,7 @@
 ---
 title: Flow-JS类型检测工具
 date: 2017-12-20 23:39:11
-tags: [javascript, react]
+tags: [Javascript, React]
 ---
 ### 前言
 Facebook超爱Javascript；它快，表达性好，而且到处运行，是构建产品的极佳语言。同时，因为没有静态类型让开发者困扰。Bug难以发现（比如，崩溃的原因隐藏很深），代码维护犹如噩梦（比如，在不知道所有依赖的情况下进行重构风险很大）。Flow改进了速度和效率促进了开发者在使用Javascript的生成效率。

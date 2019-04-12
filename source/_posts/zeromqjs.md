@@ -1,6 +1,6 @@
 ---
 title: zeromq.js介绍和事例
-tags: [zeromq, javascript]
+tags: [ZeroMQ, Javascript]
 date: 2019-01-31 16:46:04
 ---
 

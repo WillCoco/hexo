@@ -1,6 +1,6 @@
 ---
 title: EOS DAPP 接入指南
-tags: [blockchain, javascript]
+tags: [Blockchain, Javascript]
 date: 2019-03-01 10:10:10
 ---
 　　　　

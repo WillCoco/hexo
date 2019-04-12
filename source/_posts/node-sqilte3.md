@@ -1,7 +1,7 @@
 ---
 title: node-sqilte3 api
 tags: datebase
-categories: [database, technology]
+categories: [database, Javascript]
 comments: true
 date: 2018-01-16 19:10:24
 ---

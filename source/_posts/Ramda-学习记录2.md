@@ -1,7 +1,7 @@
 ---
 title: Ramda-学习记录2
 date: 2018-02-25 00:03:06
-tags: [Ramda, technology]
+tags: [Ramda, Javascript]
 ---
 ## 五. 函数
 

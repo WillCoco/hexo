@@ -1,8 +1,8 @@
 ---
 title: ES6_module模块化
 tags:
-  - es6
-  - javascript
+  - ES6
+  - Javascript
 date: 2018-05-06 17:35:46
 ---
 
