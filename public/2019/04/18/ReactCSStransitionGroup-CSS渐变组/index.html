@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ReactCSStransitionGroup   ReactCSStransitionGroup是在插件类ReactTransitionGroup这个底层API基础上进一步封装的高级API，来简单的实现基本的CSS动画和过渡 简单用法render() {   const items = this.state.items.map((item, i) =&amp;gt; (     &amp;lt;div key=">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactCSStransitionGroup-CSS渐变组">
+<meta property="og:url" content="https://WillCoco.github.io/2019/04/18/ReactCSStransitionGroup-CSS渐变组/index.html">
+<meta property="og:site_name" content="稀客">
+<meta property="og:description" content="ReactCSStransitionGroup   ReactCSStransitionGroup是在插件类ReactTransitionGroup这个底层API基础上进一步封装的高级API，来简单的实现基本的CSS动画和过渡 简单用法render() {   const items = this.state.items.map((item, i) =&amp;gt; (     &amp;lt;div key=">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-18T07:27:20.356Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ReactCSStransitionGroup-CSS渐变组">
+<meta name="twitter:description" content="ReactCSStransitionGroup   ReactCSStransitionGroup是在插件类ReactTransitionGroup这个底层API基础上进一步封装的高级API，来简单的实现基本的CSS动画和过渡 简单用法render() {   const items = this.state.items.map((item, i) =&amp;gt; (     &amp;lt;div key=">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://WillCoco.github.io/2019/04/18/ReactCSStransitionGroup-CSS渐变组/">
+
+
+
+
+
+  <title>ReactCSStransitionGroup-CSS渐变组 | 稀客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">稀客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://WillCoco.github.io/2019/04/18/ReactCSStransitionGroup-CSS渐变组/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="coco x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="稀客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ReactCSStransitionGroup-CSS渐变组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-18T14:43:36+08:00">
+                2019-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="ReactCSStransitionGroup"><a href="#ReactCSStransitionGroup" class="headerlink" title="ReactCSStransitionGroup"></a>ReactCSStransitionGroup</h3><p>   ReactCSStransitionGroup是在插件类<a href="https://github.com/reactjs/react-transition-group" target="_blank" rel="noopener">ReactTransitionGroup</a>这个底层API基础上进一步封装的高级API，来简单的实现基本的CSS动画和过渡</p>
+<h3 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h3><pre><code>render() {
+  const items = this.state.items.map((item, i) =&gt; (
+    &lt;div key={item} onClick={() =&gt; this.handleRemove(i)}&gt;
+      &lt;ReactCSSTransitionGroup transitionName=&quot;example&quot;&gt;
+        {item}
+      &lt;/ReactCSSTransitionGroup&gt;
+    &lt;/div&gt;
+  ));
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={this.handleAdd}&gt;Add Item&lt;/button&gt;
+      {items}
+    &lt;/div&gt;
+  );
+}
+</code></pre><p>ReactCSSTransitionGroup包装为包裹的元素在挂载和卸载生命周期阶段添加css类，然后手动添加约定css类名的具体样式来时现实一些简单出入场动画：</p>
+<pre><code>.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+</code></pre><p>添加类名的时机可做延时：</p>
+<pre><code>function ImageCarousel(props) {
+  return (
+    &lt;div&gt;
+      &lt;ReactCSSTransitionGroup
+        transitionName=&quot;carousel&quot;
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}&gt;
+        &lt;img src={props.imageSrc} key={props.imageSrc} /&gt;
+      &lt;/ReactCSSTransitionGroup&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre><p>类名约定可定制：</p>
+<pre><code>...
+&lt;ReactCSSTransitionGroup
+  transitionName={ {
+    enter: &apos;enter&apos;,
+    enterActive: &apos;enterActive&apos;,
+    leave: &apos;leave&apos;,
+    leaveActive: &apos;leaveActive&apos;,
+    appear: &apos;appear&apos;,
+    appearActive: &apos;appearActive&apos;
+  } }&gt;
+  {item}
+&lt;/ReactCSSTransitionGroup&gt;
+
+&lt;ReactCSSTransitionGroup
+  transitionName={ {
+    enter: &apos;enter&apos;,
+    leave: &apos;leave&apos;,
+    appear: &apos;appear&apos;
+  } }&gt;
+  {item2}
+&lt;/ReactCSSTransitionGroup&gt;
+...
+</code></pre><p>与<code>react-motion</code>包装不一样，<code>ReactCSSTransitionGroup</code>包装有实体元素，默认是<code>span</code>,可具体指定：</p>
+<pre><code>&lt;ReactTransitionGroup component=“ul” className=&quot;example&quot; &gt; 
+    ... 
+&lt;/ReactTransitionGroup&gt;
+</code></pre><blockquote>
+<p>注意:</p>
+<p>你必须为ReactCSSTransitionGroup的所有子级提供  key 属性，即使只渲染一个项目。这就是React将决定哪一个子级进入，离开，或者停留</p>
+</blockquote>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>是在react中写进出场动画不错的方式，性能也很好，就进出场动画而言比React Motion更方便。但是灵活性没有React Motion好，React Motion能做出更多的效果。</p>
+<p>另外配合 css3动画，帧动画基本能很好的完成业务中动画需求。</p>
+<p>查看<a href="https://github.com/reactjs/react-transition-group" target="_blank" rel="noopener">reactjs/react-transition-group</a>更多详细细节</p>
+<p>其他React动画库：<a href="https://willcoco.github.io/2019/04/17/React-Motion-dragable-balls/">React-Motion</a></p>
+<p>参考：</p>
+<p><a href="http://www.alloyteam.com/2016/01/react-animation-practice/#prettyPhoto" target="_blank" rel="noopener">React 动画实践</a></p>
+<p><a href="https://reactjs.org/docs/animation.html#high-level-api-reactcsstransitiongroup" target="_blank" rel="noopener">React Animation Add-ons</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/17/React-Motion-dragable-balls/" rel="next" title="react-motion动画实践、性能探究">
+                <i class="fa fa-chevron-left"></i> react-motion动画实践、性能探究
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">coco x</p>
+              <p class="site-description motion-element" itemprop="description">人生七十古来稀</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReactCSStransitionGroup"><span class="nav-number">1.</span> <span class="nav-text">ReactCSStransitionGroup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单用法"><span class="nav-number">2.</span> <span class="nav-text">简单用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">3.</span> <span class="nav-text">特点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coco x</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
